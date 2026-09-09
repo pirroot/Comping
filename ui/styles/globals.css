@@ -1,0 +1,578 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  /* رنگ‌های اصلی */
+  --color-bg: #ffffff;
+  --color-text: #081035;
+  --color-primary: #6da975;
+  --color-primary_light: #e4f6e7;
+  --color-auxiliary: #ffa700;
+  --color-auxiliary_light: #ffeac2;
+  --color-neutral_light: #f5f6f9;
+  --color-neutral_normal: #ecedf4;
+  --color-neutral_dark: #747893;
+
+  /* فونت‌ها */
+  --font-family-sans: var(--font-ravi), system-ui, -apple-system, sans-serif;
+
+  /* انیمیشن‌ها */
+  --animation-duration-slow: 500ms;
+  --animation-duration-medium: 300ms;
+  --animation-duration-fast: 150ms;
+
+  /* سایه‌ها */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 12px 28px -10px rgba(0, 0, 0, 0.28);
+  --shadow-dropdown: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #081035;
+    --color-primary: #6da975;
+    --color-primary_light: #e4f6e7;
+    --color-auxiliary: #ffa700;
+    --color-auxiliary_light: #ffeac2;
+    --color-neutral_light: #eeeeee;
+    --color-neutral_normal: #d8d8d8;
+    --color-neutral_dark: #747893;
+
+    /* متغیرهای اضافی برای انعطاف‌پذیری */
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-shadow-hover: rgba(0, 0, 0, 0.15);
+    --color-overlay: rgba(0, 0, 0, 0.5);
+
+    /* اسکرول بار */
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #c1c1c1;
+    --scrollbar-thumb-hover: #a8a8a8;
+  }
+
+  .dark {
+    --color-bg: #0c0f1e;
+    --color-text: #e8edf5;
+    --color-primary: #7bc985;
+    --color-primary_light: #1a2e1e;
+    --color-auxiliary: #f5b83a;
+    --color-auxiliary_light: #2f240a;
+    --color-neutral_light: #181b2b;
+    --color-neutral_normal: #252a3f;
+    --color-neutral_dark: #8e94b5;
+    --color-shadow: rgba(0, 0, 0, 0.2);
+    --color-shadow-hover: rgba(0, 0, 0, 0.4);
+    --color-overlay: rgba(0, 0, 0, 0.7);
+    --scrollbar-track: #1a1a2e;
+    --scrollbar-thumb: #2a2a4a;
+    --scrollbar-thumb-hover: #3a3a5a;
+  }
+
+  /* ریست و تنظیمات پایه - مشکل اصلی اینجا بود */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-color: var(--color-neutral_normal);
+  }
+
+  html {
+    font-family: var(--font-ravi), system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    min-height: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    font-variant-numeric: persian;
+  }
+
+  /* بهبود نمایش در موبایل */
+  @media (max-width: 640px) {
+    html {
+      font-size: 15px;
+    }
+  }
+
+  /* انتخاب متن */
+  ::selection {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  ::-moz-selection {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  /* فوکوس برای دسترسی‌پذیری */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* لینک‌ها */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* دکمه‌ها */
+  button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    background: none;
+  }
+
+  /* ورودی‌ها */
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
+
+/*
+  اسکرول بار سفارشی
+*/
+@layer utilities {
+  /* اسکرول بار کل صفحه */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  /* اسکرول بار مخفی ولی قابل اسکرول */
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* اسکرول بار نازک */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* اسکرول افقی روان برای کاروسل‌ها */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* جلوگیری از اسکرول هنگام باز بودن مودال */
+  .no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/*
+  انیمیشن‌های سفارشی
+*/
+@layer utilities {
+  /* انیمیشن‌های اصلی */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* کلاس‌های انیمیشن */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.5s ease forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease forwards;
+  }
+
+  .animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-neutral_light) 25%,
+      var(--color-neutral_normal) 50%,
+      var(--color-neutral_light) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  /* delay های مختلف */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+}
+
+/*
+  Toast Theme - سفارشی‌سازی Sonner
+*/
+[data-sonner-toaster] {
+  --normal-bg: var(--color-bg);
+  --normal-text: var(--color-text);
+  --normal-border: var(--color-neutral_normal);
+  --success-bg: var(--color-primary_light);
+  --success-text: var(--color-primary);
+  --success-border: var(--color-primary);
+  --error-bg: #fee2e2;
+  --error-text: #dc2626;
+  --error-border: #dc2626;
+  --warning-bg: var(--color-auxiliary_light);
+  --warning-text: var(--color-auxiliary);
+  --warning-border: var(--color-auxiliary);
+}
+
+/*
+  کلاس‌های کمکی سفارشی
+*/
+@layer utilities {
+  /* مرکز کردن کامل با Grid */
+  .grid-center {
+    display: grid;
+    place-items: center;
+  }
+
+  /* محتوای با حداکثر عرض و مرکز */
+  .container-custom {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* محو شدن متن با خط */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Glassmorphism - افکت شیشه‌ای */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .glass {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-auxiliary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    background: var(--color-neutral_light);
+    border-radius: 0.5rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .dark .skeleton {
+    background: var(--color-neutral_normal);
+  }
+
+  /* RTL Support */
+  .rtl {
+    direction: rtl;
+  }
+
+  .ltr {
+    direction: ltr;
+  }
+
+  /* برای کاروسل Embla - جلوگیری از هایلایت */
+  .embla__slide {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+}
+
+/*
+  بهبود کاروسل Embla
+*/
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  gap: 1rem;
+  backface-visibility: hidden;
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+.embla__slide {
+  flex: 0 0 auto;
+  min-width: 0;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/*
+  بهینه‌سازی برای چاپ
+*/
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/*
+  بهینه‌سازی برای صفحه‌های با عرض کم
+*/
+@media (max-width: 480px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/*
+  بهبود نمایش اسکرول در کاروسل
+*/
+.carousel-container {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+  پیشگیری از overflow در موبایل
+*/
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

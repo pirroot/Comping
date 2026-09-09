@@ -1,0 +1,285 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  username String @unique
+  email    String @unique
+
+  password String
+
+  codeVerified  String?
+  emailVerified Boolean @default(false)
+
+  name   String?
+  family String?
+
+  avatar String?
+
+  role Role @default(USER)
+
+  isActive  Boolean @default(true)
+  isDeleted Boolean @default(false)
+
+  lastLogin DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts         Post[]
+  products      Product[]
+  comments      Comment[]
+  orders        Order[]
+  refreshTokens RefreshToken[]
+
+  @@index([email])
+  @@index([username])
+}
+
+model Category {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  title String
+
+  slug String @unique
+
+  description String?
+
+  image String?
+
+  parentId String? @db.Uuid
+
+  parent Category? @relation("CategoryTree", fields: [parentId], references: [id])
+
+  children Category[] @relation("CategoryTree")
+
+  products Product[]
+
+  isActive  Boolean @default(true)
+  isDeleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  title String
+
+  slug String @unique
+
+  description String
+
+  price Decimal @db.Decimal(10, 2)
+
+  stars Int @default(0)
+
+  views Int @default(0)
+
+  authorId String @db.Uuid
+
+  author User @relation(fields: [authorId], references: [id])
+
+  categoryId String @db.Uuid
+
+  category Category @relation(fields: [categoryId], references: [id])
+
+  images ProductImage[]
+
+  features ProductFeature[]
+
+  comments Comment[]
+
+  orderItems OrderItem[]
+
+  isActive Boolean @default(true)
+
+  isDeleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+}
+
+model ProductImage {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  publicId String @db.Uuid
+
+  url String
+
+  alt String?
+
+  main Boolean @default(false)
+
+  sort Int @default(0)
+
+  productId String @db.Uuid
+
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model ProductFeature {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  key String
+
+  value String
+
+  productId String @db.Uuid
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model Comment {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  message String
+
+  star Int @default(5)
+
+  userId String @db.Uuid
+
+  user User @relation(fields: [userId], references: [id])
+
+  productId String @db.Uuid
+
+  product Product @relation(fields: [productId], references: [id])
+
+  parentId String? @db.Uuid
+
+  parent Comment? @relation("CommentTree", fields: [parentId], references: [id])
+
+  replies Comment[] @relation("CommentTree")
+
+  createdAt DateTime @default(now())
+  isDeleted Boolean  @default(false)
+}
+
+model Post {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  slug String @unique
+
+  title String
+
+  content String @db.Text
+
+  excerpt String?
+
+  image String
+
+  views Int @default(0)
+
+  stars Int @default(0)
+
+  authorId String @db.Uuid
+
+  author User @relation(fields: [authorId], references: [id])
+
+  isActive Boolean @default(true)
+
+  isDeleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  orderNumber String @unique
+
+  userId String @db.Uuid
+
+  user User @relation(fields: [userId], references: [id])
+
+  status OrderStatus @default(PENDING)
+
+  paymentStatus PaymentStatus @default(PENDING)
+
+  total Decimal @db.Decimal(10, 2)
+
+  items OrderItem[]
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  orderId String @db.Uuid
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  productId String @db.Uuid
+
+  product Product @relation(fields: [productId], references: [id])
+
+  quantity Int
+
+  price Decimal @db.Decimal(10, 2)
+}
+
+model RefreshToken {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  selector  String @unique
+  validator String
+
+  revoked Boolean @default(false)
+
+  expiresAt DateTime
+
+  userId String @db.Uuid
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Faq {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  question  String
+  answer    String
+  isDelete  Boolean
+  createdAt DateTime @default(now())
+}
