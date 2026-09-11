@@ -12,6 +12,7 @@ export const apiAdd = async <TResponse = void, TBody = unknown>(
     body: JSON.stringify(data),
   });
 
+
   if (!response.ok) {
     throw new Error(`موفق به اضافه کردن نشد! : ${response.statusText}`);
   }

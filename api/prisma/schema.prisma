@@ -280,6 +280,6 @@ model Faq {
   id        String   @id @default(uuid(7)) @db.Uuid
   question  String
   answer    String
-  isDelete  Boolean
+  isDelete  Boolean  @default(false)
   createdAt DateTime @default(now())
 }

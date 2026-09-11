@@ -32,7 +32,7 @@ export default function Hero() {
 
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/product_need"
+            href="/products"
             className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-white shadow-md transition-all hover:bg-[#5a9a63] hover:shadow-lg hover:shadow-primary/30 active:scale-95 lg:px-8 lg:py-3.5"
           >
             مشاهده محصولات ضروری

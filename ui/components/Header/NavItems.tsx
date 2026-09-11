@@ -1,25 +1,27 @@
-import { NavItem } from "@/lib/types/Nav.type"
-import NavCategories from "./NavCategories"
-import Link from "next/link"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import NavCategories from './NavCategories';
+import { navItems } from './navigation';
 
-const navItems: NavItem[] = [
-  { title: 'صفحه اصلی', link: '/' },
-  { title: 'همه محصولات', link: '/products' },
-  { title: 'بلاگ', link: '/blog' },
-  { title: 'درباره ما', link: '/about' },
-  { title: 'تماس با ما', link: '/contact' },
-]
+export { navItems } from './navigation';
 
 export default function NavItems() {
+  const pathname = usePathname();
+
   return (
-    <nav className="hidden lg:block">
+    <nav className="hidden lg:block" aria-label="ناوبری اصلی">
       <ul className="flex items-center gap-1">
         <NavCategories />
         {navItems.map((item) => (
           <li key={item.link}>
             <Link
               href={item.link}
-              className="relative block rounded-full px-4 py-2 text-sm font-medium text-text transition-all hover:bg-primary hover:text-primary_light"
+              aria-current={pathname === item.link ? 'page' : undefined}
+              className={`relative block rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                pathname === item.link
+                  ? 'bg-primary text-white shadow-md shadow-primary/20'
+                  : 'text-text hover:bg-primary_light hover:text-primary'
+              }`}
             >
               {item.title}
             </Link>
@@ -27,5 +29,5 @@ export default function NavItems() {
         ))}
       </ul>
     </nav>
-  )
+  );
 }

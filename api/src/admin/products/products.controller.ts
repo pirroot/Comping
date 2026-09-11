@@ -6,21 +6,22 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { PaginationQueryDto } from 'src/blog/dto/pagination-query.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { multerOptions } from 'src/uploads/multer.config';
-import { CreateProductDto } from './dto/create-product.dto copy';
+import { PaginationQueryDto } from 'src/blog/dto/pagination-query.dto';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { AuthUser } from 'src/common/types/auth-user.type';
+import { multerOptions } from 'src/uploads/multer.config';
+import { CreateProductDto } from './dto/create-product.dto copy';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductsService } from './products.service';
 
 @Controller('admin/products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) { }
 
   @Post()
   @UseInterceptors(FileInterceptor('image', multerOptions('products')))
@@ -33,8 +34,8 @@ export class ProductsController {
   }
 
   @Get()
-  findAll(@Param() paginationQuery: PaginationQueryDto) {
-    this.productsService.getAll(paginationQuery);
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.productsService.getAll(paginationQuery);
   }
 
   @Get(':id')

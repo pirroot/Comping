@@ -1,14 +1,23 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { ProductType } from '@/lib/types/Product.type';
 import ProductImage1 from '@/public/images/Products/1.png';
-import { MoveLeftIcon, MoveRightIcon, ShoppingBag, StarIcon } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { Clock3, Heart, MoveLeftIcon, MoveRightIcon, ShoppingBag, StarIcon } from 'lucide-react';
 import Image from 'next/image';
-import formatToman from '@/utils/formatToman';
+import { useCallback, useEffect, useState } from 'react';
 
-const products: ProductType[] = [
+type OfferProduct = {
+  id: string;
+  title: string;
+  rating: number;
+  price: number;
+  is_offer: boolean;
+  offer_percent: number;
+  images: string[];
+  image_alt: string;
+};
+
+const products: OfferProduct[] = [
   {
     id: 'r34s',
     title: 'چادر کمپ ۵ نفره',
@@ -16,7 +25,7 @@ const products: ProductType[] = [
     price: 5000000,
     is_offer: true,
     offer_percent: 10,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'چادر کمپ ۵ نفره',
   },
   {
@@ -26,7 +35,7 @@ const products: ProductType[] = [
     price: 3200000,
     is_offer: true,
     offer_percent: 15,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'کوله پشتی کوهنوردی ۶۰ لیتری',
   },
   {
@@ -36,7 +45,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
   {
@@ -46,7 +55,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
   {
@@ -56,7 +65,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
   {
@@ -66,7 +75,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
   {
@@ -76,7 +85,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
   {
@@ -86,7 +95,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
   {
@@ -96,7 +105,7 @@ const products: ProductType[] = [
     price: 1450000,
     is_offer: true,
     offer_percent: 20,
-    images: [ProductImage1 as string],
+    images: [ProductImage1.src],
     image_alt: 'صندلی تاشو کمپینگ',
   },
 ];
@@ -125,18 +134,26 @@ function useCountdown(target: number) {
   };
 }
 
-function OfferCard({ product }: { product: ProductType }) {
+function OfferCard({ product }: { product: OfferProduct }) {
   const discountedPrice = Math.round(product.price * (1 - (product.offer_percent || 0) / 100));
 
   return (
-    <div className="group relative flex h-full flex-col rounded-3xl bg-bg p-4 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.2)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_12px_28px_-10px_rgba(0,0,0,0.28)]">
+    <div className="group relative flex h-full flex-col rounded-3xl border border-white/70 bg-bg p-3.5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10">
       {product.is_offer && (
-        <span className="absolute right-4 top-4 z-10 rounded-full bg-auxiliary px-2.5 py-1 text-xs font-bold text-white">
+        <span className="absolute right-5 top-5 z-10 rounded-lg bg-auxiliary px-2.5 py-1 text-xs font-bold text-text shadow-sm">
           {product.offer_percent}% تخفیف
         </span>
       )}
 
-      <div className="relative mb-3 aspect-square w-full overflow-hidden rounded-2xl bg-white">
+      <button
+        type="button"
+        aria-label="افزودن به علاقه‌مندی‌ها"
+        className="absolute left-5 top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral_dark shadow-sm transition hover:text-red-500"
+      >
+        <Heart size={15} />
+      </button>
+
+      <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-neutral_light">
         <Image
           src={product.images[0]}
           alt={product.image_alt}
@@ -146,31 +163,29 @@ function OfferCard({ product }: { product: ProductType }) {
         />
       </div>
 
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-medium text-text sm:text-base">{product.title}</h3>
+      <div className="flex min-h-12 items-start justify-between gap-2">
+        <h3 className="line-clamp-2 text-sm font-bold leading-6 text-text sm:text-base">
+          {product.title}
+        </h3>
         <span className="flex shrink-0 items-center gap-1 text-xs font-medium text-auxiliary">
           <StarIcon size={14} className="fill-auxiliary" />
           {product.rating}
         </span>
       </div>
 
-      <div className="mt-3 flex items-end justify-between gap-2">
+      <div className="mt-4 flex items-end justify-between gap-2 border-t border-neutral_normal pt-3">
         <button
           type="button"
           aria-label="افزودن به سبد خرید"
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white transition hover:opacity-90"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:bg-[#5a9a63] hover:shadow-md"
         >
           <ShoppingBag size={16} />
         </button>
         <div className="flex flex-col">
           {product.is_offer && (
-            <span className="text-xs text-neutral-400 line-through">
-              {formatToman(product.price)}
-            </span>
+            <span className="text-xs text-neutral-400 line-through">{product.price}</span>
           )}
-          <span className="text-sm font-bold text-text sm:text-base">
-            {formatToman(discountedPrice)}
-          </span>
+          <span className="text-sm font-bold text-text sm:text-base">{discountedPrice}</span>
         </div>
       </div>
     </div>
@@ -200,10 +215,11 @@ export default function HomeOffers() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    onSelect();
+    const frame = requestAnimationFrame(onSelect);
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
     return () => {
+      cancelAnimationFrame(frame);
       emblaApi.off('select', onSelect);
       emblaApi.off('reInit', onSelect);
     };
@@ -211,25 +227,32 @@ export default function HomeOffers() {
 
   return (
     <section className="container mx-auto px-4 py-10 md:py-14">
-      <div className="flex flex-col gap-6 rounded-4xl bg-primary_light p-5 md:flex-row md:gap-8 md:p-8">
+      <div className="relative flex flex-col gap-5 overflow-hidden rounded-4xl bg-[#123d34] p-4 shadow-xl shadow-[#123d34]/10 sm:p-5 md:flex-row md:gap-7 md:p-7">
+        <div className="pointer-events-none absolute -bottom-24 -left-20 h-52 w-52 rounded-full border-20 border-primary/20" />
+        <div className="pointer-events-none absolute -right-20 -top-24 h-56 w-56 rounded-full border-20 border-auxiliary/10" />
         {/* Timer / promo panel */}
-        <div className="flex shrink-0 flex-col justify-between rounded-3xl bg-primary  p-6 text-white md:w-72">
+        <div className="relative z-10 flex shrink-0 flex-col justify-between rounded-3xl bg-primary p-5 text-white shadow-lg md:w-72 md:p-6">
           <div>
-            <h2 className="text-3xl font-bold text-center">محصولات تخفیف‌دار</h2>
-            <p className="mt-2 text-sm text-white text-center">
-              فقط تا پایان زمان زیر، شامل تخفیف ویژه می‌شه
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold text-white/80">
+              <Clock3 size={14} /> پیشنهاد محدود
+            </span>
+            <h2 className="mt-5 text-center text-2xl font-extrabold sm:text-3xl">
+              محصولات تخفیف‌دار
+            </h2>
+            <p className="mt-2 text-center text-sm leading-7 text-white/75">
+              فرصت خرید با قیمت بهتر فقط تا پایان زمان زیر
             </p>
           </div>
 
-          <div className="my-6 flex items-center justify-center gap-2 sm:gap-3">
+          <div className="my-6 flex items-center justify-center gap-2 sm:gap-2.5">
             {[
-              { label: 'ثانیه', value: seconds },
-              { label: 'دقیقه', value: minutes },
               { label: 'ساعت', value: hours },
+              { label: 'دقیقه', value: minutes },
+              { label: 'ثانیه', value: seconds },
             ].map((unit) => (
               <div
                 key={unit.label}
-                className="flex flex-col items-center gap-1 rounded-2xl bg-white/20 ring-2 ring-auxiliary px-3 py-2 sm:px-4"
+                className="flex min-w-14 flex-col items-center gap-1 rounded-xl border border-white/15 bg-[#123d34]/25 px-2 py-2.5 sm:min-w-16 sm:px-3"
               >
                 <span className="text-lg font-bold tabular-nums sm:text-xl">{unit.value}</span>
                 <span className="text-[11px] text-white/70">{unit.label}</span>
@@ -243,7 +266,7 @@ export default function HomeOffers() {
               onClick={() => emblaApi?.scrollPrev()}
               disabled={!canPrev}
               aria-label="محصول قبلی"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white transition hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <MoveRightIcon size={18} />
             </button>
@@ -252,7 +275,7 @@ export default function HomeOffers() {
               onClick={() => emblaApi?.scrollNext()}
               disabled={!canNext}
               aria-label="محصول بعدی"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white transition hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <MoveLeftIcon size={18} />
             </button>
@@ -260,8 +283,11 @@ export default function HomeOffers() {
         </div>
 
         {/* Offers carousel */}
-        <div className="min-w-0 flex-1 overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-5">
+        <div
+          className="relative z-10 min-w-0 flex-1 overflow-hidden rounded-3xl bg-white/5 p-1"
+          ref={emblaRef}
+        >
+          <div className="flex gap-4">
             {offers.map((product) => (
               <div
                 key={product.id}

@@ -1,92 +1,102 @@
 import Link from 'next/link';
-import { FaInstagram, FaLinkedin, FaSquareXTwitter } from 'react-icons/fa6';
 import { FaTelegramPlane } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaSquareXTwitter } from 'react-icons/fa6';
 import FooterLogo from './FooterLogo';
+
+const productLinks = [
+  { label: 'همه محصولات', href: '/products' },
+  { label: 'الکترونیک', href: '/category/electronics' },
+  { label: 'مد و پوشاک', href: '/category/fashion' },
+  { label: 'خانه و آشپزخانه', href: '/category/home' },
+];
+
+const usefulLinks = [
+  { label: 'درباره ما', href: '/about' },
+  { label: 'تماس با ما', href: '/contact' },
+  { label: 'وبلاگ', href: '/blog' },
+  { label: 'سبد خرید', href: '/cart' },
+];
 
 export default function Footer() {
   const socialLinks = [
-    { icon: FaTelegramPlane, href: 'https://t.me/yourchannel', label: 'Telegram' },
-    { icon: FaInstagram, href: 'https://instagram.com/yourpage', label: 'Instagram' },
-    { icon: FaSquareXTwitter, href: 'https://twitter.com/yourpage', label: 'Twitter' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/company/yourpage', label: 'LinkedIn' },
+    { icon: FaTelegramPlane, href: 'https://t.me/', label: 'تلگرام' },
+    { icon: FaInstagram, href: 'https://instagram.com/', label: 'اینستاگرام' },
+    { icon: FaSquareXTwitter, href: 'https://x.com/', label: 'ایکس' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/', label: 'لینکدین' },
   ];
 
   return (
-    <footer className="px-4 py-16 bg-neutral_light">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        <ul className="justify-self-center">
-          <h2 className="text-lg font-bold mb-4">
-            دسته بندی <span className="text-primary">محصولات</span>
-          </h2>
-          <li className="mb-2">
-            <Link href="/products" className="hover:text-primary transition-colors">
-              محصولات
-            </Link>
-          </li>
-          <li className="mb-2">
-            <Link href="/categories" className="hover:text-primary transition-colors">
-              دسته‌بندی‌ها
-            </Link>
-          </li>
-          <li className="mb-2">
-            <Link href="/brands" className="hover:text-primary transition-colors">
-              برندها
-            </Link>
-          </li>
-        </ul>
-
-        <div className="text-center">
-          <FooterLogo />
-          <p className="mt-2 text-sm text-gray-600">
-            &ldquo;تجهیزات حرفه‌ای، ماجراجویی‌های فراموش‌نشدنی!&rdquo;
-          </p>
-
-          <ul className="flex justify-center gap-3 mt-4">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <li key={label}>
+    <footer className="relative overflow-hidden border-t border-neutral_normal bg-neutral_light px-4 pb-6 pt-14 text-text sm:pt-16">
+      <div className="pointer-events-none absolute -bottom-32 -left-20 h-64 w-64 rounded-full border-36 border-primary/10" />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid gap-10 border-b border-neutral_normal pb-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+          <div>
+            <FooterLogo />
+            <p className="mt-5 max-w-xs text-sm leading-7 text-neutral_dark">
+              تجهیزات کاربردی و مطمئن برای فروشگاهی که قرار است تجربه‌ای بهتر بسازد.
+            </p>
+            <div className="mt-6 flex items-center gap-2">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <Link
+                  key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="block hover:scale-110 transition-transform"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-neutral_dark shadow-sm transition hover:-translate-y-1 hover:bg-primary hover:text-white"
                 >
-                  <Icon className="w-10 h-10 text-white bg-primary p-2 rounded-2xl hover:bg-auxiliary transition-colors" />
+                  <Icon size={18} />
                 </Link>
-              </li>
-            ))}
-          </ul>
-          <br />
-          <p>© {new Date().getFullYear()} تمام حقوق محفوظ است.</p>
+              ))}
+            </div>
+          </div>
+
+          <FooterLinkGroup title="محصولات" links={productLinks} />
+          <FooterLinkGroup title="دسترسی سریع" links={usefulLinks} />
+
+          <div>
+            <h2 className="text-base font-bold">با ما در تماس باشید</h2>
+            <div className="mt-5 space-y-4 text-sm text-neutral_dark">
+              <p>تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+              <a href="tel:02112345678" className="block transition hover:text-primary">
+                ۰۲۱-۱۲۳۴۵۶۷۸
+              </a>
+              <a href="mailto:info@comping.ir" className="block transition hover:text-primary">
+                info@comping.ir
+              </a>
+              <p>شنبه تا پنجشنبه، ۹ صبح تا ۶ عصر</p>
+            </div>
+          </div>
         </div>
-        <div className="justify-self-center">
-          <ul className="text-start">
-            <h2 className="text-lg font-bold mb-4">
-              لینک هـای <span className="text-primary">مهم</span>
-            </h2>
-            <li className="mb-2">
-              <Link href="/about" className="hover:text-primary transition-colors">
-                درباره ما
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/contact" className="hover:text-primary transition-colors">
-                تماس با ما
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/faq" className="hover:text-primary transition-colors">
-                سوالات متداول
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/terms" className="hover:text-primary transition-colors">
-                قوانین و مقررات
-              </Link>
-            </li>
-          </ul>
+
+        <div className="flex flex-col gap-3 pt-5 text-xs text-neutral_dark sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} کمپینک شاپ. تمام حقوق محفوظ است.</p>
+          <p>ساخته‌شده برای تجربه‌ای بهتر در خرید</p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterLinkGroup({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <div>
+      <h2 className="text-base font-bold">{title}</h2>
+      <ul className="mt-5 space-y-3 text-sm text-neutral_dark">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link href={link.href} className="transition hover:text-primary">
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

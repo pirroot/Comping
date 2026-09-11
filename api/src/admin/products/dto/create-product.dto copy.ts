@@ -21,7 +21,6 @@ export class ProductFeatureDto {
   value: string;
 }
 
-
 export class CreateProductDto {
   @IsNotEmpty({ message: 'باید محصول، اسلاگ داشته باشد.' })
   @IsString({ message: 'باید رشته متنی باشد' })

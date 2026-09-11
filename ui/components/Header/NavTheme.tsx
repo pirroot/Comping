@@ -1,32 +1,53 @@
-'use client'
+'use client';
 
-import { Moon, Sun } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { Moon, Sun } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function NavTheme() {
-  // const [isDark, setIsDark] = useState<boolean>(false)
+  const [isDark, setIsDark] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // useEffect(() => {
-  //   const stored = localStorage.getItem('theme')
-  //   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  //   setIsDark(stored === 'dark' || (!stored && prefersDark))
-  // }, [])
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const storedTheme = localStorage.getItem('theme');
+    const initialIsDark = storedTheme ? storedTheme === 'dark' : mediaQuery.matches;
 
-  // const toggleTheme = () => {
-  //   const newIsDark = !isDark
-  //   setIsDark(newIsDark)
+    setIsDark(initialIsDark);
+    document.documentElement.classList.toggle('dark', initialIsDark);
+    setIsMounted(true);
 
-  //   const newTheme = newIsDark ? 'dark' : 'light'
-  //   localStorage.setItem('theme', newTheme)
-  //   document.documentElement.classList.toggle('dark', newIsDark)
-  // }
+    const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+      if (!localStorage.getItem('theme')) {
+        setIsDark(event.matches);
+        document.documentElement.classList.toggle('dark', event.matches);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextIsDark = !isDark;
+    setIsDark(nextIsDark);
+    localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', nextIsDark);
+  };
+
+  if (!isMounted) {
+    return <div className="h-11 w-11" aria-hidden="true" />;
+  }
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="rounded-2xl bg-neutral_normal p-3 transition hover:bg-neutral_light"
+      className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_normal text-text transition hover:bg-primary_light hover:text-primary"
+      title={isDark ? 'فعال‌سازی حالت روشن' : 'فعال‌سازی حالت تاریک'}
+      aria-label={isDark ? 'فعال‌سازی حالت روشن' : 'فعال‌سازی حالت تاریک'}
+      aria-pressed={isDark}
     >
-      {isDark ? <Moon /> : <Sun />}
+      {isDark ? <Sun size={20} /> : <Moon size={20} />}
     </button>
-  )
+  );
 }

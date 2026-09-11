@@ -1,12 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import logoImg from "@/public/images/logo.svg"
+import logoImg from '@/public/images/logo.svg';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Logo() {
   return (
-    <Link href={'/'} title="logo" className="mr-2 flex gap-1 items-start">
-      <span className="text-3xl font-bold">VENTURA</span>
-      <Image src={logoImg} alt="logo site" height={33} width={33} />
+    <Link href="/" title="صفحه اصلی" className="mr-1 flex shrink-0 items-center gap-2 px-2">
+      <Image src={logoImg} alt="لوگوی کمپینک شاپ" height={34} width={34} priority />
+      <span className="hidden text-lg font-black tracking-tight text-text sm:block">
+        کمپینک شاپ
+      </span>
     </Link>
-  )
+  );
 }

@@ -1,8 +1,13 @@
-import BaseApi from "./BaseApi"
+import BaseApi from "./BaseApi";
 
-export const apiGet = async <T = unknown>(url: string = ''): Promise<T> => {
-  const data = await fetch(BaseApi() + url)
-  const response = data.json()
+export const apiGet = async <T = unknown>(
+  url: string = "",
+): Promise<T> => {
+  const response = await fetch(BaseApi() + url);
 
-  return response as Promise<T>
-}
+  if (!response.ok) {
+    throw new Error(`خطا در دریافت اطلاعات: ${response.statusText}`);
+  }
+
+  return (await response.json()) as T;
+};

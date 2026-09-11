@@ -1,76 +1,111 @@
-'use client'
+'use client';
 
-import { ChevronDown } from 'lucide-react'
-import Link from 'next/link'
-import { useState, useRef, useEffect } from 'react'
+import { ChevronDown, ChevronLeft, LayoutGrid } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import { categories } from './navigation';
 
 export default function NavCategories() {
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLLIElement>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLLIElement>(null);
+  const pathname = usePathname();
+  const isCategoryActive = pathname.startsWith('/category/');
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsOpen(false)
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
       }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+    };
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false)
-    }
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [])
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
 
-  const categories = [
-    { id: 1, name: 'الکترونیک', link: '/category/electronics' },
-    { id: 2, name: 'مد و پوشاک', link: '/category/fashion' },
-    { id: 3, name: 'کتاب و محصولات فرهنگی', link: '/category/books' },
-    { id: 4, name: 'خانه و آشپزخانه', link: '/category/home' },
-    { id: 5, name: 'ورزشی', link: '/category/sports' },
-  ]
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
 
   return (
     <li className="relative" ref={menuRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all cursor-pointer ${isOpen
-          ? 'bg-primary text-white'
-          : 'hover:bg-primary hover:text-primary_light '
-          }`}
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
+          isOpen || isCategoryActive
+            ? 'bg-primary text-white shadow-md shadow-primary/20'
+            : 'text-text hover:bg-primary_light hover:text-primary'
+        }`}
+        aria-haspopup="menu"
         aria-expanded={isOpen}
       >
-        دسته‌بندی
+        <LayoutGrid size={16} />
+        <span>دسته‌بندی‌ها</span>
         <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
-            }`}
+          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       <div
-        className={`absolute right-0 top-full z-50 mt-5 w-56 origin-top-right overflow-hidden rounded-2xl bg-bg shadow-xl ring-1 ring-black/5 dark:ring-white/10 transition-all duration-200 ${isOpen
-          ? 'scale-100 opacity-100'
-          : 'pointer-events-none scale-5 opacity-0'
-          }`}
+        role="menu"
+        className={`absolute right-0 top-full z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border border-neutral_normal bg-bg p-2 shadow-2xl shadow-text/10 transition-all duration-200 ${
+          isOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
+        }`}
       >
-        <ul className="py-2">
-          {categories.map((cat) => (
-            <li key={cat.id}>
-              <Link
-                href={cat.link}
-                className="block px-4 py-2.5 text-sm  text-text transition-colors hover:bg-primary rounded-2xl m-2 hover:text-primary_light"
-                onClick={() => setIsOpen(false)}
-              >
-                {cat.name}
-              </Link>
-            </li>
-          ))}
+        <div className="flex items-center gap-3 border-b border-neutral_normal px-3 py-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary_light text-primary">
+            <LayoutGrid size={18} />
+          </span>
+          <div>
+            <p className="text-sm font-bold text-text">دسته‌بندی محصولات</p>
+            <p className="mt-0.5 text-xs text-neutral_dark">
+              محصول موردنظرتان را سریع‌تر پیدا کنید
+            </p>
+          </div>
+        </div>
+
+        <ul className="mt-1" aria-label="دسته‌بندی محصولات">
+          {categories.map((category) => {
+            const isActive = pathname === category.link;
+
+            return (
+              <li key={category.id}>
+                <Link
+                  href={category.link}
+                  role="menuitem"
+                  onClick={() => setIsOpen(false)}
+                  className={`group flex items-center justify-between rounded-xl px-3 py-2.5 transition-colors ${
+                    isActive ? 'bg-primary_light' : 'hover:bg-neutral_light'
+                  }`}
+                >
+                  <span>
+                    <span
+                      className={`block text-sm font-semibold ${isActive ? 'text-primary' : 'text-text'}`}
+                    >
+                      {category.name}
+                    </span>
+                    <span className="mt-0.5 block text-xs text-neutral_dark">
+                      {category.description}
+                    </span>
+                  </span>
+                  <ChevronLeft
+                    className="-rotate-90 text-neutral_dark transition-transform group-hover:-translate-x-1"
+                    size={16}
+                  />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </li>
-  )
+  );
 }

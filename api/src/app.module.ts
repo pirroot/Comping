@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import Joi from 'joi';
 import { BlogModule } from './blog/blog.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PostsModule } from './admin/posts/posts.module';
@@ -7,10 +8,9 @@ import { CategoriesModule } from './admin/categories/categories.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
 import { ConfigModule } from '@nestjs/config';
-import Joi from 'joi';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ProductsModule } from './admin/products/products.module';
-import { FaqModule } from './admin/faq/faq/faq.module';
+import { FaqModule } from './admin/faq/faq.module';
 
 @Module({
   imports: [
@@ -48,4 +48,4 @@ import { FaqModule } from './admin/faq/faq/faq.module';
     FaqModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

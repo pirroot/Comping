@@ -1,11 +1,10 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import TomanSvg from '@/public/svg/toman.svg';
 import { IProductDto } from '@/src/types/IProductDto';
 import { setProductOffer } from '@/src/utils/setProductOffer';
 import { toNumberFa } from '@/src/utils/toNumberFa';
-import TomanSvg from '@/public/svg/toman.svg';
+import Image from 'next/image';
+import Link from 'next/link';
 import { FiShoppingCart } from 'react-icons/fi';
-import { title } from 'process';
 
 export default function ProductCart({
   name,
@@ -16,14 +15,12 @@ export default function ProductCart({
   is_offer,
   category,
 }: IProductDto) {
-  const finalPrice = is_offer
-    ? setProductOffer(price, offer_percent as number)
-    : price;
+  const finalPrice = is_offer ? setProductOffer(price, offer_percent as number) : price;
 
   return (
     <Link
-      href={`/store/${slug}`}
-      title={title}
+      href={`/products/${slug}`}
+      title={name}
       className="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
     >
       <div className="relative bg-gray-50 overflow-hidden aspect-square">
@@ -47,16 +44,12 @@ export default function ProductCart({
           {category.name}
         </span>
 
-        <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 leading-6">
-          {name}
-        </h3>
+        <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 leading-6">{name}</h3>
 
         <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
           <div className="flex flex-col items-end">
             {is_offer && (
-              <span className="text-xs line-through text-gray-400 mb-0.5">
-                {toNumberFa(price)}
-              </span>
+              <span className="text-xs line-through text-gray-400 mb-0.5">{toNumberFa(price)}</span>
             )}
             <span className="flex items-center gap-1 text-base font-bold text-gray-900">
               {toNumberFa(finalPrice)}

@@ -5,10 +5,12 @@ import { OrderByEnum } from 'src/common/types/filter_enum.type';
 
 @Injectable()
 export class FaqService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(createFaqDto: CreateFaqDto) {
-    return await this.prisma.faq.create({ data: { isDelete: false, ...createFaqDto } });
+    return await this.prisma.faq.create({
+      data: { isDelete: false, ...createFaqDto },
+    });
   }
 
   findAll(orBy: OrderByEnum) {
@@ -16,6 +18,9 @@ export class FaqService {
   }
 
   async remove(id: string) {
-    return await this.prisma.faq.update({ where: { id }, data: { isDelete: true } });
+    return await this.prisma.faq.update({
+      where: { id },
+      data: { isDelete: true },
+    });
   }
 }

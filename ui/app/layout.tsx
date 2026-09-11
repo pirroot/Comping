@@ -1,10 +1,9 @@
+import SiteChrome from '@/components/layout/SiteChrome';
+import ThemeProvider from '@/components/ThemeProvider';
+import raviFont from '@/utils/font';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
-import ThemeProvider from '@/components/ThemeProvider';
 import '../styles/globals.css';
-import Header from '@/components/Header/Header';
-import raviFont from '@/utils/font';
-import Footer from '@/components/Footer/Footer';
 
 export const metadata: Metadata = {
   title: 'کمپینک شاپ',
@@ -20,9 +19,7 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" className={`scroll-smooth ${raviFont.variable}`}>
       <body className="bg-bg text-text min-h-screen">
         <ThemeProvider>
-          <Header />
-          <main className="pt-42">{children}</main>
-          <Footer />
+          <SiteChrome>{children}</SiteChrome>
           <Toaster
             position="top-center"
             toastOptions={{

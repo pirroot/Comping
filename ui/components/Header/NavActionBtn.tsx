@@ -1,10 +1,10 @@
 'use client';
 
+import profile from '@/public/images/profile.jpg';
 import { ShoppingCart, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import profile from '@/public/images/profile.jpg';
 
 export default function NavActionBtn() {
   const [isLogin] = useState(true);
@@ -14,7 +14,7 @@ export default function NavActionBtn() {
     <div className="flex items-center gap-2">
       {!isLogin ? (
         <Link
-          href="/auth"
+          href="/login"
           className="rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#5a9a63] hover:shadow-md"
         >
           ورود / ثبت نام
@@ -23,8 +23,9 @@ export default function NavActionBtn() {
         <>
           <Link
             href="/profile"
-            className="relative rounded-2xl bg-neutral_normal p-1.5 text-text transition hover:bg-neutral_light "
+            className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-neutral_normal p-1 text-text transition hover:bg-primary_light hover:text-primary"
             title="پروفایل"
+            aria-label="پروفایل"
           >
             {isUserImage ? (
               <Image
@@ -32,7 +33,7 @@ export default function NavActionBtn() {
                 alt="User Profile"
                 width={40}
                 height={40}
-                className="rounded-2xl"
+                className="h-full w-full rounded-[0.65rem] object-cover"
               />
             ) : (
               <User />
@@ -41,10 +42,11 @@ export default function NavActionBtn() {
 
           <Link
             href="/cart"
-            className="relative rounded-2xl  bg-neutral_normal p-3 text-text transition hover:bg-neutral_light "
+            className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_normal text-text transition hover:bg-primary_light hover:text-primary"
             title="سبد خرید"
+            aria-label="سبد خرید"
           >
-            <ShoppingCart />
+            <ShoppingCart size={20} />
 
             <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-2xl bg-auxiliary text-xs font-bold text-white dark:text-black">
               3
