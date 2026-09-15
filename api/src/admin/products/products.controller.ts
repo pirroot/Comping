@@ -11,17 +11,17 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { PaginationQueryDto } from 'src/blog/dto/pagination-query.dto';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { AuthUser } from 'src/common/types/auth-user.type';
-import { multerOptions } from 'src/uploads/multer.config';
 import { CreateProductDto } from './dto/create-product.dto copy';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
+import { AuthUser } from '../../common/types/auth-user.type';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { multerOptions } from '../../uploads/multer.config';
+import { PaginationQueryDto } from '../../blog/dto/pagination-query.dto';
 
 @Controller('admin/products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) { }
+  constructor(private readonly productsService: ProductsService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('image', multerOptions('products')))
