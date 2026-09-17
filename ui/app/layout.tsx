@@ -20,14 +20,7 @@ export default function RootLayout({
       <body className="bg-bg text-text min-h-screen">
         <ThemeProvider>
           <SiteChrome>{children}</SiteChrome>
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              classNames: {
-                toast: 'font-sans',
-              },
-            }}
-          />
+          <Toaster position="top-center" />
         </ThemeProvider>
       </body>
     </html>

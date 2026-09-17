@@ -12,7 +12,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   handleRequest(err: any | unknown, user: any | unknown, info: any | unknown) {
-    console.log(typeof err, user, info);
     if (err || !user) {
       throw new UnauthorizedException('شما لاگین نیستید');
     }

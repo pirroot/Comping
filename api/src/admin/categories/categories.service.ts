@@ -29,6 +29,7 @@ export class CategoriesService {
       return await this.prisma.category.create({
         data: {
           ...createCategoryDto,
+          parentId: createCategoryDto.parentId,
           image: imageFile.url,
         },
       });
@@ -37,6 +38,7 @@ export class CategoriesService {
     return await this.prisma.category.create({
       data: {
         ...createCategoryDto,
+        image: file,
       },
     });
   }
@@ -46,6 +48,7 @@ export class CategoriesService {
       where: {
         isActive: true,
         isDeleted: false,
+        parent: null,
       },
       select: {
         id: true,
@@ -58,8 +61,18 @@ export class CategoriesService {
         updatedAt: true,
         isDeleted: true,
         isActive: true,
+        children: true,
         parent: {
+          where: {
+            isDeleted: false,
+          },
           select: { title: true, slug: true, id: true },
+        },
+        products: {
+          where: {
+            isDeleted: false,
+          },
+          select: { title: true, id: true },
         },
       },
       orderBy: {

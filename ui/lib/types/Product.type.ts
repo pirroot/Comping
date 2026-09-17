@@ -2,11 +2,16 @@ export interface CategoryType {
   id: string;
   title: string;
   slug: string;
-  description?: string;
   image: string;
-  product?: ProductType[];
-  Is_active: boolean;
-  is_deleted: boolean;
+  parent?: {
+    id: string;
+    title: string;
+    slug: string;
+  };
+  products: ProductType[];
+  children?: CategoryType[];
+  description?: string;
+  parentId?: string | null;
 }
 
 export interface ProductType {
