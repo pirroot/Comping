@@ -1,6 +1,7 @@
 'use client';
 
 import FAQSection from '@/components/Contact/FAQSection';
+import PageRouter from '@/components/PageRouter/PageRouter';
 import { Check, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 
