@@ -28,9 +28,9 @@ const list: AdminLink[] = [
   { link: '/admin/articles', title: 'مقالات', icon: <BookOpen size={17} /> },
   { link: '/admin/banners', title: 'بنرها', icon: <Image size={17} /> },
   { link: '/admin/brands', title: 'برندها', icon: <Tags size={17} /> },
+  { link: '/admin/faq', title: 'سوالات متداول', icon: <ShieldCheck size={17} /> },
   { link: '/admin/users', title: 'کاربران', icon: <Users size={17} /> },
   { link: '/admin/settings', title: 'تنظیمات', icon: <Settings size={17} /> },
-  { link: '/admin/faq', title: 'سوالات متداول', icon: <ShieldCheck size={17} /> },
 ];
 
 export default function AdminList() {
@@ -51,7 +51,7 @@ export default function AdminList() {
                 aria-current={isActive ? 'page' : undefined}
                 className={`group relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-l from-emerald-600 to-emerald-500 text-white shadow-sm shadow-emerald-500/30'
+                    ? 'bg-linear-to-l from-emerald-600 to-emerald-500 text-white shadow-sm shadow-emerald-500/30'
                     : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700'
                 }`}
               >

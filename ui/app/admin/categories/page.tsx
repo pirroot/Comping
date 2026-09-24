@@ -5,10 +5,9 @@ import DelCategory from '@/components/Admin/Categories/DelCategory';
 import EditCategory from '@/components/Admin/Categories/EditCategory';
 import { CategoryType } from '@/lib/types/Product.type';
 import { ApiResponse } from '@/lib/types/Response.type';
-import { apiGet } from '@/services/api/ApiGet';
+import { apiGet } from '@/services/api/GetApi';
 import { useQuery } from '@tanstack/react-query';
 import { ChevronDown, FolderTree, Package, Search, SearchX } from 'lucide-react';
-import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 const GRID_COLS = 'md:grid-cols-[1.5fr_1fr_0.8fr_100px]';

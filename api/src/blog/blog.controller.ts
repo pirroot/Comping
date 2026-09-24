@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Logger,
-  Param,
-  Query,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
 import { LoggerInterceptor } from 'src/common/interceptors/logger/logger.interceptor';

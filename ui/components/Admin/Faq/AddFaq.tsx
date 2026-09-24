@@ -1,11 +1,11 @@
 'use client';
 
 import { Faq } from '@/lib/types/Faq.type';
-import { apiAdd } from '@/services/api/ApiAdd';
+import { apiAdd } from '@/services/api/PostApi';
+import { Dialog, Input } from '@base-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import { Button, Dialog, Input } from '@base-ui/react';
 import { MessageCircleQuestion, Plus, Sparkles, X } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 
 export function AddFaqDialog() {
   const queryClient = useQueryClient();
@@ -31,7 +31,7 @@ export function AddFaqDialog() {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-b from-emerald-500 to-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2">
+      <Dialog.Trigger className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2">
         <Plus size={17} /> افزودن سوال
       </Dialog.Trigger>
 
@@ -40,7 +40,7 @@ export function AddFaqDialog() {
 
         <Dialog.Popup className="fixed left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-2xl shadow-emerald-900/20">
           {/* هدر با گرادیانت سبز */}
-          <div className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-700 px-6 py-5 text-white">
+          <div className="relative overflow-hidden bg-linear-to-br from-emerald-700 via-emerald-600 to-emerald-700 px-6 py-5 text-white">
             {/* دایره دکوری */}
             <div className="absolute -left-6 -top-10 h-28 w-28 rounded-full bg-white/10" />
             <div className="absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-white/5" />
@@ -105,13 +105,7 @@ export function AddFaqDialog() {
                 انصراف
               </Dialog.Close>
 
-              <Button
-                type="submit"
-                disabled={isPending}
-                className="flex-none! bg-linear-to-b from-emerald-500 to-emerald-600 px-5 text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
-              >
-                {isPending ? 'در حال افزودن...' : 'افزودن'}
-              </Button>
+
             </div>
           </form>
         </Dialog.Popup>

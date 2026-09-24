@@ -1,9 +1,5 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { FolderPlus, Plus, X } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import { ImageInput } from '@/components/ui/ImageInput';
 import { Input } from '@/components/ui/input';
@@ -11,8 +7,12 @@ import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { CategoryType } from '@/lib/types/Product.type';
 import { ApiResponse } from '@/lib/types/Response.type';
-import { apiAdd } from '@/services/api/ApiAdd';
-import { apiGet } from '@/services/api/ApiGet';
+import { apiGet } from '@/services/api/GetApi';
+import { apiAdd } from '@/services/api/PostApi';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { FolderPlus, Plus, X } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 type CategoryFormValues = {

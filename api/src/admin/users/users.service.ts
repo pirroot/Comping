@@ -33,7 +33,6 @@ export class UsersService {
       where: { username },
       data: {
         ...userExist,
-        emailVerified: userUpdateDto.emailVerified || userExist.emailVerified,
         isActive: userUpdateDto.isActive || userExist.isActive,
         isDeleted: userUpdateDto.isDeleted || userExist.isDeleted,
         role: userUpdateDto.role || userExist.role,

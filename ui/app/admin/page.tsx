@@ -1,6 +1,6 @@
 'use client';
 
-import { apiGet } from '@/services/api/ApiGet';
+import { apiGet } from '@/services/api/GetApi';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowLeft, CircleHelp, LayoutGrid, Package, Plus, RefreshCw } from 'lucide-react';
 import Link from 'next/link';

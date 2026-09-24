@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import profile from '@/public/images/profile.jpg';
 import { ShoppingCart, User } from 'lucide-react';
 import Image from 'next/image';
@@ -7,14 +8,18 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function NavActionBtn() {
-  const [isLogin] = useState(true);
+  const status = useAuth()
   const [isUserImage] = useState(true);
+
+  if (status === 'loading') {
+    return <div className="h-11 w-32 animate-pulse rounded-full bg-neutral_normal" />;
+  }
 
   return (
     <div className="flex items-center gap-2">
-      {!isLogin ? (
+      {status === "out" ? (
         <Link
-          href="/login"
+          href="/auth"
           className="rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#5a9a63] hover:shadow-md"
         >
           ورود / ثبت نام

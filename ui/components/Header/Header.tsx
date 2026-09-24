@@ -22,7 +22,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <NavSearch />
-          <NavTheme />
+          {/* <NavTheme /> */}
           <NavActionBtn />
           <button
             type="button"

@@ -40,14 +40,12 @@ export function Select<T extends Record<string, any>>({
   const errorId = error ? `${selectId}-error` : undefined;
   const hintId = hint ? `${selectId}-hint` : undefined;
 
-  // 🎯 حل مقدار: تابع سفارشی → valueKey → id
   const resolveValue = (item: T): string | number => {
     if (getOptionValue) return getOptionValue(item);
     if (valueKey) return item[valueKey];
     return (item as any).id;
   };
 
-  // 🎯 حل متن: تابع سفارشی → labelKey → title → name → label
   const resolveLabel = (item: T): string => {
     if (getOptionLabel) return getOptionLabel(item);
     if (labelKey) return String(item[labelKey]);

@@ -18,20 +18,6 @@ export class ProfileService {
   async getProfile(user: AuthUser) {
     const profile = await this.prisma.user.findUnique({
       where: { id: user.id },
-      select: {
-        id: true,
-        name: true,
-        family: true,
-        email: true,
-        username: true,
-        avatar: true,
-        emailVerified: true,
-        lastLogin: true,
-        role: true,
-        updatedAt: true,
-        createdAt: true,
-        isActive: true,
-      },
     });
 
     if (!profile) throw new NotFoundException('کاربر پیدا نشد.');

@@ -15,20 +15,18 @@ async function main() {
   console.log('🌱 Starting seed...');
 
   const admin = await prisma.user.upsert({
-    where: { email: 'pirzadehroot@gmail.com' },
+    where: { phone: '09121111111' },
     update: {},
     create: {
       username: 'pirroot',
-      email: 'pirzadehroot@gmail.com',
-      emailVerified: true,
-      password: 'dev8090100',
+      phone: '09121111111',
       name: 'sina',
       family: 'pirzadeh',
       role: 'ADMIN',
     },
   });
 
-  console.log('✅ Admin user created/updated:', admin.email);
+  console.log('✅ Admin user created/updated:', admin.phone);
   console.log('✅ Seed completed successfully!');
 }
 

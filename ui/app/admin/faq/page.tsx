@@ -1,11 +1,10 @@
 'use client';
 
 import { AddFaqDialog } from '@/components/Admin/Faq/AddFaq';
-import { Button } from '@/components/ui/Button';
 import { Faq } from '@/lib/types/Faq.type';
 import { ApiResponse } from '@/lib/types/Response.type';
-import { apiGet } from '@/services/api/ApiGet';
-import { apiRemove } from '@/services/api/ApiRemove';
+import { apiGet } from '@/services/api/GetApi';
+import { apiRemove } from '@/services/api/RemoveApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CircleHelp, MessageCircleQuestion, Trash } from 'lucide-react';
 

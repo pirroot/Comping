@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto copy';
-import { UploadsService } from 'src/uploads/uploads.service';
 import { AuthUser } from 'src/common/types/auth-user.type';
 import { retryWhen } from 'rxjs';
 import { PaginationQueryDto } from 'src/blog/dto/pagination-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { UploadsService } from 'src/uploads/uploads.service';
 
 @Injectable()
 export class ProductsService {

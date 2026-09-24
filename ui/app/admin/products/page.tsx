@@ -3,9 +3,9 @@
 import AddProduct from '@/components/Admin/Products/AddProduct';
 import { ProductType } from '@/lib/types/Product.type';
 import { ApiResponse } from '@/lib/types/Response.type';
-import { apiGet } from '@/services/api/ApiGet';
+import { apiGet } from '@/services/api/GetApi';
 import { useQuery } from '@tanstack/react-query';
-import { Edit3, Package, PackagePlus, Search, SearchX, Trash2 } from 'lucide-react';
+import { Package } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
 type StatusFilter = 'همه' | 'فعال' | 'غیرفعال';

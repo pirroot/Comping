@@ -1,10 +1,9 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsString, Matches } from 'class-validator';
 
 export class AuthDto {
-  @IsEmail()
-  email: string;
-
   @IsString()
-  @MinLength(8, { message: 'رمز عبور شما باید بیشتر از 8 کاراکتر باشد.' })
-  password: string;
+  @Matches(/^09\d{9}$/, {
+    message: 'شماره موبایل باید با 09 شروع شود و ۱۱ رقم باشد.',
+  })
+  phone: string;
 }

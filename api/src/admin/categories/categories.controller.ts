@@ -13,7 +13,7 @@ import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { multerOptions } from '../../uploads/multer.config';
+import { multerOptions } from 'src/uploads/multer.config';
 
 @Controller('admin/categories')
 export class CategoriesController {

@@ -31,12 +31,7 @@ model User {
   id String @id @default(uuid(7)) @db.Uuid
 
   username String @unique
-  email    String @unique
-
-  password String
-
-  codeVerified  String?
-  emailVerified Boolean @default(false)
+  phone    String @unique
 
   name   String?
   family String?
@@ -59,8 +54,19 @@ model User {
   orders        Order[]
   refreshTokens RefreshToken[]
 
-  @@index([email])
+  @@index([phone])
   @@index([username])
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  code      String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([expiresAt])
 }
 
 model Category {

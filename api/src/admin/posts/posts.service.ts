@@ -56,7 +56,6 @@ export class PostsService {
         author: {
           select: {
             name: true,
-            email: true,
             role: true,
           },
         },

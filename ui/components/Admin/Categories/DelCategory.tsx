@@ -1,6 +1,6 @@
 'use client';
 
-import { apiRemove } from '@/services/api/ApiRemove';
+import { apiRemove } from '@/services/api/RemoveApi';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';

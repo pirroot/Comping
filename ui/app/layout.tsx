@@ -4,6 +4,7 @@ import raviFont from '@/utils/font';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 import '../styles/globals.css';
+import { QueryProvider } from '@/providers/QueryProvider';
 
 export const metadata: Metadata = {
   title: 'کمپینک شاپ',
@@ -18,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={`scroll-smooth ${raviFont.variable}`}>
       <body className="bg-bg text-text min-h-screen">
-        <ThemeProvider>
+        <QueryProvider>
           <SiteChrome>{children}</SiteChrome>
           <Toaster position="top-center" />
-        </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
