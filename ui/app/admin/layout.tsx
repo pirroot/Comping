@@ -3,7 +3,9 @@ import AdminList from '@/components/Admin/AdminLIst';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { LayoutGrid, MenuIcon } from 'lucide-react';
 
-export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function AdminLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <QueryProvider>
       <div
@@ -14,7 +16,7 @@ export default function AdminLayout({ children }: Readonly<{ children: React.Rea
           {/* منوی موبایل */}
           <div className="mb-4 w-full lg:hidden">
             <details className="group overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-sm shadow-emerald-900/5">
-              <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 font-bold text-slate-900 marker:hidden transition-colors hover:bg-emerald-50/50">
+              <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 font-bold text-slate-900 transition-colors marker:hidden hover:bg-emerald-50/50">
                 <span className="flex items-center gap-2.5">
                   <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-sm shadow-emerald-500/30">
                     <LayoutGrid size={16} />
@@ -37,12 +39,16 @@ export default function AdminLayout({ children }: Readonly<{ children: React.Rea
             <div className="sticky top-6 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-sm shadow-emerald-900/5">
               <div className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-700 px-5 py-6 text-white">
                 {/* دایره‌های دکوری */}
-                <div className="absolute -left-6 -top-10 h-28 w-28 rounded-full bg-white/10" />
-                <div className="absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-white/5" />
+                <div className="absolute -top-10 -left-6 h-28 w-28 rounded-full bg-white/10" />
+                <div className="absolute -right-8 -bottom-12 h-32 w-32 rounded-full bg-white/5" />
 
                 <div className="relative">
-                  <p className="text-xs font-medium text-emerald-100/90">کمپینک شاپ</p>
-                  <h1 className="mt-1 text-xl font-bold tracking-tight">پنل مدیریت</h1>
+                  <p className="text-xs font-medium text-emerald-100/90">
+                    کمپینک شاپ
+                  </p>
+                  <h1 className="mt-1 text-xl font-bold tracking-tight">
+                    پنل مدیریت
+                  </h1>
 
                   {/* خط تزئینی */}
                   <div className="mt-4 h-1 w-10 rounded-full bg-emerald-300/60" />
@@ -64,8 +70,12 @@ export default function AdminLayout({ children }: Readonly<{ children: React.Rea
                   <LayoutGrid size={18} />
                 </span>
                 <div>
-                  <p className="text-xs font-medium text-emerald-600/80">خوش آمدید</p>
-                  <h2 className="text-lg font-bold text-slate-900">مدیریت فروشگاه</h2>
+                  <p className="text-xs font-medium text-emerald-600/80">
+                    خوش آمدید
+                  </p>
+                  <h2 className="text-lg font-bold text-slate-900">
+                    مدیریت فروشگاه
+                  </h2>
                 </div>
               </div>
 

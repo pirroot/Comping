@@ -26,14 +26,15 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-neutral_normal bg-neutral_light px-4 pb-6 pt-14 text-text sm:pt-16">
-      <div className="pointer-events-none absolute -bottom-32 -left-20 h-64 w-64 rounded-full border-36 border-primary/10" />
+    <footer className="border-neutral_normal bg-neutral_light text-text relative overflow-hidden border-t px-4 pt-14 pb-6 sm:pt-16">
+      <div className="border-primary/10 pointer-events-none absolute -bottom-32 -left-20 h-64 w-64 rounded-full border-36" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-10 border-b border-neutral_normal pb-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+        <div className="border-neutral_normal grid gap-10 border-b pb-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
             <FooterLogo />
-            <p className="mt-5 max-w-xs text-sm leading-7 text-neutral_dark">
-              تجهیزات کاربردی و مطمئن برای فروشگاهی که قرار است تجربه‌ای بهتر بسازد.
+            <p className="text-neutral_dark mt-5 max-w-xs text-sm leading-7">
+              تجهیزات کاربردی و مطمئن برای فروشگاهی که قرار است تجربه‌ای بهتر
+              بسازد.
             </p>
             <div className="mt-6 flex items-center gap-2">
               {socialLinks.map(({ icon: Icon, href, label }) => (
@@ -43,7 +44,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-neutral_dark shadow-sm transition hover:-translate-y-1 hover:bg-primary hover:text-white"
+                  className="text-neutral_dark hover:bg-primary flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm transition hover:-translate-y-1 hover:text-white"
                 >
                   <Icon size={18} />
                 </Link>
@@ -56,12 +57,18 @@ export default function Footer() {
 
           <div>
             <h2 className="text-base font-bold">با ما در تماس باشید</h2>
-            <div className="mt-5 space-y-4 text-sm text-neutral_dark">
+            <div className="text-neutral_dark mt-5 space-y-4 text-sm">
               <p>تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
-              <a href="tel:02112345678" className="block transition hover:text-primary">
+              <a
+                href="tel:02112345678"
+                className="hover:text-primary block transition"
+              >
                 ۰۲۱-۱۲۳۴۵۶۷۸
               </a>
-              <a href="mailto:info@comping.ir" className="block transition hover:text-primary">
+              <a
+                href="mailto:info@comping.ir"
+                className="hover:text-primary block transition"
+              >
                 info@comping.ir
               </a>
               <p>شنبه تا پنجشنبه، ۹ صبح تا ۶ عصر</p>
@@ -69,7 +76,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pt-5 text-xs text-neutral_dark sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-neutral_dark flex flex-col gap-3 pt-5 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} کمپینک شاپ. تمام حقوق محفوظ است.</p>
           <p>ساخته‌شده برای تجربه‌ای بهتر در خرید</p>
         </div>
@@ -88,10 +95,10 @@ function FooterLinkGroup({
   return (
     <div>
       <h2 className="text-base font-bold">{title}</h2>
-      <ul className="mt-5 space-y-3 text-sm text-neutral_dark">
+      <ul className="text-neutral_dark mt-5 space-y-3 text-sm">
         {links.map((link) => (
           <li key={link.href}>
-            <Link href={link.href} className="transition hover:text-primary">
+            <Link href={link.href} className="hover:text-primary transition">
               {link.label}
             </Link>
           </li>

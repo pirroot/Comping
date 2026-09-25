@@ -2,7 +2,14 @@
 
 import { apiGet } from '@/services/api/GetApi';
 import { useQuery } from '@tanstack/react-query';
-import { ArrowLeft, CircleHelp, LayoutGrid, Package, Plus, RefreshCw } from 'lucide-react';
+import {
+  ArrowLeft,
+  CircleHelp,
+  LayoutGrid,
+  Package,
+  Plus,
+  RefreshCw,
+} from 'lucide-react';
 import Link from 'next/link';
 
 interface FaqItem {
@@ -23,7 +30,9 @@ interface ProductsResponse {
 }
 
 function unwrapData<T>(response: T | { data: T }): T {
-  return response && typeof response === 'object' && 'data' in response ? response.data : response;
+  return response && typeof response === 'object' && 'data' in response
+    ? response.data
+    : response;
 }
 
 export default function Admin() {
@@ -33,29 +42,37 @@ export default function Admin() {
   });
   const categoriesQuery = useQuery({
     queryKey: ['admin', 'categories'],
-    queryFn: () => apiGet<CategoryItem[] | { data: CategoryItem[] }>('admin/categories'),
+    queryFn: () =>
+      apiGet<CategoryItem[] | { data: CategoryItem[] }>('admin/categories'),
   });
   const productsQuery = useQuery({
     queryKey: ['admin', 'products', 'dashboard'],
-    queryFn: () => apiGet<ProductsResponse | { data: ProductsResponse }>('admin/products?page=1'),
+    queryFn: () =>
+      apiGet<ProductsResponse | { data: ProductsResponse }>(
+        'admin/products?page=1',
+      ),
   });
 
   const faqs = unwrapData(faqsQuery.data) ?? [];
   const categories = unwrapData(categoriesQuery.data) ?? [];
   const products = unwrapData(productsQuery.data);
   const productCount = products?.count ?? products?.products?.length ?? 0;
-  const isLoading = faqsQuery.isLoading || categoriesQuery.isLoading || productsQuery.isLoading;
+  const isLoading =
+    faqsQuery.isLoading || categoriesQuery.isLoading || productsQuery.isLoading;
 
   return (
     <div className="space-y-6">
       <section className="relative overflow-hidden rounded-2xl bg-slate-950 px-5 py-6 text-white sm:px-7 sm:py-8">
         <div className="relative z-10 max-w-2xl">
-          <p className="mb-2 text-sm font-medium text-slate-300">نمای کلی فروشگاه</p>
+          <p className="mb-2 text-sm font-medium text-slate-300">
+            نمای کلی فروشگاه
+          </p>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             امروز چه چیزی را مدیریت می‌کنیم؟
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-7 text-slate-300">
-            محصولات، دسته‌بندی‌ها و محتوای راهنمای فروشگاه را از همین‌جا به‌روز نگه دارید.
+            محصولات، دسته‌بندی‌ها و محتوای راهنمای فروشگاه را از همین‌جا به‌روز
+            نگه دارید.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
@@ -74,8 +91,8 @@ export default function Admin() {
             </Link>
           </div>
         </div>
-        <div className="absolute -left-16 -top-24 h-64 w-64 rounded-full border-36 border-green-400/20" />
-        <div className="absolute -bottom-28 right-1/3 h-56 w-56 rounded-full border-28 border-cyan-300/10" />
+        <div className="absolute -top-24 -left-16 h-64 w-64 rounded-full border-36 border-green-400/20" />
+        <div className="absolute right-1/3 -bottom-28 h-56 w-56 rounded-full border-28 border-cyan-300/10" />
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -110,7 +127,9 @@ export default function Admin() {
           <div className="mb-5 flex items-center justify-between gap-4">
             <div>
               <h3 className="font-bold text-slate-900">سوالات اخیر</h3>
-              <p className="mt-1 text-sm text-slate-500">آخرین محتوای ثبت‌شده در راهنمای مشتریان</p>
+              <p className="mt-1 text-sm text-slate-500">
+                آخرین محتوای ثبت‌شده در راهنمای مشتریان
+              </p>
             </div>
             <Link
               href="/admin/faq"
@@ -132,21 +151,31 @@ export default function Admin() {
                   className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-slate-800">{faq.question}</p>
-                    <p className="mt-1 truncate text-xs text-slate-500">{faq.answer}</p>
+                    <p className="truncate text-sm font-semibold text-slate-800">
+                      {faq.question}
+                    </p>
+                    <p className="mt-1 truncate text-xs text-slate-500">
+                      {faq.answer}
+                    </p>
                   </div>
                   <CircleHelp className="shrink-0 text-slate-300" size={19} />
                 </div>
               ))}
             </div>
           ) : (
-            <EmptyState href="/admin/faq" label="هنوز سوالی ثبت نشده" action="افزودن سوال" />
+            <EmptyState
+              href="/admin/faq"
+              label="هنوز سوالی ثبت نشده"
+              action="افزودن سوال"
+            />
           )}
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
           <h3 className="font-bold text-slate-900">دسترسی سریع</h3>
-          <p className="mt-1 text-sm text-slate-500">کارهای پرتکرار پنل مدیریت</p>
+          <p className="mt-1 text-sm text-slate-500">
+            کارهای پرتکرار پنل مدیریت
+          </p>
           <div className="mt-5 space-y-3">
             <QuickLink
               href="/admin/products"
@@ -163,7 +192,9 @@ export default function Admin() {
             <div className="flex items-center gap-3 rounded-xl bg-slate-50 px-4 py-3 text-slate-500">
               <RefreshCw size={19} />
               <div>
-                <p className="text-sm font-semibold text-slate-700">وضعیت اتصال</p>
+                <p className="text-sm font-semibold text-slate-700">
+                  وضعیت اتصال
+                </p>
                 <p className="mt-0.5 text-xs">اطلاعات از API دریافت می‌شود</p>
               </div>
               <span className="mr-auto h-2.5 w-2.5 rounded-full bg-emerald-500" />
@@ -201,7 +232,9 @@ function StatCard({
             <p className="mt-2 text-3xl font-bold text-slate-950">{value}</p>
           )}
         </div>
-        <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${accent}`}>
+        <span
+          className={`flex h-11 w-11 items-center justify-center rounded-xl ${accent}`}
+        >
           {icon}
         </span>
       </div>
@@ -230,7 +263,9 @@ function QuickLink({
         {icon}
       </span>
       <span>
-        <span className="block text-sm font-semibold text-slate-800">{title}</span>
+        <span className="block text-sm font-semibold text-slate-800">
+          {title}
+        </span>
         <span className="mt-0.5 block text-xs text-slate-500">{detail}</span>
       </span>
       <ArrowLeft
@@ -245,7 +280,10 @@ function LoadingRows() {
   return (
     <div className="space-y-3">
       {[1, 2, 3].map((item) => (
-        <div key={item} className="h-12 animate-pulse rounded-xl bg-slate-100" />
+        <div
+          key={item}
+          className="h-12 animate-pulse rounded-xl bg-slate-100"
+        />
       ))}
     </div>
   );
@@ -259,7 +297,15 @@ function QueryError() {
   );
 }
 
-function EmptyState({ href, label, action }: { href: string; label: string; action: string }) {
+function EmptyState({
+  href,
+  label,
+  action,
+}: {
+  href: string;
+  label: string;
+  action: string;
+}) {
   return (
     <div className="rounded-xl border border-dashed border-slate-200 px-4 py-8 text-center">
       <p className="text-sm text-slate-500">{label}</p>

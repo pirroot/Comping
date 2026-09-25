@@ -33,7 +33,7 @@ export default function AdminActions() {
         disabled={isPending}
         aria-label="بروزرسانی"
         title="بروزرسانی"
-        className={`${baseBtn} border border-emerald-200 bg-white text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50 active:scale-95 shadow-sm`}
+        className={`${baseBtn} border border-emerald-200 bg-white text-emerald-700 shadow-sm hover:border-emerald-300 hover:bg-emerald-50 active:scale-95`}
       >
         <RefreshCw size={16} className={isPending ? 'animate-spin' : ''} />
       </button>
@@ -42,7 +42,7 @@ export default function AdminActions() {
       <button
         type="button"
         onClick={() => router.push('/')}
-        className={`${baseBtn} hidden border border-emerald-200 bg-white text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50 active:scale-95 shadow-sm sm:inline-flex`}
+        className={`${baseBtn} hidden border border-emerald-200 bg-white text-emerald-700 shadow-sm hover:border-emerald-300 hover:bg-emerald-50 active:scale-95 sm:inline-flex`}
       >
         <Eye size={16} />
         <span>مشاهده سایت</span>

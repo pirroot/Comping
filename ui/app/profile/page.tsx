@@ -85,27 +85,28 @@ export default function ProfilePage() {
   const [saved, setSaved] = useState(false);
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] bg-[#f7f9f7] px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+    <div className="min-h-[calc(100vh-8rem)] bg-[#f7f9f7] px-4 pt-8 pb-20 sm:px-6 lg:px-8">
       <PageRouter routes={[{ title: 'پروفایل کاربری', link: '/profile' }]} />
       <div className="mx-auto max-w-6xl">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="mb-2 text-sm font-medium text-primary">حساب کاربری</p>
-            <h1 className="text-3xl font-extrabold tracking-tight text-text sm:text-4xl">
+            <p className="text-primary mb-2 text-sm font-medium">حساب کاربری</p>
+            <h1 className="text-text text-3xl font-extrabold tracking-tight sm:text-4xl">
               سلام، مهدی جان
             </h1>
-            <p className="mt-2 text-sm text-neutral_dark">
+            <p className="text-neutral_dark mt-2 text-sm">
               اینجا می‌توانی سفارش‌ها و فعالیت‌های خودت را مدیریت کنی.
             </p>
           </div>
-          <div className="flex items-center gap-2 rounded-full border border-primary/15 bg-white px-3 py-2 text-xs font-medium text-neutral_dark shadow-sm">
-            <ShieldCheck size={16} className="text-primary" /> حساب شما تایید شده است
+          <div className="border-primary/15 text-neutral_dark flex items-center gap-2 rounded-full border bg-white px-3 py-2 text-xs font-medium shadow-sm">
+            <ShieldCheck size={16} className="text-primary" /> حساب شما تایید
+            شده است
           </div>
         </div>
         <div className="grid gap-6 lg:grid-cols-[270px_1fr]">
-          <aside className="h-fit rounded-3xl border border-neutral_normal bg-white p-4 shadow-sm lg:sticky lg:top-28">
+          <aside className="border-neutral_normal h-fit rounded-3xl border bg-white p-4 shadow-sm lg:sticky lg:top-28">
             <div className="relative overflow-hidden rounded-2xl bg-[#123d34] p-5 text-white">
-              <div className="absolute -left-8 -top-12 h-28 w-28 rounded-full border-18 border-primary/30" />
+              <div className="border-primary/30 absolute -top-12 -left-8 h-28 w-28 rounded-full border-18" />
               <div className="relative flex items-center gap-3">
                 <div className="relative h-14 w-14 overflow-hidden rounded-2xl border-2 border-white/25">
                   <Image
@@ -117,7 +118,9 @@ export default function ProfilePage() {
                 </div>
                 <div className="min-w-0">
                   <p className="truncate font-bold">مهدی رضایی</p>
-                  <p className="mt-1 truncate text-xs text-white/65">mehdi@example.com</p>
+                  <p className="mt-1 truncate text-xs text-white/65">
+                    mehdi@example.com
+                  </p>
                 </div>
               </div>
               <div className="relative mt-5 flex items-center gap-2 border-t border-white/10 pt-4 text-xs text-white/70">
@@ -144,7 +147,8 @@ export default function ProfilePage() {
             </nav>
             <div className="mt-5 rounded-2xl bg-[#fff8eb] p-4 text-xs leading-6 text-[#8a641d]">
               <div className="mb-1 flex items-center gap-2 font-bold">
-                <Heart size={15} className="fill-[#f0ad35] text-[#f0ad35]" /> باشگاه مشتریان
+                <Heart size={15} className="fill-[#f0ad35] text-[#f0ad35]" />{' '}
+                باشگاه مشتریان
               </div>
               با هر خرید امتیاز بگیر و از تخفیف‌های ویژه استفاده کن.
               <button
@@ -159,7 +163,9 @@ export default function ProfilePage() {
             {activeTab === 'overview' && <Overview onNavigate={setActiveTab} />}
             {activeTab === 'orders' && <Orders />}
             {activeTab === 'reviews' && <Reviews />}
-            {activeTab === 'settings' && <Settings saved={saved} onSave={() => setSaved(true)} />}
+            {activeTab === 'settings' && (
+              <Settings saved={saved} onSave={() => setSaved(true)} />
+            )}
           </main>
         </div>
       </div>
@@ -175,16 +181,18 @@ function Overview({ onNavigate }: { onNavigate: (tab: TabId) => void }) {
         <Stat icon={<MessageSquareText />} value="۲" label="نظر ثبت‌شده" />
         <Stat icon={<Heart />} value="۱۲" label="محصول موردعلاقه" />
       </section>
-      <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-7">
+      <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-7">
         <div className="mb-5 flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-bold text-text">آخرین سفارش‌ها</h2>
-            <p className="mt-1 text-sm text-neutral_dark">وضعیت سفارش‌های اخیرت را پیگیری کن.</p>
+            <h2 className="text-text text-lg font-bold">آخرین سفارش‌ها</h2>
+            <p className="text-neutral_dark mt-1 text-sm">
+              وضعیت سفارش‌های اخیرت را پیگیری کن.
+            </p>
           </div>
           <button
             type="button"
             onClick={() => onNavigate('orders')}
-            className="flex items-center gap-1 text-sm font-bold text-primary"
+            className="text-primary flex items-center gap-1 text-sm font-bold"
           >
             همه سفارش‌ها <ArrowLeft size={16} />
           </button>
@@ -196,17 +204,31 @@ function Overview({ onNavigate }: { onNavigate: (tab: TabId) => void }) {
         </div>
       </section>
       <section className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-3xl border border-neutral_normal bg-white p-6 shadow-sm">
-          <SectionTitle icon={<MapPin />} title="آدرس پیش‌فرض" action="ویرایش" />
-          <p className="mt-5 text-sm font-bold text-text">تهران، خیابان ولیعصر</p>
-          <p className="mt-2 text-sm leading-7 text-neutral_dark">
+        <div className="border-neutral_normal rounded-3xl border bg-white p-6 shadow-sm">
+          <SectionTitle
+            icon={<MapPin />}
+            title="آدرس پیش‌فرض"
+            action="ویرایش"
+          />
+          <p className="text-text mt-5 text-sm font-bold">
+            تهران، خیابان ولیعصر
+          </p>
+          <p className="text-neutral_dark mt-2 text-sm leading-7">
             بالاتر از میدان ونک، کوچه دوازدهم، پلاک ۲۴
           </p>
         </div>
-        <div className="rounded-3xl border border-neutral_normal bg-white p-6 shadow-sm">
-          <SectionTitle icon={<Clock3 />} title="فعالیت اخیر" action="مشاهده همه" />
+        <div className="border-neutral_normal rounded-3xl border bg-white p-6 shadow-sm">
+          <SectionTitle
+            icon={<Clock3 />}
+            title="فعالیت اخیر"
+            action="مشاهده همه"
+          />
           <div className="mt-5 space-y-4 text-sm">
-            <Activity icon={<Check />} text="سفارش CP-24819 تحویل داده شد" time="۲ روز پیش" />
+            <Activity
+              icon={<Check />}
+              text="سفارش CP-24819 تحویل داده شد"
+              time="۲ روز پیش"
+            />
             <Activity
               icon={<MessageSquareText />}
               text="نظر شما برای پرینتر ثبت شد"
@@ -232,31 +254,43 @@ function Orders() {
 }
 function Reviews() {
   return (
-    <Panel title="نظرهای من" description="بازخوردهایی که درباره محصولات ثبت کرده‌ای">
+    <Panel
+      title="نظرهای من"
+      description="بازخوردهایی که درباره محصولات ثبت کرده‌ای"
+    >
       <div className="space-y-4">
         {reviews.map((review) => (
-          <div key={review.product} className="rounded-2xl border border-neutral_normal p-5">
+          <div
+            key={review.product}
+            className="border-neutral_normal rounded-2xl border p-5"
+          >
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="font-bold text-text">{review.product}</p>
-                <p className="mt-1 text-xs text-neutral_dark">ثبت شده در {review.date}</p>
+                <p className="text-text font-bold">{review.product}</p>
+                <p className="text-neutral_dark mt-1 text-xs">
+                  ثبت شده در {review.date}
+                </p>
               </div>
               <div className="flex gap-0.5 text-[#f2ad28]">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <Star
                     key={index}
                     size={15}
-                    className={index < review.stars ? 'fill-current' : 'text-neutral_normal'}
+                    className={
+                      index < review.stars
+                        ? 'fill-current'
+                        : 'text-neutral_normal'
+                    }
                   />
                 ))}
               </div>
             </div>
-            <p className="mt-4 rounded-xl bg-neutral_light px-4 py-3 text-sm leading-7 text-neutral_dark">
+            <p className="bg-neutral_light text-neutral_dark mt-4 rounded-xl px-4 py-3 text-sm leading-7">
               {review.text}
             </p>
             <button
               type="button"
-              className="mt-4 flex items-center gap-2 text-xs font-bold text-primary"
+              className="text-primary mt-4 flex items-center gap-2 text-xs font-bold"
             >
               <Pencil size={14} /> ویرایش نظر
             </button>
@@ -268,18 +302,26 @@ function Reviews() {
 }
 function Settings({ saved, onSave }: { saved: boolean; onSave: () => void }) {
   return (
-    <Panel title="ویرایش اطلاعات حساب" description="اطلاعات شخصی‌ات را به‌روز نگه دار">
-      <div className="mb-7 flex items-center gap-4 rounded-2xl bg-primary_light/60 p-4">
+    <Panel
+      title="ویرایش اطلاعات حساب"
+      description="اطلاعات شخصی‌ات را به‌روز نگه دار"
+    >
+      <div className="bg-primary_light/60 mb-7 flex items-center gap-4 rounded-2xl p-4">
         <div className="relative h-16 w-16 overflow-hidden rounded-2xl">
-          <Image src="/images/profile.jpg" alt="تصویر پروفایل" fill className="object-cover" />
+          <Image
+            src="/images/profile.jpg"
+            alt="تصویر پروفایل"
+            fill
+            className="object-cover"
+          />
         </div>
         <div>
-          <p className="font-bold text-text">تصویر پروفایل</p>
-          <button type="button" className="mt-1 text-sm font-bold text-primary">
+          <p className="text-text font-bold">تصویر پروفایل</p>
+          <button type="button" className="text-primary mt-1 text-sm font-bold">
             تغییر تصویر
           </button>
         </div>
-        <Edit3 size={18} className="mr-auto text-primary" />
+        <Edit3 size={18} className="text-primary mr-auto" />
       </div>
       <form
         onSubmit={(event) => {
@@ -298,13 +340,13 @@ function Settings({ saved, onSave }: { saved: boolean; onSave: () => void }) {
         <div className="flex items-center justify-end gap-3 sm:col-span-2">
           <button
             type="button"
-            className="rounded-xl px-5 py-3 text-sm font-bold text-neutral_dark hover:bg-neutral_light"
+            className="text-neutral_dark hover:bg-neutral_light rounded-xl px-5 py-3 text-sm font-bold"
           >
             انصراف
           </button>
           <button
             type="submit"
-            className="rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white transition hover:bg-[#5a9a63]"
+            className="bg-primary rounded-xl px-6 py-3 text-sm font-bold text-white transition hover:bg-[#5a9a63]"
           >
             {saved ? 'ذخیره شد ✓' : 'ذخیره تغییرات'}
           </button>
@@ -324,23 +366,31 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-7">
-      <div className="mb-6 border-b border-neutral_normal pb-5">
-        <h2 className="text-xl font-bold text-text">{title}</h2>
-        <p className="mt-2 text-sm text-neutral_dark">{description}</p>
+    <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-7">
+      <div className="border-neutral_normal mb-6 border-b pb-5">
+        <h2 className="text-text text-xl font-bold">{title}</h2>
+        <p className="text-neutral_dark mt-2 text-sm">{description}</p>
       </div>
       {children}
     </section>
   );
 }
-function Stat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
+function Stat({
+  icon,
+  value,
+  label,
+}: {
+  icon: React.ReactNode;
+  value: string;
+  label: string;
+}) {
   return (
-    <div className="rounded-2xl border border-neutral_normal bg-white p-5 shadow-sm">
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary_light text-primary">
+    <div className="border-neutral_normal rounded-2xl border bg-white p-5 shadow-sm">
+      <span className="bg-primary_light text-primary flex h-10 w-10 items-center justify-center rounded-xl">
         {icon}
       </span>
-      <p className="mt-4 text-2xl font-extrabold text-text">{value}</p>
-      <p className="mt-1 text-sm text-neutral_dark">{label}</p>
+      <p className="text-text mt-4 text-2xl font-extrabold">{value}</p>
+      <p className="text-neutral_dark mt-1 text-sm">{label}</p>
     </div>
   );
 }
@@ -355,42 +405,56 @@ function SectionTitle({
 }) {
   return (
     <div className="flex items-center justify-between">
-      <h2 className="flex items-center gap-2 font-bold text-text">
+      <h2 className="text-text flex items-center gap-2 font-bold">
         <span className="text-primary">{icon}</span>
         {title}
       </h2>
-      <button type="button" className="text-xs font-bold text-primary">
+      <button type="button" className="text-primary text-xs font-bold">
         {action}
       </button>
     </div>
   );
 }
-function Activity({ icon, text, time }: { icon: React.ReactNode; text: string; time: string }) {
+function Activity({
+  icon,
+  text,
+  time,
+}: {
+  icon: React.ReactNode;
+  text: string;
+  time: string;
+}) {
   return (
     <div className="flex items-center gap-3">
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary_light text-primary">
+      <span className="bg-primary_light text-primary flex h-8 w-8 items-center justify-center rounded-full">
         {icon}
       </span>
-      <span className="flex-1 font-medium text-text">{text}</span>
-      <span className="text-xs text-neutral_dark">{time}</span>
+      <span className="text-text flex-1 font-medium">{text}</span>
+      <span className="text-neutral_dark text-xs">{time}</span>
     </div>
   );
 }
-function OrderRow({ order, detailed = false }: { order: Order; detailed?: boolean }) {
+function OrderRow({
+  order,
+  detailed = false,
+}: {
+  order: Order;
+  detailed?: boolean;
+}) {
   return (
-    <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-neutral_normal p-4 transition hover:border-primary/40 hover:bg-primary_light/20">
-      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_light text-primary">
+    <div className="border-neutral_normal hover:border-primary/40 hover:bg-primary_light/20 flex flex-wrap items-center gap-4 rounded-2xl border p-4 transition">
+      <span className="bg-neutral_light text-primary flex h-11 w-11 items-center justify-center rounded-xl">
         <Package size={21} />
       </span>
       <div className="min-w-37.5 flex-1">
-        <p className="font-bold text-text">سفارش {order.id}</p>
-        <p className="mt-1 text-xs text-neutral_dark">
+        <p className="text-text font-bold">سفارش {order.id}</p>
+        <p className="text-neutral_dark mt-1 text-xs">
           {order.date}
           {detailed && ` · ${order.items}`}
         </p>
       </div>
       <div className="text-left">
-        <p className="text-sm font-bold text-text">{order.amount}</p>
+        <p className="text-text text-sm font-bold">{order.amount}</p>
         <span
           className={`mt-1 inline-flex rounded-full px-2.5 py-1 text-xs font-bold ${order.tone === 'green' ? 'bg-primary_light text-primary' : 'bg-[#fff4dc] text-[#bd7e17]'}`}
         >
@@ -401,14 +465,22 @@ function OrderRow({ order, detailed = false }: { order: Order; detailed?: boolea
     </div>
   );
 }
-function Field({ label, value, type = 'text' }: { label: string; value: string; type?: string }) {
+function Field({
+  label,
+  value,
+  type = 'text',
+}: {
+  label: string;
+  value: string;
+  type?: string;
+}) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-bold text-text">{label}</span>
+      <span className="text-text mb-2 block text-sm font-bold">{label}</span>
       <input
         type={type}
         defaultValue={value}
-        className="h-12 w-full rounded-xl border border-neutral_normal bg-white px-4 text-sm text-text outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
+        className="border-neutral_normal text-text focus:border-primary focus:ring-primary/10 h-12 w-full rounded-xl border bg-white px-4 text-sm transition outline-none focus:ring-4"
       />
     </label>
   );

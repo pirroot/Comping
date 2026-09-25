@@ -20,7 +20,9 @@ const GRID_COLS = 'md:grid-cols-[1.5fr_0.8fr_0.7fr_0.9fr_110px]';
 
 function SkeletonRow() {
   return (
-    <div className={`grid animate-pulse gap-4 px-5 py-4 ${GRID_COLS} md:items-center`}>
+    <div
+      className={`grid animate-pulse gap-4 px-5 py-4 ${GRID_COLS} md:items-center`}
+    >
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 rounded-lg bg-emerald-50/70" />
         <div className="h-3.5 w-32 rounded bg-emerald-50/70" />
@@ -77,14 +79,18 @@ export default function AdminProduct() {
             <Package size={13} />
             مدیریت فروشگاه
           </span>
-          <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-950">محصولات</h1>
+          <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-950">
+            محصولات
+          </h1>
           <p className="mt-2 text-sm text-slate-500">
             مدیریت محصولات سایت
             {!isLoading && !isError && (
               <>
                 {' · '}
-                <span className="font-semibold text-emerald-600">{products.length}</span> محصول ثبت
-                شده
+                <span className="font-semibold text-emerald-600">
+                  {products.length}
+                </span>{' '}
+                محصول ثبت شده
               </>
             )}
           </p>

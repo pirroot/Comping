@@ -22,12 +22,12 @@ export default function Pagination({ totalPages = 5 }: Props) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="flex justify-center items-center gap-2 my-12">
+    <div className="my-12 flex items-center justify-center gap-2">
       {/* Next (RTL: goes to lower page) */}
       <button
         onClick={() => goTo(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:border-[#c83b3b] hover:text-[#c83b3b] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-gray-500 transition-all hover:border-[#c83b3b] hover:text-[#c83b3b] disabled:cursor-not-allowed disabled:opacity-30"
       >
         <FiChevronLeft size={18} />
       </button>
@@ -35,12 +35,14 @@ export default function Pagination({ totalPages = 5 }: Props) {
       {pages.map((page) => {
         const isActive = page === currentPage;
         const isEdge =
-          page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
+          page === 1 ||
+          page === totalPages ||
+          Math.abs(page - currentPage) <= 1;
 
         if (!isEdge) {
           if (page === currentPage - 2 || page === currentPage + 2)
             return (
-              <span key={page} className="text-gray-400 px-1 text-sm">
+              <span key={page} className="px-1 text-sm text-gray-400">
                 ...
               </span>
             );
@@ -51,10 +53,11 @@ export default function Pagination({ totalPages = 5 }: Props) {
           <button
             key={page}
             onClick={() => goTo(page)}
-            className={`w-10 h-10 flex items-center justify-center rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
-              ? 'bg-[#c83b3b] text-white shadow-md scale-105'
-              : 'border border-gray-200 text-gray-600 hover:border-[#c83b3b] hover:text-[#c83b3b]'
-              }`}
+            className={`flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold transition-all duration-200 ${
+              isActive
+                ? 'scale-105 bg-[#c83b3b] text-white shadow-md'
+                : 'border border-gray-200 text-gray-600 hover:border-[#c83b3b] hover:text-[#c83b3b]'
+            }`}
           >
             {toNumberFa(page)}
           </button>
@@ -65,7 +68,7 @@ export default function Pagination({ totalPages = 5 }: Props) {
       <button
         onClick={() => goTo(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:border-[#c83b3b] hover:text-[#c83b3b] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-gray-500 transition-all hover:border-[#c83b3b] hover:text-[#c83b3b] disabled:cursor-not-allowed disabled:opacity-30"
       >
         <FiChevronRight size={18} />
       </button>

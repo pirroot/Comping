@@ -38,48 +38,53 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="bg-white py-16 md:py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
             سوالات <span className="text-auxiliary">متداول</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-lg text-gray-600">
             پاسخ سوالات رایج شما درباره خرید، ارسال و خدمات ما
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="mx-auto max-w-4xl space-y-4">
           {faqData.map((item, index) => (
             <div
               key={item.id}
-              className="border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md"
+              className="overflow-hidden rounded-2xl border border-gray-200 transition-all duration-300 hover:shadow-md"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between px-6 py-5 text-right bg-white hover:bg-gray-50 transition-colors duration-200"
+                className="flex w-full items-center justify-between bg-white px-6 py-5 text-right transition-colors duration-200 hover:bg-gray-50"
               >
-                <span className="text-base md:text-lg font-semibold text-gray-800 flex-1 ml-4">
+                <span className="ml-4 flex-1 text-base font-semibold text-gray-800 md:text-lg">
                   {item.question}
                 </span>
-                <span className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary transition-transform duration-300">
-                  {openIndex === index ? <FaChevronUp size={16} /> : <FaChevronDown size={16} />}
+                <span className="bg-primary/10 text-primary flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300">
+                  {openIndex === index ? (
+                    <FaChevronUp size={16} />
+                  ) : (
+                    <FaChevronDown size={16} />
+                  )}
                 </span>
               </button>
 
               <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  openIndex === index
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
                 }`}
               >
-                <div className="px-6 pb-5 pt-2 text-gray-600 leading-relaxed border-t border-gray-100">
+                <div className="border-t border-gray-100 px-6 pt-2 pb-5 leading-relaxed text-gray-600">
                   {item.answer}
                 </div>
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

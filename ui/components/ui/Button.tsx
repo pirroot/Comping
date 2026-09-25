@@ -17,10 +17,11 @@ const buttonVariants = cva(
     defaultVariants: {
       color: 'green',
     },
-  }
+  },
 );
 
-interface ButtonProps extends ButtonPrimitive.Props, VariantProps<typeof buttonVariants> {}
+interface ButtonProps
+  extends ButtonPrimitive.Props, VariantProps<typeof buttonVariants> {}
 
 export function Button({ className, color, ...props }: ButtonProps) {
   return (

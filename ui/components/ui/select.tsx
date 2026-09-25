@@ -4,7 +4,10 @@ import { AlertCircle, ChevronDown } from 'lucide-react';
 
 type OptionKey<T> = keyof T;
 
-interface SelectProps<T> extends Omit<React.ComponentProps<'select'>, 'children'> {
+interface SelectProps<T> extends Omit<
+  React.ComponentProps<'select'>,
+  'children'
+> {
   label?: string;
   error?: string;
   hint?: string;
@@ -50,7 +53,10 @@ export function Select<T extends Record<string, any>>({
     if (getOptionLabel) return getOptionLabel(item);
     if (labelKey) return String(item[labelKey]);
     return (
-      (item as any).title ?? (item as any).name ?? (item as any).label ?? String(resolveValue(item))
+      (item as any).title ??
+      (item as any).name ??
+      (item as any).label ??
+      String(resolveValue(item))
     );
   };
 
@@ -71,13 +77,13 @@ export function Select<T extends Record<string, any>>({
           aria-invalid={!!error}
           aria-describedby={cn(errorId, hintId) || undefined}
           className={cn(
-            'w-full appearance-none rounded-xl border border-emerald-100 bg-white py-2.5 pl-3.5 pr-10 text-sm text-slate-800 shadow-sm shadow-emerald-900/5 outline-none transition-all duration-200',
+            'w-full appearance-none rounded-xl border border-emerald-100 bg-white py-2.5 pr-10 pl-3.5 text-sm text-slate-800 shadow-sm shadow-emerald-900/5 transition-all duration-200 outline-none',
             'hover:border-emerald-200',
             'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20',
             'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
             error &&
               'border-rose-300 hover:border-rose-300 focus:border-rose-500 focus:ring-rose-500/20',
-            className
+            className,
           )}
           {...props}
         >
@@ -96,8 +102,8 @@ export function Select<T extends Record<string, any>>({
           size={16}
           aria-hidden="true"
           className={cn(
-            'pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transition-colors',
-            error ? 'text-rose-400' : 'text-emerald-500'
+            'pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 transition-colors',
+            error ? 'text-rose-400' : 'text-emerald-500',
           )}
         />
       </div>

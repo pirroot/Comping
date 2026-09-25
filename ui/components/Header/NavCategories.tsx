@@ -41,7 +41,7 @@ export default function NavCategories() {
         onClick={() => setIsOpen((open) => !open)}
         className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
           isOpen || isCategoryActive
-            ? 'bg-primary text-white shadow-md shadow-primary/20'
+            ? 'bg-primary shadow-primary/20 text-white shadow-md'
             : 'text-text hover:bg-primary_light hover:text-primary'
         }`}
         aria-haspopup="menu"
@@ -56,17 +56,19 @@ export default function NavCategories() {
 
       <div
         role="menu"
-        className={`absolute right-0 top-full z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border border-neutral_normal bg-bg p-2 shadow-2xl shadow-text/10 transition-all duration-200 ${
-          isOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
+        className={`border-neutral_normal bg-bg shadow-text/10 absolute top-full right-0 z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border p-2 shadow-2xl transition-all duration-200 ${
+          isOpen
+            ? 'scale-100 opacity-100'
+            : 'pointer-events-none scale-95 opacity-0'
         }`}
       >
-        <div className="flex items-center gap-3 border-b border-neutral_normal px-3 py-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary_light text-primary">
+        <div className="border-neutral_normal flex items-center gap-3 border-b px-3 py-3">
+          <span className="bg-primary_light text-primary flex h-9 w-9 items-center justify-center rounded-xl">
             <LayoutGrid size={18} />
           </span>
           <div>
-            <p className="text-sm font-bold text-text">دسته‌بندی محصولات</p>
-            <p className="mt-0.5 text-xs text-neutral_dark">
+            <p className="text-text text-sm font-bold">دسته‌بندی محصولات</p>
+            <p className="text-neutral_dark mt-0.5 text-xs">
               محصول موردنظرتان را سریع‌تر پیدا کنید
             </p>
           </div>
@@ -92,12 +94,12 @@ export default function NavCategories() {
                     >
                       {category.name}
                     </span>
-                    <span className="mt-0.5 block text-xs text-neutral_dark">
+                    <span className="text-neutral_dark mt-0.5 block text-xs">
                       {category.description}
                     </span>
                   </span>
                   <ChevronLeft
-                    className="-rotate-90 text-neutral_dark transition-transform group-hover:-translate-x-1"
+                    className="text-neutral_dark -rotate-90 transition-transform group-hover:-translate-x-1"
                     size={16}
                   />
                 </Link>

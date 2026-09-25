@@ -123,14 +123,14 @@ export default function EditCategory({ id }: { id: string }) {
           >
             {/* هدر با گرادیانت سبز */}
             <div className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-700 px-5 py-5 text-white">
-              <div className="absolute -left-6 -top-10 h-28 w-28 rounded-full bg-white/10" />
-              <div className="absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-white/5" />
+              <div className="absolute -top-10 -left-6 h-28 w-28 rounded-full bg-white/10" />
+              <div className="absolute -right-8 -bottom-12 h-32 w-32 rounded-full bg-white/5" />
 
               <button
                 type="button"
                 aria-label="بستن"
                 onClick={handleClose}
-                className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition hover:bg-white/15 hover:text-white active:scale-95"
+                className="absolute top-3 left-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition hover:bg-white/15 hover:text-white active:scale-95"
               >
                 <X size={16} />
               </button>
@@ -140,7 +140,10 @@ export default function EditCategory({ id }: { id: string }) {
                   <PencilLine size={18} />
                 </span>
                 <div>
-                  <h2 id="edit-category-title" className="text-lg font-extrabold tracking-tight">
+                  <h2
+                    id="edit-category-title"
+                    className="text-lg font-extrabold tracking-tight"
+                  >
                     ویرایش دسته‌بندی
                   </h2>
                   <p className="mt-0.5 text-xs text-emerald-100/90">
@@ -156,14 +159,19 @@ export default function EditCategory({ id }: { id: string }) {
                 <Input
                   label="نام دسته‌بندی"
                   placeholder="مثلاً: مردانه"
-                  {...register('title', { required: 'نام دسته‌بندی الزامی است' })}
+                  {...register('title', {
+                    required: 'نام دسته‌بندی الزامی است',
+                  })}
                   error={errors.title?.message}
                 />
                 <Input
                   label="اسلاگ"
                   {...register('slug', {
                     required: 'اسلاگ الزامی است',
-                    pattern: { value: /^[a-z0-9-]+$/, message: 'فقط حروف کوچک، اعداد و -' },
+                    pattern: {
+                      value: /^[a-z0-9-]+$/,
+                      message: 'فقط حروف کوچک، اعداد و -',
+                    },
                   })}
                   placeholder="مثال: man-category"
                   dir="ltr"
@@ -182,7 +190,9 @@ export default function EditCategory({ id }: { id: string }) {
                 {/* نمایش دسته والد فعلی */}
                 <div className="flex items-center gap-2 rounded-xl border border-emerald-100 bg-emerald-50/50 px-3 py-2.5">
                   <FolderTree size={15} className="shrink-0 text-emerald-600" />
-                  <span className="text-xs font-medium text-slate-600">دسته والد فعلی:</span>
+                  <span className="text-xs font-medium text-slate-600">
+                    دسته والد فعلی:
+                  </span>
                   <span className="text-xs font-bold text-emerald-700">
                     {category?.parent?.title ?? 'ندارد (دسته اصلی)'}
                   </span>

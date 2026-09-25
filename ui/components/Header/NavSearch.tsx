@@ -65,7 +65,7 @@ export default function NavSearch() {
       <button
         type="button"
         onClick={() => setSearchOpen(true)}
-        className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_normal text-text transition hover:bg-primary_light hover:text-primary"
+        className="bg-neutral_normal text-text hover:bg-primary_light hover:text-primary flex h-11 w-11 items-center justify-center rounded-xl transition"
         aria-label="جستجو در محصولات"
         aria-haspopup="dialog"
         aria-expanded={searchOpen}
@@ -75,7 +75,7 @@ export default function NavSearch() {
 
       {searchOpen && (
         <div
-          className="fixed inset-0 z-60 flex items-start justify-center px-4 pt-[18vh]  sm:pt-[22vh]"
+          className="fixed inset-0 z-60 flex items-start justify-center px-4 pt-[18vh] sm:pt-[22vh]"
           role="presentation"
         >
           <button
@@ -89,19 +89,24 @@ export default function NavSearch() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="search-title"
-            className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/70 bg-bg shadow-2xl shadow-text/20 animate-in fade-in zoom-in-95 duration-200"
+            className="bg-bg shadow-text/20 animate-in fade-in zoom-in-95 relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/70 shadow-2xl duration-200"
           >
-            <div className="flex items-start justify-between border-b border-neutral_normal px-5 py-4 sm:px-6">
+            <div className="border-neutral_normal flex items-start justify-between border-b px-5 py-4 sm:px-6">
               <div>
-                <p className="text-xs font-semibold text-primary">فروشگاه کمپینک</p>
-                <h2 id="search-title" className="mt-1 text-lg font-bold text-text">
+                <p className="text-primary text-xs font-semibold">
+                  فروشگاه کمپینک
+                </p>
+                <h2
+                  id="search-title"
+                  className="text-text mt-1 text-lg font-bold"
+                >
                   جستجوی محصول
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={closeSearch}
-                className="flex h-9 w-9 items-center justify-center rounded-xl text-neutral_dark transition hover:bg-neutral_light hover:text-text"
+                className="text-neutral_dark hover:bg-neutral_light hover:text-text flex h-9 w-9 items-center justify-center rounded-xl transition"
                 aria-label="بستن پنجره جستجو"
               >
                 <X size={19} />
@@ -109,11 +114,14 @@ export default function NavSearch() {
             </div>
 
             <form onSubmit={handleSubmit(searchHandler)} className="p-5 sm:p-6">
-              <label htmlFor="product-search" className="mb-2 block text-sm font-medium text-text">
+              <label
+                htmlFor="product-search"
+                className="text-text mb-2 block text-sm font-medium"
+              >
                 دنبال چه محصولی هستید؟
               </label>
-              <div className="flex items-center gap-2 rounded-2xl border border-neutral_normal bg-neutral_light/60 p-1.5 transition focus-within:border-primary focus-within:bg-bg focus-within:ring-4 focus-within:ring-primary/10">
-                <Search className="mr-2 shrink-0 text-neutral_dark" size={19} />
+              <div className="border-neutral_normal bg-neutral_light/60 focus-within:border-primary focus-within:bg-bg focus-within:ring-primary/10 flex items-center gap-2 rounded-2xl border p-1.5 transition focus-within:ring-4">
+                <Search className="text-neutral_dark mr-2 shrink-0" size={19} />
                 <input
                   {...searchField}
                   id="product-search"
@@ -124,19 +132,23 @@ export default function NavSearch() {
                   type="search"
                   placeholder="مثلاً: چادر کمپینگ"
                   autoComplete="off"
-                  className="min-w-0 flex-1 bg-transparent px-1 py-3 text-sm text-text outline-none placeholder:text-neutral_dark"
+                  className="text-text placeholder:text-neutral_dark min-w-0 flex-1 bg-transparent px-1 py-3 text-sm outline-none"
                 />
                 <button
                   type="submit"
-                  className="shrink-0 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary/90"
+                  className="bg-primary hover:bg-primary/90 shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold text-white transition"
                 >
                   جستجو
                 </button>
               </div>
               {errors.search && (
-                <p className="mt-2 px-2 text-xs text-red-500">{errors.search.message}</p>
+                <p className="mt-2 px-2 text-xs text-red-500">
+                  {errors.search.message}
+                </p>
               )}
-              <p className="mt-4 text-xs text-neutral_dark">برای بستن، کلید Escape را فشار دهید.</p>
+              <p className="text-neutral_dark mt-4 text-xs">
+                برای بستن، کلید Escape را فشار دهید.
+              </p>
             </form>
           </section>
         </div>

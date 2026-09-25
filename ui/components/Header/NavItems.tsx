@@ -19,7 +19,7 @@ export default function NavItems() {
               aria-current={pathname === item.link ? 'page' : undefined}
               className={`relative block rounded-full px-4 py-2 text-sm font-medium transition-all ${
                 pathname === item.link
-                  ? 'bg-primary text-white shadow-md shadow-primary/20'
+                  ? 'bg-primary shadow-primary/20 text-white shadow-md'
                   : 'text-text hover:bg-primary_light hover:text-primary'
               }`}
             >

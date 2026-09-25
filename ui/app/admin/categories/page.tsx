@@ -7,12 +7,26 @@ import { CategoryType } from '@/lib/types/Product.type';
 import { ApiResponse } from '@/lib/types/Response.type';
 import { apiGet } from '@/services/api/GetApi';
 import { useQuery } from '@tanstack/react-query';
-import { ChevronDown, FolderTree, Package, Search, SearchX } from 'lucide-react';
+import {
+  ChevronDown,
+  FolderTree,
+  Package,
+  Search,
+  SearchX,
+} from 'lucide-react';
 import { useMemo, useState } from 'react';
 
 const GRID_COLS = 'md:grid-cols-[1.5fr_1fr_0.8fr_100px]';
 
-function Avatar({ src, title, size = 44 }: { src?: string; title?: string; size?: number }) {
+function Avatar({
+  src,
+  title,
+  size = 44,
+}: {
+  src?: string;
+  title?: string;
+  size?: number;
+}) {
   const [broken, setBroken] = useState(false);
   const initial = title?.trim()?.[0] ?? '?';
 
@@ -44,7 +58,9 @@ function CountBadge({ count }: { count: number }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold ${
-        isZero ? 'bg-slate-100 text-slate-400' : 'bg-emerald-50 text-emerald-700'
+        isZero
+          ? 'bg-slate-100 text-slate-400'
+          : 'bg-emerald-50 text-emerald-700'
       }`}
     >
       <Package size={12} />
@@ -64,7 +80,9 @@ function RowActions({ id }: { id: string }) {
 
 function SkeletonRow() {
   return (
-    <div className={`grid animate-pulse gap-4 px-5 py-4 ${GRID_COLS} md:items-center`}>
+    <div
+      className={`grid animate-pulse gap-4 px-5 py-4 ${GRID_COLS} md:items-center`}
+    >
       <div className="flex items-center gap-3">
         <div className="h-11 w-11 rounded-xl bg-emerald-50/70" />
         <div className="h-3.5 w-28 rounded bg-emerald-50/70" />
@@ -78,7 +96,9 @@ function SkeletonRow() {
 
 export default function Categories() {
   const [query, setQuery] = useState('');
-  const [collapsed, setCollapsed] = useState<Record<number | string, boolean>>({});
+  const [collapsed, setCollapsed] = useState<Record<number | string, boolean>>(
+    {},
+  );
 
   const { data, isLoading, isError } = useQuery<ApiResponse<CategoryType[]>>({
     queryKey: ['categories'],
@@ -95,7 +115,7 @@ export default function Categories() {
       .map((c) => {
         const parentMatch = c.title?.toLowerCase().includes(q);
         const matchedChildren = c.children?.filter((child) =>
-          child.title?.toLowerCase().includes(q)
+          child.title?.toLowerCase().includes(q),
         );
 
         if (parentMatch) return c;
@@ -105,9 +125,13 @@ export default function Categories() {
       .filter(Boolean) as CategoryType[];
   }, [categories, query]);
 
-  const totalChildren = categories.reduce((sum, c) => sum + (c.children?.length ?? 0), 0);
+  const totalChildren = categories.reduce(
+    (sum, c) => sum + (c.children?.length ?? 0),
+    0,
+  );
 
-  const toggle = (id: number | string) => setCollapsed((prev) => ({ ...prev, [id]: !prev[id] }));
+  const toggle = (id: number | string) =>
+    setCollapsed((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
     <div className="space-y-6">
@@ -126,8 +150,13 @@ export default function Categories() {
             {!isLoading && !isError && (
               <>
                 {' · '}
-                <span className="font-semibold text-emerald-600">{categories.length}</span> دسته
-                اصلی، <span className="font-semibold text-emerald-600">{totalChildren}</span>{' '}
+                <span className="font-semibold text-emerald-600">
+                  {categories.length}
+                </span>{' '}
+                دسته اصلی،{' '}
+                <span className="font-semibold text-emerald-600">
+                  {totalChildren}
+                </span>{' '}
                 زیردسته
               </>
             )}
@@ -164,7 +193,8 @@ export default function Categories() {
         </div>
 
         <div className="divide-y divide-emerald-50">
-          {isLoading && Array.from({ length: 4 }).map((_, i) => <SkeletonRow key={i} />)}
+          {isLoading &&
+            Array.from({ length: 4 }).map((_, i) => <SkeletonRow key={i} />)}
 
           {isError && (
             <div className="px-5 py-16 text-center">
@@ -179,7 +209,9 @@ export default function Categories() {
               <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-500">
                 <SearchX size={26} />
               </span>
-              <p className="mt-4 text-sm font-bold text-slate-700">دسته‌بندی‌ای پیدا نشد.</p>
+              <p className="mt-4 text-sm font-bold text-slate-700">
+                دسته‌بندی‌ای پیدا نشد.
+              </p>
               <p className="mt-1 text-xs text-slate-400">
                 عبارت جستجو رو تغییر بده یا یه دسته جدید بساز.
               </p>
@@ -234,19 +266,25 @@ export default function Categories() {
 
                   {/* ردیف‌های زیردسته */}
                   {hasChildren && !isCollapsed && (
-                    <div className="space-y-1 bg-emerald-50/30 pb-2 pr-8">
+                    <div className="space-y-1 bg-emerald-50/30 pr-8 pb-2">
                       {category.children!.map((child) => (
                         <div
                           key={child.id}
                           className={`grid gap-3 rounded-xl px-4 py-2.5 transition-colors hover:bg-white md:items-center md:gap-4 ${GRID_COLS}`}
                         >
                           <div className="flex items-center gap-3">
-                            <Avatar src={child.image} title={child.title} size={36} />
+                            <Avatar
+                              src={child.image}
+                              title={child.title}
+                              size={36}
+                            />
                             <p className="truncate text-sm font-semibold text-slate-700">
                               {child.title}
                             </p>
                           </div>
-                          <span className="truncate text-sm text-slate-500">{category.title}</span>
+                          <span className="truncate text-sm text-slate-500">
+                            {category.title}
+                          </span>
                           <CountBadge count={child.products?.length ?? 0} />
                           <RowActions id={category.id} />
                         </div>

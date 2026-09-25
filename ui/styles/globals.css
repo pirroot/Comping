@@ -1,6 +1,6 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @theme inline {
   /* رنگ‌های اصلی */
@@ -80,7 +80,11 @@
   }
 
   html {
-    font-family: var(--font-ravi), system-ui, -apple-system, sans-serif;
+    font-family:
+      var(--font-ravi),
+      system-ui,
+      -apple-system,
+      sans-serif;
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -470,7 +474,11 @@
 
   /* Gradient Text */
   .text-gradient {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-auxiliary));
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-auxiliary)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

@@ -8,7 +8,15 @@ interface TextareaProps extends React.ComponentProps<'textarea'> {
   hint?: string;
 }
 
-export function Textarea({ label, error, hint, className, id, rows = 4, ...props }: TextareaProps) {
+export function Textarea({
+  label,
+  error,
+  hint,
+  className,
+  id,
+  rows = 4,
+  ...props
+}: TextareaProps) {
   const generatedId = React.useId();
   const textareaId = id ?? generatedId;
   const errorId = error ? `${textareaId}-error` : undefined;
@@ -32,14 +40,14 @@ export function Textarea({ label, error, hint, className, id, rows = 4, ...props
         aria-invalid={!!error}
         aria-describedby={cn(errorId, hintId) || undefined}
         className={cn(
-          'w-full resize-none rounded-xl border border-emerald-100 bg-white px-3.5 py-2.5 text-sm leading-6 text-slate-800 shadow-sm shadow-emerald-900/5 outline-none transition-all duration-200',
+          'w-full resize-none rounded-xl border border-emerald-100 bg-white px-3.5 py-2.5 text-sm leading-6 text-slate-800 shadow-sm shadow-emerald-900/5 transition-all duration-200 outline-none',
           'placeholder:text-slate-400',
           'hover:border-emerald-200',
           'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20',
           'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
           error &&
             'border-rose-300 hover:border-rose-300 focus:border-rose-500 focus:ring-rose-500/20',
-          className
+          className,
         )}
         {...props}
       />

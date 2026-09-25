@@ -39,14 +39,16 @@ export default function ProductOrderTracking() {
       {features.map(({ icon: Icon, title, description }) => (
         <div
           key={title}
-          className="bg-white col-span-1 shadow-sm p-6 border border-gray-100 rounded-xl flex gap-4 items-center hover:border-red-400 hover:shadow-md cursor-pointer transition-all duration-300"
+          className="col-span-1 flex cursor-pointer items-center gap-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-red-400 hover:shadow-md"
         >
-          <span className="p-4 rounded-xl bg-red-50 shrink-0">
+          <span className="shrink-0 rounded-xl bg-red-50 p-4">
             <Icon size={32} className="text-red-700" />
           </span>
-          <div className="text-right space-y-1">
+          <div className="space-y-1 text-right">
             <h5 className="text-base font-semibold text-gray-800">{title}</h5>
-            <p className="text-xs text-gray-500 leading-relaxed">{description}</p>
+            <p className="text-xs leading-relaxed text-gray-500">
+              {description}
+            </p>
           </div>
         </div>
       ))}

@@ -45,8 +45,10 @@ export default function AdminFaq() {
           <p className="mt-2 text-sm text-slate-500">
             {faqCount > 0 ? (
               <>
-                <span className="font-semibold text-emerald-600">{faqCount}</span> سوال ثبت شده برای
-                پاسخ‌گویی سریع‌تر
+                <span className="font-semibold text-emerald-600">
+                  {faqCount}
+                </span>{' '}
+                سوال ثبت شده برای پاسخ‌گویی سریع‌تر
               </>
             ) : (
               'هنوز سوالی ثبت نشده است'
@@ -82,8 +84,12 @@ export default function AdminFaq() {
                     <CircleHelp size={18} />
                   </span>
                   <div className="min-w-0">
-                    <h3 className="text-sm font-bold leading-6 text-slate-900">{faq.question}</h3>
-                    <p className="mt-2 text-sm leading-7 text-slate-500">{faq.answer}</p>
+                    <h3 className="text-sm leading-6 font-bold text-slate-900">
+                      {faq.question}
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-500">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
 
@@ -92,7 +98,7 @@ export default function AdminFaq() {
                   type="button"
                   aria-label="حذف سوال"
                   title="حذف سوال"
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-500 opacity-70 transition-all duration-200 hover:border-rose-200 hover:bg-rose-100 hover:text-rose-600 hover:opacity-100 active:scale-95 group-hover:opacity-100"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-500 opacity-70 transition-all duration-200 group-hover:opacity-100 hover:border-rose-200 hover:bg-rose-100 hover:text-rose-600 hover:opacity-100 active:scale-95"
                   onClick={() => {
                     if (confirm('این سوال حذف شود؟')) deleteFaq(faq.id);
                   }}
@@ -108,7 +114,9 @@ export default function AdminFaq() {
           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
             <CircleHelp size={28} />
           </span>
-          <p className="mt-4 text-sm font-semibold text-slate-700">هنوز سوالی ثبت نشده</p>
+          <p className="mt-4 text-sm font-semibold text-slate-700">
+            هنوز سوالی ثبت نشده
+          </p>
           <p className="mt-1 text-xs text-slate-500">
             از دکمه «افزودن» بالای صفحه اولین سوال رو اضافه کن
           </p>

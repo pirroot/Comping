@@ -10,7 +10,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   imports: [
     JwtModule.register({
       secret:
-        process.env.JWT_ACCESS_SECRET || 'fdjsaoifjdosiajfoidsajfoidsjafoisd',
+        process.env.JWT_ACCESS_SECRET ||
+        'super-secret-key-change-this-13i12398123128u3jf98dsajfd9isajf98dsajfdsa',
       signOptions: {
         expiresIn: '15m',
       },

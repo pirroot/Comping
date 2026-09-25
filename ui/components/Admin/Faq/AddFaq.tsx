@@ -10,11 +10,13 @@ import { useForm } from 'react-hook-form';
 export function AddFaqDialog() {
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, reset } = useForm<Pick<Faq, 'question' | 'answer'>>();
+  const { register, handleSubmit, reset } =
+    useForm<Pick<Faq, 'question' | 'answer'>>();
 
   // Add FAQ
   const { mutate: addFaq, isPending } = useMutation({
-    mutationFn: (data: Pick<Faq, 'question' | 'answer'>) => apiAdd('admin/faq', data),
+    mutationFn: (data: Pick<Faq, 'question' | 'answer'>) =>
+      apiAdd('admin/faq', data),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -31,23 +33,23 @@ export function AddFaqDialog() {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2">
+      <Dialog.Trigger className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97]">
         <Plus size={17} /> افزودن سوال
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 bg-slate-950/50 backdrop-blur-sm transition-opacity duration-200" />
 
-        <Dialog.Popup className="fixed left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-2xl shadow-emerald-900/20">
+        <Dialog.Popup className="fixed top-1/2 left-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-2xl shadow-emerald-900/20">
           {/* هدر با گرادیانت سبز */}
           <div className="relative overflow-hidden bg-linear-to-br from-emerald-700 via-emerald-600 to-emerald-700 px-6 py-5 text-white">
             {/* دایره دکوری */}
-            <div className="absolute -left-6 -top-10 h-28 w-28 rounded-full bg-white/10" />
-            <div className="absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-white/5" />
+            <div className="absolute -top-10 -left-6 h-28 w-28 rounded-full bg-white/10" />
+            <div className="absolute -right-8 -bottom-12 h-32 w-32 rounded-full bg-white/5" />
 
             <Dialog.Close
               aria-label="بستن"
-              className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition hover:bg-white/15 hover:text-white"
+              className="absolute top-3 left-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition hover:bg-white/15 hover:text-white"
             >
               <X size={16} />
             </Dialog.Close>
@@ -77,9 +79,10 @@ export function AddFaqDialog() {
               <Input
                 {...register('question', {
                   required: true,
-                  validate: (value) => value.trim() !== '' || 'سوال نمی‌تواند خالی باشد',
+                  validate: (value) =>
+                    value.trim() !== '' || 'سوال نمی‌تواند خالی باشد',
                 })}
-                className="h-12 w-full rounded-xl border border-emerald-100 bg-white px-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                className="h-12 w-full rounded-xl border border-emerald-100 bg-white px-4 text-sm text-slate-800 transition outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 placeholder="مثلاً: چطور می‌توانم سفارشم را پیگیری کنم؟"
               />
             </div>
@@ -92,9 +95,10 @@ export function AddFaqDialog() {
               <textarea
                 {...register('answer', {
                   required: true,
-                  validate: (value) => value.trim() !== '' || 'پاسخ نمی‌تواند خالی باشد',
+                  validate: (value) =>
+                    value.trim() !== '' || 'پاسخ نمی‌تواند خالی باشد',
                 })}
-                className="min-h-28 w-full resize-none rounded-xl border border-emerald-100 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                className="min-h-28 w-full resize-none rounded-xl border border-emerald-100 bg-white px-4 py-3 text-sm text-slate-800 transition outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 placeholder="پاسخ کوتاه و شفاف بنویسید..."
               />
             </div>
@@ -104,8 +108,6 @@ export function AddFaqDialog() {
               <Dialog.Close className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-500 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700 active:scale-[0.97]">
                 انصراف
               </Dialog.Close>
-
-
             </div>
           </form>
         </Dialog.Popup>

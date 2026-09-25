@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
-
+import { useEffect } from 'react';
 
 export default function ThemeProvider({
   children,
@@ -10,7 +9,9 @@ export default function ThemeProvider({
 }) {
   useEffect(() => {
     const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
     const isDark = stored === 'dark' || (!stored && prefersDark);
 
     document.documentElement.classList.toggle('dark', isDark);

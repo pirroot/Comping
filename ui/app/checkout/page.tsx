@@ -1,10 +1,18 @@
 'use client';
 
-import { ArrowRight, Check, CreditCard, MapPin, ShieldCheck, Truck } from 'lucide-react';
+import {
+  ArrowRight,
+  Check,
+  CreditCard,
+  MapPin,
+  ShieldCheck,
+  Truck,
+} from 'lucide-react';
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 
-const formatPrice = (value: number) => `${new Intl.NumberFormat('fa-IR').format(value)} تومان`;
+const formatPrice = (value: number) =>
+  `${new Intl.NumberFormat('fa-IR').format(value)} تومان`;
 
 export default function CheckoutPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -18,18 +26,20 @@ export default function CheckoutPage() {
   if (submitted)
     return (
       <main className="flex min-h-[calc(100vh-8rem)] items-center justify-center bg-[#f8faf8] px-4 py-12">
-        <section className="w-full max-w-lg rounded-3xl border border-neutral_normal bg-white p-8 text-center shadow-sm">
-          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
+        <section className="border-neutral_normal w-full max-w-lg rounded-3xl border bg-white p-8 text-center shadow-sm">
+          <span className="bg-primary mx-auto flex h-16 w-16 items-center justify-center rounded-full text-white">
             <Check size={30} />
           </span>
-          <h1 className="mt-5 text-2xl font-extrabold text-text">سفارش شما ثبت شد</h1>
-          <p className="mt-3 text-sm leading-7 text-neutral_dark">
-            شماره سفارش شما <strong className="text-text">CP-24820</strong> است. جزئیات سفارش به
-            شماره موبایل شما ارسال می‌شود.
+          <h1 className="text-text mt-5 text-2xl font-extrabold">
+            سفارش شما ثبت شد
+          </h1>
+          <p className="text-neutral_dark mt-3 text-sm leading-7">
+            شماره سفارش شما <strong className="text-text">CP-24820</strong> است.
+            جزئیات سفارش به شماره موبایل شما ارسال می‌شود.
           </p>
           <Link
             href="/"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white"
+            className="bg-primary mt-6 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white"
           >
             بازگشت به فروشگاه <ArrowRight size={16} />
           </Link>
@@ -38,7 +48,7 @@ export default function CheckoutPage() {
     );
 
   return (
-    <main className="min-h-screen bg-[#f8faf8] px-4 pb-20 pt-8 sm:px-6">
+    <main className="min-h-screen bg-[#f8faf8] px-4 pt-8 pb-20 sm:px-6">
       <PageRouter
         routes={[
           { title: 'سبد خرید', link: '/cart' },
@@ -49,31 +59,43 @@ export default function CheckoutPage() {
         <div className="mb-8">
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 text-sm font-bold text-neutral_dark hover:text-primary"
+            className="text-neutral_dark hover:text-primary inline-flex items-center gap-2 text-sm font-bold"
           >
             <ArrowRight size={17} /> بازگشت به سبد خرید
           </Link>
-          <p className="mt-7 text-sm font-medium text-primary">تکمیل خرید</p>
-          <h1 className="mt-1 text-3xl font-extrabold text-text">اطلاعات ارسال و پرداخت</h1>
+          <p className="text-primary mt-7 text-sm font-medium">تکمیل خرید</p>
+          <h1 className="text-text mt-1 text-3xl font-extrabold">
+            اطلاعات ارسال و پرداخت
+          </h1>
         </div>
-        <form onSubmit={submitOrder} className="grid items-start gap-6 lg:grid-cols-[1fr_350px]">
+        <form
+          onSubmit={submitOrder}
+          className="grid items-start gap-6 lg:grid-cols-[1fr_350px]"
+        >
           <div className="space-y-5">
-            <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-7">
-              <h2 className="flex items-center gap-2 text-lg font-extrabold text-text">
+            <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-7">
+              <h2 className="text-text flex items-center gap-2 text-lg font-extrabold">
                 <MapPin size={20} className="text-primary" /> اطلاعات گیرنده
               </h2>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <Field label="نام و نام خانوادگی" placeholder="مهدی رضایی" />
-                <Field label="شماره موبایل" placeholder="۰۹۱۲۱۲۳۴۵۶۷" type="tel" />
+                <Field
+                  label="شماره موبایل"
+                  placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+                  type="tel"
+                />
                 <div className="sm:col-span-2">
-                  <Field label="آدرس کامل" placeholder="استان، شهر، خیابان، پلاک و واحد" />
+                  <Field
+                    label="آدرس کامل"
+                    placeholder="استان، شهر، خیابان، پلاک و واحد"
+                  />
                 </div>
                 <Field label="کد پستی" placeholder="۱۰ رقمی" />
                 <Field label="پلاک و واحد" placeholder="مثلاً ۲۴، واحد ۳" />
               </div>
             </section>
-            <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-7">
-              <h2 className="flex items-center gap-2 text-lg font-extrabold text-text">
+            <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-7">
+              <h2 className="text-text flex items-center gap-2 text-lg font-extrabold">
                 <Truck size={20} className="text-primary" /> روش ارسال
               </h2>
               <div className="mt-5 space-y-3">
@@ -97,37 +119,40 @@ export default function CheckoutPage() {
             </section>
           </div>
           <aside className="space-y-4 lg:sticky lg:top-28">
-            <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-lg font-extrabold text-text">خلاصه سفارش</h2>
+            <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-6">
+              <h2 className="text-text text-lg font-extrabold">خلاصه سفارش</h2>
               <div className="mt-5 space-y-4 text-sm">
                 <div className="flex justify-between gap-3">
                   <span className="text-neutral_dark">۲ محصول</span>
-                  <span className="font-bold text-text">۴,۴۴۰,۰۰۰ تومان</span>
+                  <span className="text-text font-bold">۴,۴۴۰,۰۰۰ تومان</span>
                 </div>
                 <div className="flex justify-between gap-3">
                   <span className="text-neutral_dark">تخفیف</span>
-                  <span className="font-bold text-primary">− ۴۶۵,۰۰۰ تومان</span>
+                  <span className="text-primary font-bold">
+                    − ۴۶۵,۰۰۰ تومان
+                  </span>
                 </div>
                 <div className="flex justify-between gap-3">
                   <span className="text-neutral_dark">ارسال</span>
-                  <span className="font-bold text-primary">رایگان</span>
+                  <span className="text-primary font-bold">رایگان</span>
                 </div>
               </div>
-              <div className="my-5 border-t border-neutral_normal" />
+              <div className="border-neutral_normal my-5 border-t" />
               <div className="flex items-center justify-between">
-                <span className="font-bold text-text">مبلغ نهایی</span>
-                <strong className="text-lg text-primary">
+                <span className="text-text font-bold">مبلغ نهایی</span>
+                <strong className="text-primary text-lg">
                   {formatPrice(shipping === 'normal' ? 3975000 : 4060000)}
                 </strong>
               </div>
               <button
                 type="submit"
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#5a9a63] hover:shadow-lg"
+                className="bg-primary mt-6 flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#5a9a63] hover:shadow-lg"
               >
                 <CreditCard size={18} /> پرداخت و ثبت سفارش
               </button>
-              <p className="mt-4 flex items-center justify-center gap-2 text-xs text-neutral_dark">
-                <ShieldCheck size={15} className="text-primary" /> پرداخت امن و رمزگذاری‌شده
+              <p className="text-neutral_dark mt-4 flex items-center justify-center gap-2 text-xs">
+                <ShieldCheck size={15} className="text-primary" /> پرداخت امن و
+                رمزگذاری‌شده
               </p>
             </section>
           </aside>
@@ -148,12 +173,12 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-bold text-text">{label}</span>
+      <span className="text-text mb-2 block text-sm font-bold">{label}</span>
       <input
         required
         type={type}
         placeholder={placeholder}
-        className="h-12 w-full rounded-xl border border-neutral_normal bg-[#fbfcfb] px-4 text-sm text-text outline-none transition placeholder:text-neutral_dark/60 focus:border-primary focus:ring-4 focus:ring-primary/10"
+        className="border-neutral_normal text-text placeholder:text-neutral_dark/60 focus:border-primary focus:ring-primary/10 h-12 w-full rounded-xl border bg-[#fbfcfb] px-4 text-sm transition outline-none focus:ring-4"
       />
     </label>
   );
@@ -187,10 +212,10 @@ function ShippingOption({
         className="accent-primary"
       />
       <span className="flex-1">
-        <b className="block text-sm text-text">{title}</b>
-        <small className="mt-1 block text-xs text-neutral_dark">{detail}</small>
+        <b className="text-text block text-sm">{title}</b>
+        <small className="text-neutral_dark mt-1 block text-xs">{detail}</small>
       </span>
-      <strong className="text-sm text-primary">{price}</strong>
+      <strong className="text-primary text-sm">{price}</strong>
     </label>
   );
 }

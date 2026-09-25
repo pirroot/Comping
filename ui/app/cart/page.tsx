@@ -35,7 +35,8 @@ const initialItems = [
   },
 ];
 
-const formatPrice = (value: number) => `${new Intl.NumberFormat('fa-IR').format(value)} تومان`;
+const formatPrice = (value: number) =>
+  `${new Intl.NumberFormat('fa-IR').format(value)} تومان`;
 
 export default function CartPage() {
   const [items, setItems] = useState(initialItems);
@@ -43,10 +44,14 @@ export default function CartPage() {
   const [couponApplied, setCouponApplied] = useState(false);
 
   const totals = useMemo(() => {
-    const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const subtotal = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
     const productDiscount = items.reduce(
-      (sum, item) => sum + Math.round((item.price * item.discount) / 100) * item.quantity,
-      0
+      (sum, item) =>
+        sum + Math.round((item.price * item.discount) / 100) * item.quantity,
+      0,
     );
     const couponDiscount = couponApplied ? Math.round(subtotal * 0.05) : 0;
     const shipping = subtotal - productDiscount >= 2000000 ? 0 : 85000;
@@ -62,8 +67,10 @@ export default function CartPage() {
   function updateQuantity(id: number, amount: number) {
     setItems((current) =>
       current.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + amount) } : item
-      )
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
+          : item,
+      ),
     );
   }
 
@@ -72,20 +79,24 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF] px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FFFFFF] px-4 pt-8 pb-20 sm:px-6 lg:px-8">
       <PageRouter routes={[{ title: 'سبد خرید', link: '/cart' }]} />
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="mb-2 text-sm font-medium text-primary">خرید شما</p>
-            <h1 className="text-3xl font-extrabold text-text sm:text-4xl">سبد خرید</h1>
-            <p className="mt-2 text-sm text-neutral_dark">
-              {items.length ? `${items.length} محصول در سبد خرید شماست.` : 'سبد خرید شما خالی است.'}
+            <p className="text-primary mb-2 text-sm font-medium">خرید شما</p>
+            <h1 className="text-text text-3xl font-extrabold sm:text-4xl">
+              سبد خرید
+            </h1>
+            <p className="text-neutral_dark mt-2 text-sm">
+              {items.length
+                ? `${items.length} محصول در سبد خرید شماست.`
+                : 'سبد خرید شما خالی است.'}
             </p>
           </div>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 rounded-xl border border-neutral_normal bg-white px-4 py-3 text-sm font-bold text-primary transition hover:border-primary"
+            className="border-neutral_normal text-primary hover:border-primary inline-flex items-center gap-2 rounded-xl border bg-white px-4 py-3 text-sm font-bold transition"
           >
             <ArrowLeft size={17} /> ادامه خرید
           </Link>
@@ -95,10 +106,12 @@ export default function CartPage() {
           <EmptyCart />
         ) : (
           <div className="grid items-start gap-6 lg:grid-cols-[1fr_350px]">
-            <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-7">
-              <div className="mb-5 flex items-center justify-between border-b border-neutral_normal pb-5">
-                <h2 className="text-lg font-extrabold text-text">محصولات انتخاب‌شده</h2>
-                <span className="rounded-full bg-primary_light px-3 py-1 text-xs font-bold text-primary">
+            <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-7">
+              <div className="border-neutral_normal mb-5 flex items-center justify-between border-b pb-5">
+                <h2 className="text-text text-lg font-extrabold">
+                  محصولات انتخاب‌شده
+                </h2>
+                <span className="bg-primary_light text-primary rounded-full px-3 py-1 text-xs font-bold">
                   {items.length} کالا
                 </span>
               </div>
@@ -113,16 +126,23 @@ export default function CartPage() {
                   />
                 ))}
               </div>
-              <div className="mt-6 flex items-center gap-3 rounded-2xl bg-primary_light/60 p-4 text-sm text-[#356c3e]">
+              <div className="bg-primary_light/60 mt-6 flex items-center gap-3 rounded-2xl p-4 text-sm text-[#356c3e]">
                 <Truck size={20} className="shrink-0" />
-                <span>با خرید بیشتر از ۲ میلیون تومان، ارسال برای شما رایگان می‌شود.</span>
+                <span>
+                  با خرید بیشتر از ۲ میلیون تومان، ارسال برای شما رایگان می‌شود.
+                </span>
               </div>
             </section>
             <aside className="space-y-4 lg:sticky lg:top-28">
-              <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-6">
-                <h2 className="text-lg font-extrabold text-text">خلاصه سفارش</h2>
+              <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-6">
+                <h2 className="text-text text-lg font-extrabold">
+                  خلاصه سفارش
+                </h2>
                 <div className="mt-5 space-y-4 text-sm">
-                  <SummaryRow label="جمع کالاها" value={formatPrice(totals.subtotal)} />
+                  <SummaryRow
+                    label="جمع کالاها"
+                    value={formatPrice(totals.subtotal)}
+                  />
                   <SummaryRow
                     label="تخفیف محصولات"
                     value={`− ${formatPrice(totals.productDiscount)}`}
@@ -130,32 +150,41 @@ export default function CartPage() {
                   />
                   <SummaryRow
                     label="تخفیف کد سفارش"
-                    value={couponApplied ? `− ${formatPrice(totals.couponDiscount)}` : 'اعمال نشده'}
+                    value={
+                      couponApplied
+                        ? `− ${formatPrice(totals.couponDiscount)}`
+                        : 'اعمال نشده'
+                    }
                     accent={couponApplied}
                   />
                   <SummaryRow
                     label="هزینه ارسال"
-                    value={totals.shipping ? formatPrice(totals.shipping) : 'رایگان'}
+                    value={
+                      totals.shipping ? formatPrice(totals.shipping) : 'رایگان'
+                    }
                     accent={!totals.shipping}
                   />
                 </div>
-                <div className="my-5 border-t border-neutral_normal" />
+                <div className="border-neutral_normal my-5 border-t" />
                 <div className="flex items-center justify-between gap-3">
-                  <span className="font-bold text-text">مبلغ قابل پرداخت</span>
-                  <strong className="text-lg text-primary">{formatPrice(totals.total)}</strong>
+                  <span className="text-text font-bold">مبلغ قابل پرداخت</span>
+                  <strong className="text-primary text-lg">
+                    {formatPrice(totals.total)}
+                  </strong>
                 </div>
                 <Link
                   href="/checkout"
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#5a9a63] hover:shadow-lg"
+                  className="bg-primary mt-6 flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#5a9a63] hover:shadow-lg"
                 >
                   ادامه و پرداخت <ChevronLeft size={18} />
                 </Link>
-                <div className="mt-4 flex items-center justify-center gap-2 text-xs text-neutral_dark">
-                  <ShieldCheck size={15} className="text-primary" /> پرداخت امن و محافظت‌شده
+                <div className="text-neutral_dark mt-4 flex items-center justify-center gap-2 text-xs">
+                  <ShieldCheck size={15} className="text-primary" /> پرداخت امن
+                  و محافظت‌شده
                 </div>
               </section>
-              <section className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm">
-                <div className="flex items-center gap-2 text-sm font-bold text-text">
+              <section className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm">
+                <div className="text-text flex items-center gap-2 text-sm font-bold">
                   <Tag size={17} className="text-primary" /> کد تخفیف داری؟
                 </div>
                 <div className="mt-3 flex gap-2">
@@ -163,18 +192,18 @@ export default function CartPage() {
                     value={coupon}
                     onChange={(event) => setCoupon(event.target.value)}
                     placeholder="کد تخفیف"
-                    className="min-w-0 flex-1 rounded-xl border border-neutral_normal bg-[#fbfcfb] px-3 py-2.5 text-sm outline-none focus:border-primary"
+                    className="border-neutral_normal focus:border-primary min-w-0 flex-1 rounded-xl border bg-[#fbfcfb] px-3 py-2.5 text-sm outline-none"
                   />
                   <button
                     type="button"
                     onClick={() => coupon.trim() && setCouponApplied(true)}
-                    className="rounded-xl bg-neutral_light px-4 py-2.5 text-xs font-bold text-text transition hover:bg-primary_light hover:text-primary"
+                    className="bg-neutral_light text-text hover:bg-primary_light hover:text-primary rounded-xl px-4 py-2.5 text-xs font-bold transition"
                   >
                     اعمال
                   </button>
                 </div>
                 {couponApplied && (
-                  <p className="mt-3 flex items-center gap-1 text-xs font-bold text-primary">
+                  <p className="text-primary mt-3 flex items-center gap-1 text-xs font-bold">
                     <Check size={14} /> کد تخفیف با موفقیت اعمال شد.
                   </p>
                 )}
@@ -200,16 +229,27 @@ function CartItem({
 }) {
   const finalPrice = Math.round(item.price * (1 - item.discount / 100));
   return (
-    <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-neutral_normal p-3 sm:p-4">
-      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-neutral_light">
-        <Image src="/images/Products/1.png" alt={item.title} fill className="object-contain p-2" />
+    <div className="border-neutral_normal flex flex-wrap items-center gap-4 rounded-2xl border p-3 sm:p-4">
+      <div className="bg-neutral_light relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl">
+        <Image
+          src="/images/Products/1.png"
+          alt={item.title}
+          fill
+          className="object-contain p-2"
+        />
       </div>
       <div className="min-w-40 flex-1">
-        <h3 className="font-bold leading-7 text-text">{item.title}</h3>
-        <p className="mt-1 text-xs leading-6 text-neutral_dark">{item.detail}</p>
+        <h3 className="text-text leading-7 font-bold">{item.title}</h3>
+        <p className="text-neutral_dark mt-1 text-xs leading-6">
+          {item.detail}
+        </p>
         <div className="mt-2 flex items-center gap-2">
-          <span className="text-sm font-extrabold text-text">{formatPrice(finalPrice)}</span>
-          <span className="text-xs text-neutral_dark line-through">{formatPrice(item.price)}</span>
+          <span className="text-text text-sm font-extrabold">
+            {formatPrice(finalPrice)}
+          </span>
+          <span className="text-neutral_dark text-xs line-through">
+            {formatPrice(item.price)}
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-2">
@@ -217,18 +257,18 @@ function CartItem({
           type="button"
           onClick={onDecrease}
           aria-label="کم کردن تعداد"
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral_normal text-neutral_dark hover:border-primary hover:text-primary"
+          className="border-neutral_normal text-neutral_dark hover:border-primary hover:text-primary flex h-8 w-8 items-center justify-center rounded-lg border"
         >
           <Minus size={15} />
         </button>
-        <span className="flex h-8 min-w-8 items-center justify-center rounded-lg bg-neutral_light text-sm font-bold text-text">
+        <span className="bg-neutral_light text-text flex h-8 min-w-8 items-center justify-center rounded-lg text-sm font-bold">
           {item.quantity}
         </span>
         <button
           type="button"
           onClick={onIncrease}
           aria-label="زیاد کردن تعداد"
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral_normal text-neutral_dark hover:border-primary hover:text-primary"
+          className="border-neutral_normal text-neutral_dark hover:border-primary hover:text-primary flex h-8 w-8 items-center justify-center rounded-lg border"
         >
           <Plus size={15} />
         </button>
@@ -237,7 +277,7 @@ function CartItem({
         type="button"
         onClick={onRemove}
         aria-label="حذف محصول"
-        className="flex h-9 w-9 items-center justify-center rounded-xl text-neutral_dark transition hover:bg-red-50 hover:text-red-500"
+        className="text-neutral_dark flex h-9 w-9 items-center justify-center rounded-xl transition hover:bg-red-50 hover:text-red-500"
       >
         <Trash2 size={17} />
       </button>
@@ -256,23 +296,29 @@ function SummaryRow({
   return (
     <div className="flex items-center justify-between gap-3">
       <span className="text-neutral_dark">{label}</span>
-      <span className={accent ? 'font-bold text-primary' : 'font-medium text-text'}>{value}</span>
+      <span
+        className={accent ? 'text-primary font-bold' : 'text-text font-medium'}
+      >
+        {value}
+      </span>
     </div>
   );
 }
 function EmptyCart() {
   return (
-    <section className="rounded-3xl border border-neutral_normal bg-white px-6 py-20 text-center shadow-sm">
-      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary_light text-primary">
+    <section className="border-neutral_normal rounded-3xl border bg-white px-6 py-20 text-center shadow-sm">
+      <span className="bg-primary_light text-primary mx-auto flex h-16 w-16 items-center justify-center rounded-2xl">
         <ShoppingBag size={28} />
       </span>
-      <h2 className="mt-5 text-xl font-extrabold text-text">سبد خریدت هنوز خالی است</h2>
-      <p className="mt-2 text-sm text-neutral_dark">
+      <h2 className="text-text mt-5 text-xl font-extrabold">
+        سبد خریدت هنوز خالی است
+      </h2>
+      <p className="text-neutral_dark mt-2 text-sm">
         برای شروع، سری به محصولات کاربردی کمپینک بزن.
       </p>
       <Link
         href="/products"
-        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white"
+        className="bg-primary mt-6 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white"
       >
         مشاهده محصولات <ArrowLeft size={16} />
       </Link>

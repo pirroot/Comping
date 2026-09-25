@@ -24,11 +24,19 @@ interface AdminLink {
 const list: AdminLink[] = [
   { link: '/admin', title: 'داشبورد', icon: <BarChart3 size={17} /> },
   { link: '/admin/products', title: 'محصولات', icon: <Package size={17} /> },
-  { link: '/admin/categories', title: 'دسته‌بندی‌ها', icon: <FolderTree size={17} /> },
+  {
+    link: '/admin/categories',
+    title: 'دسته‌بندی‌ها',
+    icon: <FolderTree size={17} />,
+  },
   { link: '/admin/articles', title: 'مقالات', icon: <BookOpen size={17} /> },
   { link: '/admin/banners', title: 'بنرها', icon: <Image size={17} /> },
   { link: '/admin/brands', title: 'برندها', icon: <Tags size={17} /> },
-  { link: '/admin/faq', title: 'سوالات متداول', icon: <ShieldCheck size={17} /> },
+  {
+    link: '/admin/faq',
+    title: 'سوالات متداول',
+    icon: <ShieldCheck size={17} />,
+  },
   { link: '/admin/users', title: 'کاربران', icon: <Users size={17} /> },
   { link: '/admin/settings', title: 'تنظیمات', icon: <Settings size={17} /> },
 ];
@@ -41,7 +49,9 @@ export default function AdminList() {
       <ul className="space-y-1">
         {list.map((item) => {
           const isActive =
-            item.link === '/admin' ? pathname === '/admin' : pathname.startsWith(item.link);
+            item.link === '/admin'
+              ? pathname === '/admin'
+              : pathname.startsWith(item.link);
 
           return (
             <li key={item.link}>
@@ -57,7 +67,7 @@ export default function AdminList() {
               >
                 {/* نوار کناری برای آیتم فعال */}
                 {isActive && (
-                  <span className="absolute right-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-l-full bg-white/70" />
+                  <span className="absolute top-1/2 right-0 h-6 w-1 -translate-y-1/2 rounded-l-full bg-white/70" />
                 )}
 
                 <span

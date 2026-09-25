@@ -9,30 +9,28 @@ export default function BtnAddProduct() {
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <div className="bg-white border border-gray-200 shadow flex items-center gap-1 rounded px-2 py-2">
+      <div className="flex items-center gap-1 rounded border border-gray-200 bg-white px-2 py-2 shadow">
         <button
           onClick={() => setCount((c) => c + 1)}
-          className="text-xl w-8 h-8 flex items-center justify-center cursor-pointer hover:text-red-600 transition-colors rounded"
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded text-xl transition-colors hover:text-red-600"
         >
           +
         </button>
 
-        <span className="text-md px-3 min-w-[2] text-center">
+        <span className="text-md min-w-[2] px-3 text-center">
           {toNumberFa(count)}
         </span>
 
         <button
           onClick={() => setCount((c) => c - 1)}
           disabled={count <= 1}
-          className="text-xl w-8 h-8 flex items-center justify-center rounded transition-colors
-            disabled:text-gray-300 disabled:cursor-not-allowed
-            enabled:cursor-pointer enabled:hover:text-red-600"
+          className="flex h-8 w-8 items-center justify-center rounded text-xl transition-colors enabled:cursor-pointer enabled:hover:text-red-600 disabled:cursor-not-allowed disabled:text-gray-300"
         >
           -
         </button>
       </div>
 
-      <button className="bg-[#c83b3b] text-white text-sm hover:bg-[#b03030] active:scale-95 transition-all duration-200 cursor-pointer p-3 px-4 rounded-xl flex items-center gap-2">
+      <button className="flex cursor-pointer items-center gap-2 rounded-xl bg-[#c83b3b] p-3 px-4 text-sm text-white transition-all duration-200 hover:bg-[#b03030] active:scale-95">
         <BsCart3 size={22} />
         افزودن به سبد خرید
       </button>

@@ -74,7 +74,7 @@ export default function AddCategory() {
         type="button"
         onClick={() => setIsModalOpen(true)}
         disabled={isLoading}
-        className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
+        className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
       >
         <Plus size={16} />
         افزودن دسته‌بندی
@@ -96,14 +96,14 @@ export default function AddCategory() {
             {/* هدر با گرادیانت سبز */}
             <div className="relative overflow-hidden bg-linear-to-br from-emerald-700 via-emerald-600 to-emerald-700 px-5 py-5 text-white">
               {/* دایره‌های دکوری */}
-              <div className="absolute -left-6 -top-10 h-28 w-28 rounded-full bg-white/10" />
-              <div className="absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-white/5" />
+              <div className="absolute -top-10 -left-6 h-28 w-28 rounded-full bg-white/10" />
+              <div className="absolute -right-8 -bottom-12 h-32 w-32 rounded-full bg-white/5" />
 
               <button
                 type="button"
                 aria-label="بستن"
                 onClick={handleClose}
-                className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition hover:bg-white/15 hover:text-white active:scale-95"
+                className="absolute top-3 left-3 flex h-8 w-8 items-center justify-center rounded-lg text-white/80 transition hover:bg-white/15 hover:text-white active:scale-95"
               >
                 <X size={16} />
               </button>
@@ -113,7 +113,10 @@ export default function AddCategory() {
                   <FolderPlus size={18} />
                 </span>
                 <div>
-                  <h2 id="add-category-title" className="text-lg font-extrabold tracking-tight">
+                  <h2
+                    id="add-category-title"
+                    className="text-lg font-extrabold tracking-tight"
+                  >
                     دسته‌بندی جدید
                   </h2>
                   <p className="mt-0.5 text-xs text-emerald-100/90">
@@ -129,14 +132,19 @@ export default function AddCategory() {
                 <Input
                   label="نام دسته‌بندی"
                   placeholder="مثلاً: مردانه"
-                  {...register('title', { required: 'نام دسته‌بندی الزامی است' })}
+                  {...register('title', {
+                    required: 'نام دسته‌بندی الزامی است',
+                  })}
                   error={errors.title?.message}
                 />
                 <Input
                   label="اسلاگ"
                   {...register('slug', {
                     required: 'اسلاگ الزامی است',
-                    pattern: { value: /^[a-z0-9-]+$/, message: 'فقط حروف کوچک، اعداد و -' },
+                    pattern: {
+                      value: /^[a-z0-9-]+$/,
+                      message: 'فقط حروف کوچک، اعداد و -',
+                    },
                   })}
                   placeholder="مثال: man-category"
                   dir="ltr"

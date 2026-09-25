@@ -86,7 +86,7 @@ export default function AddProduct() {
         render={
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97]"
           >
             <Plus size={16} />
             افزودن محصول
@@ -111,7 +111,10 @@ export default function AddProduct() {
           </div>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 pt-2">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-5 pt-2"
+        >
           {/* تصویر محصول */}
           <div className="flex flex-col gap-1.5">
             <span className="flex items-center gap-1.5 text-xs font-bold text-slate-600">
@@ -130,7 +133,7 @@ export default function AddProduct() {
                   type="button"
                   onClick={removeImage}
                   aria-label="حذف تصویر"
-                  className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 text-rose-500 shadow-sm transition hover:bg-white hover:text-rose-600 active:scale-95"
+                  className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 text-rose-500 shadow-sm transition hover:bg-white hover:text-rose-600 active:scale-95"
                 >
                   <X size={14} />
                 </button>
@@ -141,7 +144,12 @@ export default function AddProduct() {
                   <ImagePlus size={20} />
                 </span>
                 <span className="text-[11px] font-bold">انتخاب تصویر</span>
-                <input type="file" accept="image/*" className="hidden" {...imageField} />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  {...imageField}
+                />
               </label>
             )}
 
@@ -158,7 +166,10 @@ export default function AddProduct() {
             placeholder="مثلاً کفش ورزشی مردانه"
             {...register('title', {
               required: 'عنوان محصول باید خالی نباشد.',
-              maxLength: { value: 256, message: 'باید کمتر از 256 کاراکتر باشد' },
+              maxLength: {
+                value: 256,
+                message: 'باید کمتر از 256 کاراکتر باشد',
+              },
             })}
             error={errors.title?.message}
           />
@@ -211,10 +222,14 @@ export default function AddProduct() {
             />
             {!errors.description && (
               <div className="mt-1.5 flex items-center justify-between">
-                <span className="text-xs text-slate-400">حداقل ۱۰۰ کاراکتر</span>
+                <span className="text-xs text-slate-400">
+                  حداقل ۱۰۰ کاراکتر
+                </span>
                 <span
                   className={`text-xs font-medium ${
-                    descriptionLength >= 100 ? 'text-emerald-600' : 'text-slate-400'
+                    descriptionLength >= 100
+                      ? 'text-emerald-600'
+                      : 'text-slate-400'
                   }`}
                 >
                   {descriptionLength} کاراکتر
@@ -232,7 +247,8 @@ export default function AddProduct() {
             {...register('categoryId', {
               required: 'محصول باید یک دسته بندی مشخص داشته باشد.',
               pattern: {
-                value: /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+                value:
+                  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
                 message: 'شناسه دسته بندی معتبر نیست',
               },
             })}

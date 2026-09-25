@@ -7,15 +7,19 @@ interface PageRouterProps {
   showHome?: boolean;
 }
 
-const normalizeLink = (link: string) => (link.startsWith('/') ? link : `/${link}`);
+const normalizeLink = (link: string) =>
+  link.startsWith('/') ? link : `/${link}`;
 
 const Separator = () => (
-  <li aria-hidden="true" className="flex items-center text-neutral_dark/40">
-    <ChevronLeft size={14} className="rtl:rotate-0 ltr:rotate-180" />
+  <li aria-hidden="true" className="text-neutral_dark/40 flex items-center">
+    <ChevronLeft size={14} className="ltr:rotate-180 rtl:rotate-0" />
   </li>
 );
 
-export default function PageRouter({ routes, showHome = true }: PageRouterProps) {
+export default function PageRouter({
+  routes,
+  showHome = true,
+}: PageRouterProps) {
   if (!routes || routes.length === 0) return null;
 
   const items = routes.map((route, index) => {
@@ -43,7 +47,10 @@ export default function PageRouter({ routes, showHome = true }: PageRouterProps)
     'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-neutral_dark transition-colors duration-200 hover:bg-primary_light hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40';
 
   return (
-    <nav className="mx-auto my-5 w-full max-w-7xl px-4 sm:px-0" aria-label="مسیر صفحه">
+    <nav
+      className="mx-auto my-5 w-full max-w-7xl px-4 sm:px-0"
+      aria-label="مسیر صفحه"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -63,7 +70,10 @@ export default function PageRouter({ routes, showHome = true }: PageRouterProps)
         )}
 
         {items.map((item, index) => (
-          <li key={`${item.title}-${index}`} className="flex min-w-0 items-center gap-1">
+          <li
+            key={`${item.title}-${index}`}
+            className="flex min-w-0 items-center gap-1"
+          >
             {item.href ? (
               <Link
                 href={item.href}
@@ -78,8 +88,8 @@ export default function PageRouter({ routes, showHome = true }: PageRouterProps)
                 aria-current={item.isLast ? 'page' : undefined}
                 className={
                   item.isLast
-                    ? 'max-w-52 truncate rounded-full bg-primary_light px-3 py-1.5 font-bold text-primary sm:max-w-80'
-                    : 'max-w-40 truncate px-3 py-1.5 text-neutral_dark sm:max-w-56'
+                    ? 'bg-primary_light text-primary max-w-52 truncate rounded-full px-3 py-1.5 font-bold sm:max-w-80'
+                    : 'text-neutral_dark max-w-40 truncate px-3 py-1.5 sm:max-w-56'
                 }
               >
                 {item.title}

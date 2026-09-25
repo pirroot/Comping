@@ -10,18 +10,26 @@ export default function AdminSettings() {
       <div>
         <p className="text-sm font-medium text-green-600">کنترل پنل</p>
         <h1 className="mt-1 text-2xl font-extrabold text-slate-950">تنظیمات</h1>
-        <p className="mt-2 text-sm text-slate-500">اطلاعات فروشگاه و ترجیحات پنل را مدیریت کنید.</p>
+        <p className="mt-2 text-sm text-slate-500">
+          اطلاعات فروشگاه و ترجیحات پنل را مدیریت کنید.
+        </p>
       </div>
       <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
         <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
           <div className="grid gap-5 sm:grid-cols-2">
             <Field label="نام فروشگاه" value="کمپینک شاپ" />
-            <Field label="ایمیل پشتیبانی" value="info@comping.ir" type="email" />
+            <Field
+              label="ایمیل پشتیبانی"
+              value="info@comping.ir"
+              type="email"
+            />
             <Field label="شماره تماس" value="۰۲۱-۱۲۳۴۵۶۷۸" />
             <Field label="آدرس کوتاه" value="تهران، خیابان ولیعصر" />
             <div className="sm:col-span-2">
               <label className="block">
-                <span className="mb-2 block text-sm font-bold text-slate-800">توضیحات فروشگاه</span>
+                <span className="mb-2 block text-sm font-bold text-slate-800">
+                  توضیحات فروشگاه
+                </span>
                 <textarea
                   defaultValue="تجهیزات کاربردی و مطمئن برای سفر و کمپینگ."
                   className="min-h-28 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm leading-7 outline-none focus:border-green-500"
@@ -46,18 +54,40 @@ export default function AdminSettings() {
             title="اطلاعات فروشگاه"
             detail="نام و راه‌های ارتباطی"
           />
-          <SettingCard icon={<Bell size={18} />} title="اعلان‌ها" detail="ایمیل و پیام‌های سیستم" />
-          <SettingCard icon={<ShieldCheck size={18} />} title="امنیت" detail="نقش‌ها و دسترسی‌ها" />
-          <SettingCard icon={<Globe2 size={18} />} title="زبان و منطقه" detail="فارسی · ایران" />
+          <SettingCard
+            icon={<Bell size={18} />}
+            title="اعلان‌ها"
+            detail="ایمیل و پیام‌های سیستم"
+          />
+          <SettingCard
+            icon={<ShieldCheck size={18} />}
+            title="امنیت"
+            detail="نقش‌ها و دسترسی‌ها"
+          />
+          <SettingCard
+            icon={<Globe2 size={18} />}
+            title="زبان و منطقه"
+            detail="فارسی · ایران"
+          />
         </aside>
       </div>
     </div>
   );
 }
-function Field({ label, value, type = 'text' }: { label: string; value: string; type?: string }) {
+function Field({
+  label,
+  value,
+  type = 'text',
+}: {
+  label: string;
+  value: string;
+  type?: string;
+}) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-bold text-slate-800">{label}</span>
+      <span className="mb-2 block text-sm font-bold text-slate-800">
+        {label}
+      </span>
       <input
         type={type}
         defaultValue={value}

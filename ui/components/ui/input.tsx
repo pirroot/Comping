@@ -10,7 +10,16 @@ interface InputProps extends React.ComponentProps<'input'> {
   icon?: React.ReactNode;
 }
 
-export function Input({ label, icon, error, hint, className, id, type, ...props }: InputProps) {
+export function Input({
+  label,
+  icon,
+  error,
+  hint,
+  className,
+  id,
+  type,
+  ...props
+}: InputProps) {
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
   const errorId = error ? `${inputId}-error` : undefined;
@@ -23,7 +32,9 @@ export function Input({ label, icon, error, hint, className, id, type, ...props 
           htmlFor={inputId}
           className="mb-1.5 flex items-center gap-1.5 text-xs font-bold text-slate-600"
         >
-          {icon && <span className="text-emerald-500 [&_svg]:size-3.5">{icon}</span>}
+          {icon && (
+            <span className="text-emerald-500 [&_svg]:size-3.5">{icon}</span>
+          )}
           {label}
         </label>
       )}
@@ -35,14 +46,14 @@ export function Input({ label, icon, error, hint, className, id, type, ...props 
         aria-invalid={!!error}
         aria-describedby={cn(errorId, hintId) || undefined}
         className={cn(
-          'w-full rounded-xl border border-emerald-100 bg-white px-3.5 py-2.5 text-sm text-slate-800 shadow-sm shadow-emerald-900/5 outline-none transition-all duration-200',
+          'w-full rounded-xl border border-emerald-100 bg-white px-3.5 py-2.5 text-sm text-slate-800 shadow-sm shadow-emerald-900/5 transition-all duration-200 outline-none',
           'placeholder:text-slate-400',
           'hover:border-emerald-200',
           'focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20',
           'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
           error &&
-            'border-rose-300 focus:border-rose-500 focus:ring-rose-500/20 hover:border-rose-300',
-          className
+            'border-rose-300 hover:border-rose-300 focus:border-rose-500 focus:ring-rose-500/20',
+          className,
         )}
         {...props}
       />

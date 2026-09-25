@@ -14,15 +14,17 @@ export default function HomeBrands() {
   return (
     <section className="bg-bg px-4 py-10 md:py-14">
       <div className="container mx-auto">
-        <div className="rounded-3xl border border-neutral_normal bg-white p-5 shadow-sm sm:p-7">
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-3 border-b border-neutral_normal pb-5">
+        <div className="border-neutral_normal rounded-3xl border bg-white p-5 shadow-sm sm:p-7">
+          <div className="border-neutral_normal mb-6 flex flex-wrap items-end justify-between gap-3 border-b pb-5">
             <div>
-              <p className="mb-1 text-xs font-medium text-primary">انتخاب مطمئن</p>
-              <h2 className="text-lg font-extrabold text-text sm:text-xl">
+              <p className="text-primary mb-1 text-xs font-medium">
+                انتخاب مطمئن
+              </p>
+              <h2 className="text-text text-lg font-extrabold sm:text-xl">
                 برندهایی که به آن‌ها اعتماد داریم
               </h2>
             </div>
-            <p className="max-w-xs text-xs leading-6 text-neutral_dark">
+            <p className="text-neutral_dark max-w-xs text-xs leading-6">
               کیفیت را از برندهایی انتخاب کرده‌ایم که امتحانشان را پس داده‌اند.
             </p>
           </div>
@@ -30,7 +32,7 @@ export default function HomeBrands() {
             {brands.map((brand, index) => (
               <div
                 key={index}
-                className="flex h-16 items-center justify-center rounded-2xl border border-neutral_normal bg-[#fbfcfb] px-3 opacity-75 transition duration-300 hover:border-primary/30 hover:bg-primary_light/30 hover:opacity-100 sm:h-20"
+                className="border-neutral_normal hover:border-primary/30 hover:bg-primary_light/30 flex h-16 items-center justify-center rounded-2xl border bg-[#fbfcfb] px-3 opacity-75 transition duration-300 hover:opacity-100 sm:h-20"
               >
                 <Image
                   src={brand}

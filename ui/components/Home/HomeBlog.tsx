@@ -53,12 +53,14 @@ export default function HomeBlog() {
     <section className="container mx-auto space-y-8 px-4 py-14 md:py-20">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="mb-2 text-sm font-medium text-primary">مجله کمپینک</p>
-          <h2 className="text-2xl font-extrabold text-text md:text-3xl">لایف‌هک و نکات کمپینگ</h2>
+          <p className="text-primary mb-2 text-sm font-medium">مجله کمپینک</p>
+          <h2 className="text-text text-2xl font-extrabold md:text-3xl">
+            لایف‌هک و نکات کمپینگ
+          </h2>
         </div>
         <Link
           href="/blog"
-          className="hidden items-center gap-2 rounded-xl border border-neutral_normal bg-white px-4 py-2.5 text-sm font-bold text-primary transition hover:border-primary/40 sm:inline-flex"
+          className="border-neutral_normal text-primary hover:border-primary/40 hidden items-center gap-2 rounded-xl border bg-white px-4 py-2.5 text-sm font-bold transition sm:inline-flex"
         >
           همه مقاله‌ها <ArrowLeft size={16} />
         </Link>
@@ -67,25 +69,30 @@ export default function HomeBlog() {
       <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <Link href={`/blog/${mainPost.id}`} className="group block h-full">
-            <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral_normal bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-64 w-full overflow-hidden bg-neutral_light sm:h-72">
-                <Image src={mainPost.image} alt={mainPost.title} fill className="object-cover" />
-                <span className="absolute right-5 top-5 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-bold text-primary">
+            <div className="border-neutral_normal flex h-full flex-col overflow-hidden rounded-3xl border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="bg-neutral_light relative h-64 w-full overflow-hidden sm:h-72">
+                <Image
+                  src={mainPost.image}
+                  alt={mainPost.title}
+                  fill
+                  className="object-cover"
+                />
+                <span className="text-primary absolute top-5 right-5 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-bold">
                   {mainPost.category}
                 </span>
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-xl font-extrabold leading-8 text-text transition group-hover:text-primary">
+                <h3 className="text-text group-hover:text-primary text-xl leading-8 font-extrabold transition">
                   {mainPost.title}
                 </h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-7 text-neutral_dark">
+                <p className="text-neutral_dark mt-2 line-clamp-2 text-sm leading-7">
                   {mainPost.excerpt}
                 </p>
-                <div className="mt-auto flex items-center justify-between border-t border-neutral_normal pt-4">
-                  <span className="flex items-center gap-1 text-xs text-neutral_dark">
+                <div className="border-neutral_normal mt-auto flex items-center justify-between border-t pt-4">
+                  <span className="text-neutral_dark flex items-center gap-1 text-xs">
                     <CalendarDays size={13} /> {mainPost.date}
                   </span>
-                  <span className="flex items-center gap-1 text-sm font-bold text-primary">
+                  <span className="text-primary flex items-center gap-1 text-sm font-bold">
                     ادامه مطلب <ArrowLeft size={15} />
                   </span>
                 </div>
@@ -99,9 +106,9 @@ export default function HomeBlog() {
             <Link
               href={`/blog/${post.id}`}
               key={post.id}
-              className="group flex min-h-30 items-center gap-4 rounded-2xl border border-neutral_normal bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+              className="group border-neutral_normal hover:border-primary/30 flex min-h-30 items-center gap-4 rounded-2xl border bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="relative h-24 w-28 shrink-0 overflow-hidden rounded-xl bg-neutral_light">
+              <div className="bg-neutral_light relative h-24 w-28 shrink-0 overflow-hidden rounded-xl">
                 <Image
                   src={post.image}
                   alt={post.title}
@@ -110,17 +117,19 @@ export default function HomeBlog() {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="text-xs font-bold text-primary">{post.category}</span>
-                <h3 className="mt-1 line-clamp-2 text-sm font-extrabold leading-6 text-text transition group-hover:text-primary">
+                <span className="text-primary text-xs font-bold">
+                  {post.category}
+                </span>
+                <h3 className="text-text group-hover:text-primary mt-1 line-clamp-2 text-sm leading-6 font-extrabold transition">
                   {post.title}
                 </h3>
-                <p className="mt-1 flex items-center gap-1 text-xs text-neutral_dark">
+                <p className="text-neutral_dark mt-1 flex items-center gap-1 text-xs">
                   <Clock3 size={12} /> ۵ دقیقه مطالعه
                 </p>
               </div>
               <ArrowLeft
                 size={18}
-                className="shrink-0 text-neutral_dark transition group-hover:-translate-x-1 group-hover:text-primary"
+                className="text-neutral_dark group-hover:text-primary shrink-0 transition group-hover:-translate-x-1"
               />
             </Link>
           ))}
@@ -128,7 +137,7 @@ export default function HomeBlog() {
       </div>
       <Link
         href="/blog"
-        className="flex items-center justify-center gap-2 text-sm font-bold text-primary sm:hidden"
+        className="text-primary flex items-center justify-center gap-2 text-sm font-bold sm:hidden"
       >
         مشاهده همه مقاله‌ها <ArrowLeft size={16} />
       </Link>

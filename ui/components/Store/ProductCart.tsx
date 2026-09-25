@@ -15,17 +15,19 @@ export default function ProductCart({
   is_offer,
   category,
 }: IProductDto) {
-  const finalPrice = is_offer ? setProductOffer(price, offer_percent as number) : price;
+  const finalPrice = is_offer
+    ? setProductOffer(price, offer_percent as number)
+    : price;
 
   return (
     <Link
       href={`/products/${slug}`}
       title={name}
-      className="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
-      <div className="relative bg-gray-50 overflow-hidden aspect-square">
+      <div className="relative aspect-square overflow-hidden bg-gray-50">
         {is_offer && offer_percent && (
-          <span className="absolute top-3 right-3 z-10 bg-[#c83b3b] text-white text-xs font-bold rounded-full px-2.5 py-1 shadow-md">
+          <span className="absolute top-3 right-3 z-10 rounded-full bg-[#c83b3b] px-2.5 py-1 text-xs font-bold text-white shadow-md">
             {toNumberFa(offer_percent, false)}٪
           </span>
         )}
@@ -39,17 +41,21 @@ export default function ProductCart({
         />
       </div>
 
-      <div className="flex flex-col flex-1 p-4 gap-2 text-right">
-        <span className="text-xs text-[#c83b3b] bg-red-50 rounded-full px-2 py-0.5 w-fit self-end font-medium">
+      <div className="flex flex-1 flex-col gap-2 p-4 text-right">
+        <span className="w-fit self-end rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-[#c83b3b]">
           {category.name}
         </span>
 
-        <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 leading-6">{name}</h3>
+        <h3 className="line-clamp-2 text-sm leading-6 font-semibold text-gray-800">
+          {name}
+        </h3>
 
-        <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+        <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-3">
           <div className="flex flex-col items-end">
             {is_offer && (
-              <span className="text-xs line-through text-gray-400 mb-0.5">{toNumberFa(price)}</span>
+              <span className="mb-0.5 text-xs text-gray-400 line-through">
+                {toNumberFa(price)}
+              </span>
             )}
             <span className="flex items-center gap-1 text-base font-bold text-gray-900">
               {toNumberFa(finalPrice)}
@@ -59,7 +65,7 @@ export default function ProductCart({
 
           <button
             // onClick={(e) => e.preventDefault()}
-            className="flex items-center gap-1.5 bg-[#c83b3b] hover:bg-[#a82f2f] text-white text-xs font-medium px-3 py-2 rounded-xl transition-colors duration-200"
+            className="flex items-center gap-1.5 rounded-xl bg-[#c83b3b] px-3 py-2 text-xs font-medium text-white transition-colors duration-200 hover:bg-[#a82f2f]"
           >
             <FiShoppingCart size={14} />
             افزودن

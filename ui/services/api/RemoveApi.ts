@@ -1,4 +1,4 @@
-import { apiFetch } from "./ApiFetch";
+import { apiFetch } from './ApiFetch';
 
 export const apiRemove = <T = void>(url: string) =>
-  apiFetch<T>(url, { method: "DELETE" });
+  apiFetch<T>(url, { method: 'DELETE' });

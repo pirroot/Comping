@@ -8,19 +8,21 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function NavActionBtn() {
-  const status = useAuth()
+  const status = useAuth();
   const [isUserImage] = useState(true);
 
   if (status === 'loading') {
-    return <div className="h-11 w-32 animate-pulse rounded-full bg-neutral_normal" />;
+    return (
+      <div className="bg-neutral_normal h-11 w-32 animate-pulse rounded-full" />
+    );
   }
 
   return (
     <div className="flex items-center gap-2">
-      {status === "out" ? (
+      {status === 'out' ? (
         <Link
           href="/auth"
-          className="rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#5a9a63] hover:shadow-md"
+          className="bg-primary rounded-full px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#5a9a63] hover:shadow-md"
         >
           ورود / ثبت نام
         </Link>
@@ -28,7 +30,7 @@ export default function NavActionBtn() {
         <>
           <Link
             href="/profile"
-            className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-neutral_normal p-1 text-text transition hover:bg-primary_light hover:text-primary"
+            className="bg-neutral_normal text-text hover:bg-primary_light hover:text-primary relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl p-1 transition"
             title="پروفایل"
             aria-label="پروفایل"
           >
@@ -47,13 +49,13 @@ export default function NavActionBtn() {
 
           <Link
             href="/cart"
-            className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_normal text-text transition hover:bg-primary_light hover:text-primary"
+            className="bg-neutral_normal text-text hover:bg-primary_light hover:text-primary relative flex h-11 w-11 items-center justify-center rounded-xl transition"
             title="سبد خرید"
             aria-label="سبد خرید"
           >
             <ShoppingCart size={20} />
 
-            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-2xl bg-auxiliary text-xs font-bold text-white dark:text-black">
+            <span className="bg-auxiliary absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-2xl text-xs font-bold text-white dark:text-black">
               3
             </span>
           </Link>

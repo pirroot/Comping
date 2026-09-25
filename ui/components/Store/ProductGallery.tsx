@@ -12,17 +12,18 @@ export default function ProductGallery({
   const [active, setActive] = useState<string>(images[0]);
 
   return (
-    <div className="flex gap-4 h-full">
+    <div className="flex h-full gap-4">
       {/* Thumbnails column */}
-      <div className="flex flex-col gap-3 w-16 shrink-0">
+      <div className="flex w-16 shrink-0 flex-col gap-3">
         {images.map((img, i) => (
           <button
             key={i}
             onClick={() => setActive(img)}
-            className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 shrink-0 ${active === img
-              ? 'border-[#c83b3b] shadow-md scale-105'
-              : 'border-gray-200 hover:border-gray-400'
-              }`}
+            className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 transition-all duration-200 ${
+              active === img
+                ? 'scale-105 border-[#c83b3b] shadow-md'
+                : 'border-gray-200 hover:border-gray-400'
+            }`}
           >
             <Image
               src={img}
@@ -35,13 +36,13 @@ export default function ProductGallery({
       </div>
 
       {/* Main image */}
-      <div className="flex-1 relative rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 min-h-[360]">
+      <div className="relative min-h-[360] flex-1 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50">
         <Image
           src={active}
           alt={alt_title}
           fill
           quality={100}
-          className="object-contain p-6 transition-opacity duration-300 rounded-2xl"
+          className="rounded-2xl object-contain p-6 transition-opacity duration-300"
         />
       </div>
     </div>

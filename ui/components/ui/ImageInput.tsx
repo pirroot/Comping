@@ -140,7 +140,7 @@ export function ImageInput({
               'active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100',
               error
                 ? 'border-rose-300 text-rose-400 hover:border-rose-400 hover:bg-rose-50/50 hover:text-rose-500'
-                : 'border-emerald-200 text-emerald-500 hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-600'
+                : 'border-emerald-200 text-emerald-500 hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-600',
             )}
           >
             <span
@@ -148,7 +148,7 @@ export function ImageInput({
                 'flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-200',
                 error
                   ? 'bg-rose-50 group-hover:bg-rose-100'
-                  : 'bg-emerald-50 group-hover:bg-emerald-100'
+                  : 'bg-emerald-50 group-hover:bg-emerald-100',
               )}
             >
               <ImagePlus size={20} />

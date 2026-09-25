@@ -1,6 +1,13 @@
 'use client';
 
-import { Check, Edit3, MoreHorizontal, Plus, Search, Trash2 } from 'lucide-react';
+import {
+  Check,
+  Edit3,
+  MoreHorizontal,
+  Plus,
+  Search,
+  Trash2,
+} from 'lucide-react';
 import { useMemo, useState } from 'react';
 
 export type AdminRow = {
@@ -31,16 +38,18 @@ export default function AdminResourcePage({
   columns,
 }: Props) {
   const [query, setQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState<'همه' | AdminRow['status']>('همه');
+  const [activeFilter, setActiveFilter] = useState<'همه' | AdminRow['status']>(
+    'همه',
+  );
   const [items, setItems] = useState(rows);
   const filteredRows = useMemo(
     () =>
       items.filter(
         (row) =>
           (activeFilter === 'همه' || row.status === activeFilter) &&
-          `${row.title} ${row.subtitle} ${row.meta}`.includes(query.trim())
+          `${row.title} ${row.subtitle} ${row.meta}`.includes(query.trim()),
       ),
-    [activeFilter, items, query]
+    [activeFilter, items, query],
   );
 
   return (
@@ -48,7 +57,9 @@ export default function AdminResourcePage({
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-green-600">{eyebrow}</p>
-          <h1 className="mt-1 text-2xl font-extrabold text-slate-950">{title}</h1>
+          <h1 className="mt-1 text-2xl font-extrabold text-slate-950">
+            {title}
+          </h1>
           <p className="mt-2 text-sm text-slate-500">{description}</p>
         </div>
         <button
@@ -105,7 +116,9 @@ export default function AdminResourcePage({
                 >
                   {row.status}
                 </span>
-                <span className="text-xs text-slate-400">آخرین تغییر امروز</span>
+                <span className="text-xs text-slate-400">
+                  آخرین تغییر امروز
+                </span>
                 <div className="flex items-center gap-1">
                   <button
                     type="button"
@@ -118,7 +131,9 @@ export default function AdminResourcePage({
                     type="button"
                     aria-label="حذف"
                     onClick={() =>
-                      setItems((current) => current.filter((item) => item.id !== row.id))
+                      setItems((current) =>
+                        current.filter((item) => item.id !== row.id),
+                      )
                     }
                     className="rounded-lg p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-500"
                   >
@@ -137,7 +152,9 @@ export default function AdminResourcePage({
           ) : (
             <div className="px-5 py-16 text-center">
               <Check className="mx-auto text-slate-300" size={28} />
-              <p className="mt-3 text-sm font-bold text-slate-600">موردی با این فیلتر پیدا نشد.</p>
+              <p className="mt-3 text-sm font-bold text-slate-600">
+                موردی با این فیلتر پیدا نشد.
+              </p>
             </div>
           )}
         </div>

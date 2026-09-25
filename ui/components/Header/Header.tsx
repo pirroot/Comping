@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 mx-auto w-[calc(100%-1.5rem)] max-w-7xl">
-      <div className="relative flex items-center justify-between gap-3 rounded-3xl border border-white/70 bg-neutral_light/95 p-2.5 shadow-xl shadow-text/5 backdrop-blur-md lg:rounded-full lg:px-4">
+      <div className="bg-neutral_light/95 shadow-text/5 relative flex items-center justify-between gap-3 rounded-3xl border border-white/70 p-2.5 shadow-xl backdrop-blur-md lg:rounded-full lg:px-4">
         <Logo />
 
         <NavItems />
@@ -29,21 +29,21 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label={isMobileMenuOpen ? 'بستن منو' : 'باز کردن منو'}
             aria-expanded={isMobileMenuOpen}
-            className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_normal text-text transition hover:bg-primary hover:text-white lg:hidden"
+            className="bg-neutral_normal text-text hover:bg-primary flex h-11 w-11 items-center justify-center rounded-xl transition hover:text-white lg:hidden"
           >
             {isMobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
         </div>
 
         {isMobileMenuOpen && (
-          <nav className="absolute inset-x-0 top-[calc(100%+0.65rem)] rounded-2xl border border-neutral_normal bg-bg p-2 shadow-xl lg:hidden">
+          <nav className="border-neutral_normal bg-bg absolute inset-x-0 top-[calc(100%+0.65rem)] rounded-2xl border p-2 shadow-xl lg:hidden">
             <ul className="space-y-1">
               {navItems.map((item) => (
                 <li key={item.link}>
                   <Link
                     href={item.link}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 text-sm font-medium text-text transition hover:bg-primary_light hover:text-primary"
+                    className="text-text hover:bg-primary_light hover:text-primary block rounded-xl px-4 py-3 text-sm font-medium transition"
                   >
                     {item.title}
                   </Link>
@@ -54,7 +54,7 @@ export default function Header() {
                   <Link
                     href={category.link}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 text-sm font-medium text-text transition hover:bg-primary_light hover:text-primary"
+                    className="text-text hover:bg-primary_light hover:text-primary block rounded-xl px-4 py-3 text-sm font-medium transition"
                   >
                     {category.name}
                   </Link>

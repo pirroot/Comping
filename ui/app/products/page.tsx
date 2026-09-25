@@ -137,7 +137,8 @@ export default function ProductsPage() {
   const visibleProducts = useMemo(() => {
     const normalizedSearch = search.trim().toLocaleLowerCase('fa');
     const filtered = products.filter((product) => {
-      const matchesCategory = activeCategory === 'همه' || product.category === activeCategory;
+      const matchesCategory =
+        activeCategory === 'همه' || product.category === activeCategory;
       const matchesSearch =
         !normalizedSearch ||
         `${product.title} ${product.category} ${product.description}`
@@ -159,62 +160,73 @@ export default function ProductsPage() {
     const params = new URLSearchParams(searchParams.toString());
     if (value.trim()) params.set('search', value.trim());
     else params.delete('search');
-    router.replace(`/products${params.toString() ? `?${params.toString()}` : ''}`, {
-      scroll: false,
-    });
+    router.replace(
+      `/products${params.toString() ? `?${params.toString()}` : ''}`,
+      {
+        scroll: false,
+      },
+    );
   };
 
   const toggleLike = (id: number) => {
     setLikedProducts((current) =>
-      current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id],
     );
   };
 
   return (
-    <main className="min-h-screen bg-bg pb-20 pt-6">
+    <main className="bg-bg min-h-screen pt-6 pb-20">
       <PageRouter routes={[{ title: 'محصولات', link: '/products' }]} />
-      <section className="relative mx-auto max-w-7xl overflow-hidden rounded-4xl bg-text px-5 py-10 text-white sm:px-10 sm:py-14">
+      <section className="bg-text relative mx-auto max-w-7xl overflow-hidden rounded-4xl px-5 py-10 text-white sm:px-10 sm:py-14">
         <div className="relative z-10 max-w-2xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-primary_light">
+          <div className="text-primary_light mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium">
             <Sparkles size={14} />
             انتخاب‌های کاربردی برای کسب‌وکار و سفر
           </div>
-          <h1 className="text-3xl font-black leading-tight sm:text-5xl">
+          <h1 className="text-3xl leading-tight font-black sm:text-5xl">
             چیزی که لازم داری، همین‌جاست.
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/65 sm:text-base">
-            محصولات منتخب کمپینک را با خیال راحت مقایسه کن و مناسب‌ترین گزینه را برای خودت پیدا کن.
+            محصولات منتخب کمپینک را با خیال راحت مقایسه کن و مناسب‌ترین گزینه را
+            برای خودت پیدا کن.
           </p>
         </div>
-        <div className="absolute -left-16 -top-28 h-72 w-72 rounded-full border-36 border-primary/20" />
-        <div className="absolute -bottom-32 right-1/2 h-64 w-64 rounded-full border-28 border-auxiliary/15" />
+        <div className="border-primary/20 absolute -top-28 -left-16 h-72 w-72 rounded-full border-36" />
+        <div className="border-auxiliary/15 absolute right-1/2 -bottom-32 h-64 w-64 rounded-full border-28" />
       </section>
 
       <section className="mx-auto mt-8 max-w-7xl px-4 sm:px-0">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="text-2xl font-black text-text">فروشگاه کمپینک</h2>
-            <p className="mt-1 text-sm text-neutral_dark">
-              {visibleProducts.length.toLocaleString('fa-IR')} محصول برای انتخاب شما
+            <h2 className="text-text text-2xl font-black">فروشگاه کمپینک</h2>
+            <p className="text-neutral_dark mt-1 text-sm">
+              {visibleProducts.length.toLocaleString('fa-IR')} محصول برای انتخاب
+              شما
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <label className="flex min-w-0 items-center gap-2 rounded-xl border border-neutral_normal bg-white px-3 py-2.5 sm:w-80">
-              <Search className="shrink-0 text-neutral_dark" size={18} />
+            <label className="border-neutral_normal flex min-w-0 items-center gap-2 rounded-xl border bg-white px-3 py-2.5 sm:w-80">
+              <Search className="text-neutral_dark shrink-0" size={18} />
               <span className="sr-only">جستجوی محصولات</span>
               <input
                 value={search}
                 onChange={(event) => updateSearch(event.target.value)}
                 placeholder="جستجوی محصول..."
-                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-neutral_dark"
+                className="placeholder:text-neutral_dark min-w-0 flex-1 bg-transparent text-sm outline-none"
               />
               {search && (
-                <button type="button" onClick={() => updateSearch('')} aria-label="پاک کردن جستجو">
+                <button
+                  type="button"
+                  onClick={() => updateSearch('')}
+                  aria-label="پاک کردن جستجو"
+                >
                   <X size={16} />
                 </button>
               )}
             </label>
-            <label className="flex items-center gap-2 rounded-xl border border-neutral_normal bg-white px-3 py-2.5 text-sm text-text">
+            <label className="border-neutral_normal text-text flex items-center gap-2 rounded-xl border bg-white px-3 py-2.5 text-sm">
               <SlidersHorizontal size={17} className="text-neutral_dark" />
               <span className="whitespace-nowrap">مرتب‌سازی</span>
               <select
@@ -231,13 +243,13 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        <div className="mt-7 flex gap-2 overflow-x-auto pb-2 scrollbar-hidden">
+        <div className="scrollbar-hidden mt-7 flex gap-2 overflow-x-auto pb-2">
           {categories.map((category) => (
             <button
               key={category}
               type="button"
               onClick={() => setActiveCategory(category)}
-              className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition ${activeCategory === category ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-white text-neutral_dark hover:bg-primary_light hover:text-primary'}`}
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition ${activeCategory === category ? 'bg-primary shadow-primary/20 text-white shadow-md' : 'text-neutral_dark hover:bg-primary_light hover:text-primary bg-white'}`}
             >
               {category}
             </button>
@@ -252,15 +264,19 @@ export default function ProductsPage() {
                 product={product}
                 isLiked={likedProducts.includes(product.id)}
                 onLike={() => toggleLike(product.id)}
-                onAdd={() => toast.success(`${product.title} به سبد خرید اضافه شد`)}
+                onAdd={() =>
+                  toast.success(`${product.title} به سبد خرید اضافه شد`)
+                }
               />
             ))}
           </div>
         ) : (
-          <div className="mt-5 flex min-h-80 flex-col items-center justify-center rounded-3xl border border-dashed border-neutral_normal bg-white px-6 text-center">
+          <div className="border-neutral_normal mt-5 flex min-h-80 flex-col items-center justify-center rounded-3xl border border-dashed bg-white px-6 text-center">
             <PackageSearch size={44} className="text-neutral_dark/50" />
-            <h3 className="mt-4 text-lg font-bold text-text">محصولی پیدا نشد</h3>
-            <p className="mt-2 max-w-sm text-sm leading-6 text-neutral_dark">
+            <h3 className="text-text mt-4 text-lg font-bold">
+              محصولی پیدا نشد
+            </h3>
+            <p className="text-neutral_dark mt-2 max-w-sm text-sm leading-6">
               فیلتر یا عبارت جستجو را تغییر بده تا گزینه‌های بیشتری ببینی.
             </p>
             <button
@@ -270,7 +286,7 @@ export default function ProductsPage() {
                 setActiveCategory('همه');
                 updateSearch('');
               }}
-              className="mt-5 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white"
+              className="bg-primary mt-5 rounded-xl px-4 py-2.5 text-sm font-bold text-white"
             >
               پاک کردن فیلترها
             </button>
@@ -297,8 +313,8 @@ function ProductCard({
     : null;
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-neutral_normal bg-white transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-text/8">
-      <div className="relative aspect-square overflow-hidden bg-neutral_light">
+    <article className="group border-neutral_normal hover:border-primary/30 hover:shadow-text/8 overflow-hidden rounded-2xl border bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="bg-neutral_light relative aspect-square overflow-hidden">
         <Image
           src={product.image}
           alt={product.title}
@@ -307,45 +323,49 @@ function ProductCard({
           className="object-cover transition duration-500 group-hover:scale-105"
         />
         {product.badge && (
-          <span className="absolute right-3 top-3 rounded-full bg-text px-3 py-1 text-xs font-bold text-white">
+          <span className="bg-text absolute top-3 right-3 rounded-full px-3 py-1 text-xs font-bold text-white">
             {product.badge}
           </span>
         )}
         {discount && (
-          <span className="absolute left-3 top-3 rounded-full bg-auxiliary px-2.5 py-1 text-xs font-bold text-text">
+          <span className="bg-auxiliary text-text absolute top-3 left-3 rounded-full px-2.5 py-1 text-xs font-bold">
             {discount.toLocaleString('fa-IR')}٪ تخفیف
           </span>
         )}
         <button
           type="button"
           onClick={onLike}
-          aria-label={isLiked ? 'حذف از علاقه‌مندی‌ها' : 'افزودن به علاقه‌مندی‌ها'}
-          className={`absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl backdrop-blur transition ${isLiked ? 'bg-red-500 text-white' : 'bg-white/90 text-text hover:text-red-500'}`}
+          aria-label={
+            isLiked ? 'حذف از علاقه‌مندی‌ها' : 'افزودن به علاقه‌مندی‌ها'
+          }
+          className={`absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl backdrop-blur transition ${isLiked ? 'bg-red-500 text-white' : 'text-text bg-white/90 hover:text-red-500'}`}
         >
           <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
         </button>
       </div>
       <div className="p-4">
-        <div className="flex items-center justify-between gap-3 text-xs text-neutral_dark">
+        <div className="text-neutral_dark flex items-center justify-between gap-3 text-xs">
           <span>{product.category}</span>
-          <span className="flex items-center gap-1 text-auxiliary">
+          <span className="text-auxiliary flex items-center gap-1">
             <Star size={13} fill="currentColor" />
             {product.rating.toLocaleString('fa-IR')}
           </span>
         </div>
         <Link href={`/products/${product.slug}`} className="mt-2 block">
-          <h3 className="line-clamp-1 font-bold text-text transition group-hover:text-primary">
+          <h3 className="text-text group-hover:text-primary line-clamp-1 font-bold transition">
             {product.title}
           </h3>
         </Link>
-        <p className="mt-2 line-clamp-2 min-h-10 text-xs leading-5 text-neutral_dark">
+        <p className="text-neutral_dark mt-2 line-clamp-2 min-h-10 text-xs leading-5">
           {product.description}
         </p>
-        <div className="mt-4 flex items-end justify-between gap-3 border-t border-neutral_light pt-4">
+        <div className="border-neutral_light mt-4 flex items-end justify-between gap-3 border-t pt-4">
           <div>
-            <p className="text-base font-black text-primary">{formatPrice(product.price)}</p>
+            <p className="text-primary text-base font-black">
+              {formatPrice(product.price)}
+            </p>
             {product.oldPrice && (
-              <p className="mt-1 text-xs text-neutral_dark line-through">
+              <p className="text-neutral_dark mt-1 text-xs line-through">
                 {formatPrice(product.oldPrice)}
               </p>
             )}
@@ -354,7 +374,7 @@ function ProductCard({
             type="button"
             onClick={onAdd}
             aria-label={`افزودن ${product.title} به سبد`}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
+            className="bg-primary hover:bg-primary/90 hover:shadow-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white transition hover:shadow-lg"
           >
             <ShoppingBag size={18} />
           </button>

@@ -73,12 +73,14 @@ const bestSellers: BestSeller[] = [
 ];
 
 function ProductCard({ product }: { product: BestSeller }) {
-  const discountedPrice = Math.round(product.price * (1 - (product.offer_percent || 0) / 100));
+  const discountedPrice = Math.round(
+    product.price * (1 - (product.offer_percent || 0) / 100),
+  );
 
   return (
-    <div className="group relative flex h-full flex-col rounded-3xl border border-neutral_normal bg-bg p-3.5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10">
+    <div className="group border-neutral_normal bg-bg hover:border-primary/30 hover:shadow-primary/10 relative flex h-full flex-col rounded-3xl border p-3.5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl">
       {product.is_offer && (
-        <span className="absolute right-5 top-5 z-10 rounded-lg bg-auxiliary px-2.5 py-1 text-xs font-bold text-text shadow-sm">
+        <span className="bg-auxiliary text-text absolute top-5 right-5 z-10 rounded-lg px-2.5 py-1 text-xs font-bold shadow-sm">
           {product.offer_percent}% تخفیف
         </span>
       )}
@@ -86,12 +88,12 @@ function ProductCard({ product }: { product: BestSeller }) {
       <button
         type="button"
         aria-label="افزودن به علاقه‌مندی‌ها"
-        className="absolute left-5 top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-neutral_dark shadow-sm transition hover:text-red-500"
+        className="text-neutral_dark absolute top-5 left-5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm transition hover:text-red-500"
       >
         <Heart size={15} />
       </button>
 
-      <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-neutral_light">
+      <div className="bg-neutral_light relative mb-4 aspect-square w-full overflow-hidden rounded-2xl">
         <Image
           src={product.images[0]}
           alt={product.image_alt}
@@ -102,20 +104,20 @@ function ProductCard({ product }: { product: BestSeller }) {
       </div>
 
       <div className="flex min-h-12 items-start justify-between gap-2">
-        <h3 className="line-clamp-2 text-sm font-bold leading-6 text-text sm:text-base">
+        <h3 className="text-text line-clamp-2 text-sm leading-6 font-bold sm:text-base">
           {product.title}
         </h3>
-        <span className="flex shrink-0 items-center gap-1 text-xs font-medium text-auxiliary">
+        <span className="text-auxiliary flex shrink-0 items-center gap-1 text-xs font-medium">
           <StarIcon size={14} className="fill-auxiliary" />
           {product.rating}
         </span>
       </div>
 
-      <div className="mt-4 flex items-end justify-between gap-2 border-t border-neutral_normal pt-3">
+      <div className="border-neutral_normal mt-4 flex items-end justify-between gap-2 border-t pt-3">
         <button
           type="button"
           aria-label="افزودن به سبد خرید"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition hover:bg-[#5a9a63] hover:shadow-md"
+          className="bg-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white transition hover:bg-[#5a9a63] hover:shadow-md"
         >
           <ShoppingBag size={16} />
         </button>
@@ -125,7 +127,7 @@ function ProductCard({ product }: { product: BestSeller }) {
               {formatToman(product.price)}
             </span>
           )}
-          <span className="text-sm font-bold text-text sm:text-base">
+          <span className="text-text text-sm font-bold sm:text-base">
             {formatToman(product.is_offer ? discountedPrice : product.price)}
           </span>
         </div>
@@ -175,7 +177,7 @@ export default function HomeProducts() {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   return (
@@ -183,14 +185,18 @@ export default function HomeProducts() {
       <div className="container mx-auto px-4 py-10 md:py-14">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="mb-2 text-sm font-medium text-primary">انتخاب محبوب مشتری‌ها</p>
-            <h2 className="text-2xl font-extrabold text-text">محصولات پرفروش سایت</h2>
+            <p className="text-primary mb-2 text-sm font-medium">
+              انتخاب محبوب مشتری‌ها
+            </p>
+            <h2 className="text-text text-2xl font-extrabold">
+              محصولات پرفروش سایت
+            </h2>
           </div>
 
           <div className="flex items-center gap-3">
             <Link
               href="/products"
-              className="hidden items-center gap-2 rounded-xl border border-primary/20 bg-white px-4 py-2.5 text-sm font-bold text-primary transition hover:border-primary hover:bg-primary hover:text-white sm:inline-flex"
+              className="border-primary/20 text-primary hover:border-primary hover:bg-primary hidden items-center gap-2 rounded-xl border bg-white px-4 py-2.5 text-sm font-bold transition hover:text-white sm:inline-flex"
             >
               مشاهده بیشتر
               <MoveLeftIcon size={18} />
@@ -218,7 +224,7 @@ export default function HomeProducts() {
               onClick={() => emblaApi?.scrollPrev()}
               disabled={!canPrev}
               aria-label="محصول قبلی"
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-neutral_normal bg-white text-neutral_dark shadow-sm transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-40"
+              className="border-neutral_normal text-neutral_dark hover:border-primary hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl border bg-white shadow-sm transition disabled:cursor-not-allowed disabled:opacity-40"
             >
               <MoveLeftIcon size={18} className="rotate-180" />
             </button>
@@ -227,7 +233,7 @@ export default function HomeProducts() {
               onClick={() => emblaApi?.scrollNext()}
               disabled={!canNext}
               aria-label="محصول بعدی"
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-neutral_normal bg-white text-neutral_dark shadow-sm transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-40"
+              className="border-neutral_normal text-neutral_dark hover:border-primary hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl border bg-white shadow-sm transition disabled:cursor-not-allowed disabled:opacity-40"
             >
               <MoveLeftIcon size={18} />
             </button>
@@ -240,12 +246,11 @@ export default function HomeProducts() {
                 type="button"
                 onClick={() => scrollTo(index)}
                 aria-label={`اسلاید ${index + 1}`}
-                className={`
-                  h-2 rounded-full transition-all duration-300
-                  ${
-                    index === selectedIndex ? 'w-6 bg-primary' : 'w-2 bg-gray-300 hover:bg-gray-400'
-                  }
-                `}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === selectedIndex
+                    ? 'bg-primary w-6'
+                    : 'w-2 bg-gray-300 hover:bg-gray-400'
+                } `}
               />
             ))}
           </div>

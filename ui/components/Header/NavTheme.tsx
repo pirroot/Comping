@@ -10,7 +10,9 @@ export default function NavTheme() {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const storedTheme = localStorage.getItem('theme');
-    const initialIsDark = storedTheme ? storedTheme === 'dark' : mediaQuery.matches;
+    const initialIsDark = storedTheme
+      ? storedTheme === 'dark'
+      : mediaQuery.matches;
 
     setIsDark(initialIsDark);
     document.documentElement.classList.toggle('dark', initialIsDark);
@@ -24,7 +26,8 @@ export default function NavTheme() {
     };
 
     mediaQuery.addEventListener('change', handleSystemThemeChange);
-    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+    return () =>
+      mediaQuery.removeEventListener('change', handleSystemThemeChange);
   }, []);
 
   const toggleTheme = () => {
@@ -42,7 +45,7 @@ export default function NavTheme() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral_normal text-text transition hover:bg-primary_light hover:text-primary"
+      className="bg-neutral_normal text-text hover:bg-primary_light hover:text-primary flex h-11 w-11 items-center justify-center rounded-xl transition"
       title={isDark ? 'فعال‌سازی حالت روشن' : 'فعال‌سازی حالت تاریک'}
       aria-label={isDark ? 'فعال‌سازی حالت روشن' : 'فعال‌سازی حالت تاریک'}
       aria-pressed={isDark}

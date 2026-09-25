@@ -1,4 +1,6 @@
-import AdminResourcePage, { AdminRow } from '@/components/Admin/AdminResourcePage';
+import AdminResourcePage, {
+  AdminRow,
+} from '@/components/Admin/AdminResourcePage';
 
 const users: AdminRow[] = [
   {
