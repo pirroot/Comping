@@ -1,11 +1,10 @@
 import {
-  IsString,
-  IsNotEmpty,
-  MaxLength,
-  Matches,
-  IsNumber,
   IsBoolean,
+  IsNotEmpty,
   IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
 } from 'class-validator';
 
 export class CreatePostDto {
@@ -17,18 +16,22 @@ export class CreatePostDto {
 
   @MaxLength(255, { message: 'عنوان نباید بیشتر از 255 کاراکتر باشد.' })
   @IsNotEmpty({ message: 'عنوان خالی است.' })
+  @IsString()
   title: string;
 
   @IsNotEmpty({ message: 'متن مقاله خالی است.' })
+  @IsString()
   content: string;
 
-  @IsNumber()
   @IsOptional()
-  starts?: number;
+  @IsString()
+  excerpt?: string;
 
-  authorId: string;
-
+  @IsOptional()
   @IsBoolean()
+  isActive?: boolean;
+
   @IsOptional()
-  isDeleted?: boolean;
+  @IsString()
+  image?: string;
 }

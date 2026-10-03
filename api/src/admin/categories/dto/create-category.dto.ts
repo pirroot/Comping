@@ -2,8 +2,10 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsOptional,
+  IsString,
   Matches,
   MaxLength,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateCategoryDto {
@@ -18,12 +20,14 @@ export class CreateCategoryDto {
   slug: string;
 
   @IsOptional()
+  @IsString()
   description: string;
 
   @IsOptional()
+  @IsUUID(4)
   parentId?: string;
 
   @IsBoolean()
   @IsOptional()
-  isDeleted?: boolean;
+  isActive?: boolean;
 }

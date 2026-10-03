@@ -14,11 +14,10 @@ import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { AuthUser } from 'src/common/types/auth-user.type';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/uploads/multer.config';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { Post } from '@nestjs/common';
+import { CreateProfileOrderDto } from './dto/create-profile-order.dto';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles()
+@UseGuards(JwtAuthGuard)
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
@@ -26,6 +25,19 @@ export class ProfileController {
   @Get()
   getProfile(@CurrentUser() user: AuthUser) {
     return this.profileService.getProfile(user);
+  }
+
+  @Get('orders')
+  getOrders(@CurrentUser() user: AuthUser) {
+    return this.profileService.getOrders(user);
+  }
+
+  @Post('orders')
+  createOrder(
+    @CurrentUser() user: AuthUser,
+    @Body() dto: CreateProfileOrderDto,
+  ) {
+    return this.profileService.createOrder(user, dto);
   }
 
   @Patch()

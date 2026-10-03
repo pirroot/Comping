@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
@@ -16,8 +17,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/uploads/multer.config';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { AuthUser } from 'src/common/types/auth-user.type';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('admin/posts')
+@UseGuards(JwtAuthGuard)
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 

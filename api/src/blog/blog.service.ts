@@ -8,7 +8,10 @@ export class BlogService {
 
   async findAll(paginationQueryDto: PaginationQueryDto) {
     // where query for search
-    const where = paginationQueryDto.search
+    const where = {
+      isActive: true,
+      isDeleted: false,
+      ...(paginationQueryDto.search
       ? {
           OR: [
             {
@@ -25,7 +28,8 @@ export class BlogService {
             },
           ],
         }
-      : undefined;
+      : {}),
+    };
 
     const [posts, total] = await this.prisma.$transaction([
       this.prisma.post.findMany({
@@ -56,7 +60,7 @@ export class BlogService {
 
   async findOne(slug: string) {
     const blog = await this.prisma.post.findUnique({
-      where: { slug },
+      where: { slug, isActive: true, isDeleted: false },
     });
 
     if (!blog) throw new NotFoundException('پستی با این مشخصات پیدا نشد');

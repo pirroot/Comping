@@ -2,17 +2,17 @@
 
 import { AddFaqDialog } from '@/components/Admin/Faq/AddFaq';
 import { Faq } from '@/lib/types/Faq.type';
-import { ApiResponse } from '@/lib/types/Response.type';
 import { apiGet } from '@/services/api/GetApi';
 import { apiRemove } from '@/services/api/RemoveApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CircleHelp, MessageCircleQuestion, Trash } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function AdminFaq() {
   const queryClient = useQueryClient();
 
   // Fetch FAQs
-  const { data, isLoading } = useQuery<ApiResponse<Faq[]>>({
+  const { data: faqs = [], isLoading, isError } = useQuery<Faq[]>({
     queryKey: ['faqs'],
     queryFn: () => apiGet('admin/faq'),
   });
@@ -26,9 +26,10 @@ export default function AdminFaq() {
         queryKey: ['faqs'],
       });
     },
+    onError: () => toast.error('حذف سوال انجام نشد.'),
   });
 
-  const faqCount = data?.data?.length ?? 0;
+  const faqCount = faqs.length;
 
   return (
     <section className="space-y-6">
@@ -68,9 +69,11 @@ export default function AdminFaq() {
             />
           ))}
         </div>
+      ) : isError ? (
+        <p role="alert" className="py-10 text-center text-sm text-rose-600">دریافت سوال‌ها انجام نشد.</p>
       ) : faqCount > 0 ? (
         <div className="grid gap-4 md:grid-cols-2">
-          {data!.data.map((faq) => (
+          {faqs.map((faq) => (
             <div
               key={faq.id}
               className="group relative overflow-hidden rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm shadow-emerald-900/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md hover:shadow-emerald-900/10"
@@ -93,7 +96,8 @@ export default function AdminFaq() {
                   </div>
                 </div>
 
-                {/* دکمه حذف */}
+                <div className="flex shrink-0 flex-col gap-2">
+                  <AddFaqDialog faq={faq} />
                 <button
                   type="button"
                   aria-label="حذف سوال"
@@ -105,6 +109,7 @@ export default function AdminFaq() {
                 >
                   <Trash size={16} />
                 </button>
+                </div>
               </div>
             </div>
           ))}

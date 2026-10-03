@@ -1,8 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from '../../prisma/prisma.service';
-import { UploadsService } from 'src/uploads/uploads.service';
+import { UploadsService } from '../../uploads/uploads.service';
 
 @Injectable()
 export class CategoriesService {
@@ -18,27 +22,23 @@ export class CategoriesService {
     const cate = await this.prisma.category.findUnique({
       where: { slug: createCategoryDto.slug },
     });
-    if (cate) throw new NotFoundException('دسته بندی با این اسلاگ وجود دارد.');
-
-    if (file) {
-      const imageFile = await this.uploadsService.upload(
-        file,
-        'productCategoies',
-      );
-
-      return await this.prisma.category.create({
-        data: {
-          ...createCategoryDto,
-          parentId: createCategoryDto.parentId,
-          image: imageFile.url,
-        },
-      });
+    if (cate) throw new ConflictException('دسته بندی با این اسلاگ وجود دارد.');
+    if (
+      createCategoryDto.parentId &&
+      !(await this.prisma.category.findFirst({
+        where: { id: createCategoryDto.parentId, isDeleted: false },
+      }))
+    ) {
+      throw new ConflictException('دسته‌بندی والد معتبر نیست.');
     }
+    const image = file?.path
+      ? await this.uploadsService.upload(file, 'productCategories')
+      : undefined;
 
-    return await this.prisma.category.create({
+    return this.prisma.category.create({
       data: {
         ...createCategoryDto,
-        image: file,
+        image: image?.url,
       },
     });
   }
@@ -46,7 +46,6 @@ export class CategoriesService {
   findAll() {
     return this.prisma.category.findMany({
       where: {
-        isActive: true,
         isDeleted: false,
         parent: null,
       },
@@ -61,7 +60,7 @@ export class CategoriesService {
         updatedAt: true,
         isDeleted: true,
         isActive: true,
-        children: true,
+        children: { where: { isDeleted: false }, orderBy: { title: 'asc' } },
         parent: {
           where: {
             isDeleted: false,
@@ -84,7 +83,11 @@ export class CategoriesService {
   async findOne(id: string) {
     const category = await this.prisma.category.findUnique({
       where: { id, isDeleted: false },
-      select: { parent: true },
+      include: {
+        parent: true,
+        children: { where: { isDeleted: false } },
+        products: { where: { isDeleted: false } },
+      },
     });
     if (!category) throw new NotFoundException('همچین دسته بندی وجود ندارد .');
 
@@ -96,30 +99,40 @@ export class CategoriesService {
     updateCategoryDto: UpdateCategoryDto,
     file: Express.Multer.File,
   ) {
-    const category = await this.prisma.category.findUnique({
-      where: { id },
+    const category = await this.prisma.category.findFirst({
+      where: { id, isDeleted: false },
     });
     if (!category) throw new NotFoundException('همچین دسته بندی وجود ندارد .');
 
-    if (file.path) {
-      let imageFile = category.image;
-      if (imageFile) await this.uploadsService.delete(imageFile);
-      // Todo: delete Service not work ...
-      const image = await this.uploadsService.upload(file, 'productCategoies');
-      imageFile = image.url;
-      return await this.prisma.category.update({
-        where: { id },
-        data: {
-          ...updateCategoryDto,
-          image: imageFile,
-        },
-      });
+    if (
+      updateCategoryDto.slug &&
+      updateCategoryDto.slug !== category.slug &&
+      (await this.prisma.category.findUnique({
+        where: { slug: updateCategoryDto.slug },
+      }))
+    ) {
+      throw new ConflictException('دسته بندی با این اسلاگ وجود دارد.');
     }
 
-    return await this.prisma.category.update({
+    if (
+      updateCategoryDto.parentId === id ||
+      (updateCategoryDto.parentId &&
+        !(await this.prisma.category.findFirst({
+          where: { id: updateCategoryDto.parentId, isDeleted: false },
+        })))
+    ) {
+      throw new ConflictException('دسته‌بندی والد معتبر نیست.');
+    }
+
+    const image = file?.path
+      ? await this.uploadsService.upload(file, 'productCategories')
+      : undefined;
+
+    return this.prisma.category.update({
       where: { id },
       data: {
         ...updateCategoryDto,
+        ...(image ? { image: image.url } : {}),
       },
     });
   }

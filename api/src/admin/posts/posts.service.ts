@@ -28,12 +28,16 @@ export class PostsService {
     if (postExist)
       throw new ConflictException('این اسلاگ وجود دارد برای پس دیگر .');
 
-    const image = await this.uploadsService.upload(file, 'posts');
-
-    return await this.prisma.post.create({
+    const uploaded = file?.path
+      ? await this.uploadsService.upload(file, 'posts')
+      : undefined;
+    const imageUrl = uploaded?.url ?? createPostDto.image;
+    if (!imageUrl)
+      throw new ConflictException('برای مقاله باید تصویر انتخاب کنید.');
+    return this.prisma.post.create({
       data: {
         ...createPostDto,
-        image: image.url,
+        image: imageUrl,
         authorId: user.id,
       },
     });
@@ -50,7 +54,9 @@ export class PostsService {
         slug: true,
         title: true,
         content: true,
+        excerpt: true,
         image: true,
+        isActive: true,
         createdAt: true,
         updatedAt: true,
         author: {
@@ -64,7 +70,9 @@ export class PostsService {
   }
 
   async findOne(id: string) {
-    const post = await this.prisma.post.findUnique({ where: { id } });
+    const post = await this.prisma.post.findFirst({
+      where: { id, isDeleted: false },
+    });
 
     if (!post) throw new NotFoundException('پست با این مشخصات پیدا نشد.');
     return post;
@@ -75,24 +83,30 @@ export class PostsService {
     updatePostDto: UpdatePostDto,
     file: Express.Multer.File,
   ) {
-    const postExist = await this.prisma.post.findUnique({
-      where: { id },
+    const postExist = await this.prisma.post.findFirst({
+      where: { id, isDeleted: false },
     });
 
     if (!postExist) throw new NotFoundException('پست مورد نظر پیدا نشد.');
 
-    let imageFile = postExist.image;
-    if (postExist.image && file.path) {
-      await this.uploadsService.delete(imageFile);
-      const image = await this.uploadsService.upload(file, 'posts');
-      imageFile = image.url;
+    if (
+      updatePostDto.slug &&
+      updatePostDto.slug !== postExist.slug &&
+      (await this.prisma.post.findUnique({
+        where: { slug: updatePostDto.slug },
+      }))
+    ) {
+      throw new ConflictException('این اسلاگ برای مقاله دیگری استفاده شده است.');
     }
 
-    return await this.prisma.post.update({
+    const image = file?.path
+      ? await this.uploadsService.upload(file, 'posts')
+      : undefined;
+    return this.prisma.post.update({
       where: { id },
       data: {
         ...updatePostDto,
-        image: imageFile,
+        image: image?.url ?? updatePostDto.image,
       },
     });
   }

@@ -11,6 +11,11 @@ import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ProductsModule } from './admin/products/products.module';
 import { FaqModule } from './admin/faq/faq.module';
+import { BrandsModule } from './admin/brands/brands.module';
+import { BannersModule } from './admin/banners/banners.module';
+import { SettingModule } from './admin/setting/setting.module';
+import { OrdersModule } from './admin/orders/orders.module';
+import { CommentsModule } from './admin/comments/comments.module';
 
 @Module({
   imports: [
@@ -46,6 +51,11 @@ import { FaqModule } from './admin/faq/faq.module';
     }),
     ProductsModule,
     FaqModule,
+    BrandsModule,
+    BannersModule,
+    SettingModule,
+    OrdersModule,
+    CommentsModule,
   ],
 })
 export class AppModule {}

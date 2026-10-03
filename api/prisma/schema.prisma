@@ -95,6 +95,24 @@ model Category {
   updatedAt DateTime @updatedAt
 }
 
+model Brand {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  title String
+  slug  String @unique
+
+  logo String?
+  sort Int @default(0)
+
+  isActive  Boolean @default(true)
+  isDeleted Boolean @default(false)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Product {
   id String @id @default(uuid(7)) @db.Uuid
 
@@ -117,6 +135,10 @@ model Product {
   categoryId String @db.Uuid
 
   category Category @relation(fields: [categoryId], references: [id])
+
+  brandId String? @db.Uuid
+
+  brand Brand? @relation(fields: [brandId], references: [id], onDelete: SetNull)
 
   images ProductImage[]
 
@@ -239,6 +261,15 @@ model Order {
 
   total Decimal @db.Decimal(10, 2)
 
+  shippingCost    Decimal @default(0) @db.Decimal(10, 2)
+  shippingName    String?
+  shippingPhone   String?
+  shippingAddress String?  @db.Text
+  postalCode      String?
+  shippingUnit    String?
+
+  isDeleted Boolean @default(false)
+
   items OrderItem[]
 
   createdAt DateTime @default(now())
@@ -287,4 +318,34 @@ model Faq {
   answer    String
   isDelete  Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Banner {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  title String
+  image String
+  link  String?
+
+  placement String @default("home")
+  sort      Int    @default(0)
+
+  isActive Boolean @default(true)
+
+  startsAt DateTime?
+  endsAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  key   String @unique
+  value String @db.Text
+  group String @default("store")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

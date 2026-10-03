@@ -6,9 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { CategoryType } from '@/lib/types/Product.type';
-import { ApiResponse } from '@/lib/types/Response.type';
 import { apiGet } from '@/services/api/GetApi';
-import { apiAdd } from '@/services/api/PostApi';
+import { apiFetch } from '@/services/api/ApiFetch';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Edit3, FolderTree, PencilLine, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -28,12 +27,10 @@ export default function EditCategory({ id }: { id: string }) {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: response, isLoading } = useQuery<ApiResponse<CategoryType[]>>({
+  const { data: categories = [], isLoading } = useQuery<CategoryType[]>({
     queryKey: ['categories'],
     queryFn: () => apiGet('admin/categories'),
   });
-
-  const categories = response?.data ?? [];
 
   const category: CategoryType | null =
     categories.find((item) => item.id == (id as string)) || null;
@@ -74,7 +71,10 @@ export default function EditCategory({ id }: { id: string }) {
       if (data.parentId) formData.append('parentId', data.parentId);
       if (imageFile) formData.append('image', imageFile);
 
-      return apiAdd('admin/categories', formData);
+      return apiFetch(`admin/categories/${id}`, {
+        method: 'PATCH',
+        body: formData,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });

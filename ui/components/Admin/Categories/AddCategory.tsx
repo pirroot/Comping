@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { CategoryType } from '@/lib/types/Product.type';
-import { ApiResponse } from '@/lib/types/Response.type';
 import { apiGet } from '@/services/api/GetApi';
 import { apiAdd } from '@/services/api/PostApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -28,12 +27,10 @@ export default function AddCategory() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: response, isLoading } = useQuery<ApiResponse<CategoryType[]>>({
+  const { data: categories = [], isLoading } = useQuery<CategoryType[]>({
     queryKey: ['categories'],
     queryFn: () => apiGet('admin/categories'),
   });
-
-  const categories = response?.data ?? [];
 
   const {
     register,

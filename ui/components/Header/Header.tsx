@@ -8,7 +8,6 @@ import NavActionBtn from './NavActionBtn';
 import NavItems from './NavItems';
 import NavSearch from './NavSearch';
 import { categories, navItems } from './navigation';
-import NavTheme from './NavTheme';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

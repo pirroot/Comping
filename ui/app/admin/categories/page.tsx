@@ -4,7 +4,6 @@ import AddCategory from '@/components/Admin/Categories/AddCategory';
 import DelCategory from '@/components/Admin/Categories/DelCategory';
 import EditCategory from '@/components/Admin/Categories/EditCategory';
 import { CategoryType } from '@/lib/types/Product.type';
-import { ApiResponse } from '@/lib/types/Response.type';
 import { apiGet } from '@/services/api/GetApi';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -100,12 +99,10 @@ export default function Categories() {
     {},
   );
 
-  const { data, isLoading, isError } = useQuery<ApiResponse<CategoryType[]>>({
+  const { data: categories = [], isLoading, isError } = useQuery<CategoryType[]>({
     queryKey: ['categories'],
     queryFn: () => apiGet('admin/categories'),
   });
-
-  const categories = data?.data ?? [];
 
   const filteredCategories = useMemo(() => {
     const q = query.trim().toLowerCase();

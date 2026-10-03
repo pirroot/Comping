@@ -1,11 +1,11 @@
 export type AuthUser = {
   id: string;
-  email: string;
+  phone: string | null;
   role: Role;
 };
 
 export enum Role {
-  USER,
-  ADMIN,
-  MODERATOR,
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  MODERATOR = 'MODERATOR',
 }

@@ -1,7 +1,11 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsUUID,
   Matches,
@@ -35,21 +39,43 @@ export class CreateProductDto {
   title: string;
 
   @IsNotEmpty({ message: 'قیمت محصول نباید خالی باشد' })
+  @Type(() => Number)
   @IsNumber({}, { message: 'باید عدد باشد.' })
   @Min(0, { message: 'قیمت نمی‌تواند منفی باشد' })
   price: number;
 
   @IsNotEmpty({ message: 'توضیحات محصول خالی است' })
   @IsString({ message: 'باید رشته متنی باشد' })
-  @MinLength(100, { message: 'توضیحات باید بیشتر از 100 کاراکتر باشد.' })
+  @MinLength(20, { message: 'توضیحات محصول خیلی کوتاه است.' })
   description: string;
 
   @IsNotEmpty({ message: 'محصول باید یک دسته بندی مشخص داشته باشد.' })
   @IsUUID(4, { message: 'شناسه دسته بندی معتبر نیست' })
   categoryId: string;
 
-  @IsNotEmpty({ message: 'باید یک امکان برای محصول داشته باشد.' })
-  @ValidateNested()
+  @IsOptional()
+  @IsUUID(4, { message: 'شناسه برند معتبر نیست' })
+  brandId?: string;
+
+  @IsOptional()
+  @Transform(({ value }) =>
+    value === 'true' ? true : value === 'false' ? false : value,
+  )
+  @IsBoolean()
+  isActive?: boolean;
+
+  @IsNotEmpty({ message: 'باید ویژگی برای محصول ثبت شود.' })
+  @Transform(({ value }) => {
+    if (typeof value !== 'string') return value;
+    try {
+      return JSON.parse(value);
+    } catch {
+      return value;
+    }
+  })
+  @IsArray()
+  @ArrayMinSize(1)
+  @ValidateNested({ each: true })
   @Type(() => ProductFeatureDto)
-  features: ProductFeatureDto;
+  features: ProductFeatureDto[];
 }

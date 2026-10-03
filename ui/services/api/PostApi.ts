@@ -7,3 +7,5 @@ export const postApi = <TResponse = void, TBody = unknown>(
   data: TBody,
   options?: { skipRefresh?: boolean },
 ) => apiFetch<TResponse>(url, { method: 'POST', body: data, ...options });
+
+export const apiAdd = postApi;

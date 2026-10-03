@@ -7,12 +7,43 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.user.findMany({ orderBy: { createdAt: 'desc' } });
+    return this.prisma.user.findMany({
+      where: { isDeleted: false },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        username: true,
+        phone: true,
+        name: true,
+        family: true,
+        avatar: true,
+        role: true,
+        isActive: true,
+        isDeleted: true,
+        lastLogin: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
   }
 
   async findOne(username: string) {
     const user = await this.prisma.user.findUnique({
-      where: { username },
+      where: { username, isDeleted: false },
+      select: {
+        id: true,
+        username: true,
+        phone: true,
+        name: true,
+        family: true,
+        avatar: true,
+        role: true,
+        isActive: true,
+        isDeleted: true,
+        lastLogin: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (!user)
@@ -31,12 +62,7 @@ export class UsersService {
 
     return await this.prisma.user.update({
       where: { username },
-      data: {
-        ...userExist,
-        isActive: userUpdateDto.isActive || userExist.isActive,
-        isDeleted: userUpdateDto.isDeleted || userExist.isDeleted,
-        role: userUpdateDto.role || userExist.role,
-      },
+      data: userUpdateDto,
     });
   }
 
@@ -47,7 +73,7 @@ export class UsersService {
 
     return this.prisma.user.update({
       where: { id },
-      data: { isDeleted: true },
+      data: { isDeleted: true, isActive: false },
     });
   }
 }

@@ -2,21 +2,28 @@
 
 import { Faq } from '@/lib/types/Faq.type';
 import { apiAdd } from '@/services/api/PostApi';
+import { apiFetch } from '@/services/api/ApiFetch';
 import { Dialog, Input } from '@base-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { MessageCircleQuestion, Plus, Sparkles, X } from 'lucide-react';
+import { Edit3, MessageCircleQuestion, Plus, Sparkles, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
-export function AddFaqDialog() {
+export function AddFaqDialog({ faq }: { faq?: Faq }) {
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, reset } =
-    useForm<Pick<Faq, 'question' | 'answer'>>();
+  const { register, handleSubmit, reset } = useForm<
+    Pick<Faq, 'question' | 'answer'>
+  >({
+    defaultValues: { question: faq?.question ?? '', answer: faq?.answer ?? '' },
+  });
 
   // Add FAQ
   const { mutate: addFaq, isPending } = useMutation({
     mutationFn: (data: Pick<Faq, 'question' | 'answer'>) =>
-      apiAdd('admin/faq', data),
+      faq
+        ? apiFetch(`admin/faq/${faq.id}`, { method: 'PATCH', body: data })
+        : apiAdd('admin/faq', data),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -24,7 +31,9 @@ export function AddFaqDialog() {
       });
 
       reset();
+      toast.success(faq ? 'سوال ویرایش شد.' : 'سوال ثبت شد.');
     },
+    onError: () => toast.error('ذخیره سوال انجام نشد.'),
   });
 
   const onSubmit = (data: Pick<Faq, 'question' | 'answer'>) => {
@@ -33,8 +42,9 @@ export function AddFaqDialog() {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="inline-flex items-center gap-2 rounded-xl bg-linear-to-b from-emerald-500 to-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm shadow-emerald-500/30 transition-all duration-200 hover:from-emerald-500 hover:to-emerald-700 focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97]">
-        <Plus size={17} /> افزودن سوال
+      <Dialog.Trigger className={`inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.97] ${faq ? 'border border-emerald-100 bg-white text-emerald-600' : 'bg-linear-to-b from-emerald-500 to-emerald-600 text-white shadow-sm shadow-emerald-500/30 hover:from-emerald-500 hover:to-emerald-700'}`}>
+        {faq ? <Edit3 size={16} /> : <Plus size={17} />}
+        {faq ? 'ویرایش' : 'افزودن سوال'}
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -60,7 +70,7 @@ export function AddFaqDialog() {
               </span>
               <div>
                 <Dialog.Title className="text-lg font-extrabold tracking-tight">
-                  افزودن سوال جدید
+                  {faq ? 'ویرایش سوال' : 'افزودن سوال جدید'}
                 </Dialog.Title>
                 <p className="mt-0.5 text-xs text-emerald-100/90">
                   پاسخ‌های کوتاه و روشن، تجربه مشتری را بهتر می‌کنند.
@@ -108,6 +118,13 @@ export function AddFaqDialog() {
               <Dialog.Close className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-500 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700 active:scale-[0.97]">
                 انصراف
               </Dialog.Close>
+              <button
+                type="submit"
+                disabled={isPending}
+                className="rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700 disabled:opacity-60"
+              >
+                {isPending ? 'در حال ذخیره...' : faq ? 'ذخیره تغییرات' : 'ثبت سوال'}
+              </button>
             </div>
           </form>
         </Dialog.Popup>
